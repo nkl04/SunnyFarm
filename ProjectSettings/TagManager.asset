@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Land
+    uniqueID: 3594049919
+    locked: 0
+  - name: Grass
+    uniqueID: 2990353481
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

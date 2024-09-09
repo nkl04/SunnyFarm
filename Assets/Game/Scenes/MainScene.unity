@@ -222,43 +222,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1058434716644797213, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1660193142217851708, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2231867112357348544, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2460827304231164314, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f3b32eb7cfdc6bc4089b2a746a2be6e9, type: 2}
-    - target: {fileID: 2724756147038260173, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3241204177272978084, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092992661718631182, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4627889716879374977, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5257952671067540603, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5984408885493992205, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
+    - target: {fileID: 6192829016007284157, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -302,9 +270,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7941537731938991935, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
+    - target: {fileID: 8695850604072497432, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8786616989742903026, guid: b959787a6788ebf4981c925bf1cf8a4c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

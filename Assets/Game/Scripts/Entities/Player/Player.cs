@@ -9,6 +9,18 @@ namespace SunnyFarm.Game.Entities.Player
 
     public class Player : MonoBehaviour
     {
+        public readonly string IS_RUNNING = "isRunning";
+
+        public readonly string INPUT_X = "InputX";
+
+        public readonly string INPUT_Y = "InputY";
+
+        public readonly string LAST_INPUT_X = "LastInputX";
+
+        public readonly string LAST_INPUT_Y = "LastInputY";
+
+        public Animator Animator => animator;
+
         public Rigidbody2D Rb2d => rb2d;
 
         public Vector2 MovementInput => movementInput;
@@ -18,6 +30,8 @@ namespace SunnyFarm.Game.Entities.Player
         public float RunSpeed => runSpeed;
 
         public bool IsMovePressed { get; set; } = false;
+
+        public bool IsFacingRight { get; set; } = true;
 
         [SerializeField] private float walkSpeed = 5f;
 
@@ -31,6 +45,9 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Rigidbody2D rb2d;
 
+        private Animator animator;
+
+
         private void Awake()
         {
             inputActions = new PlayerInputAction();         // Create a new PlayerInputAction 
@@ -38,6 +55,8 @@ namespace SunnyFarm.Game.Entities.Player
             stateMachine = new StateMachine<StatePlayer>();  // Create a new state machine
 
             rb2d = GetComponent<Rigidbody2D>();             // Get the Rigidbody2D component
+
+            animator = GetComponentInChildren<Animator>();            // Get the Animator component in child Visual
 
             inputActions.Enable();
 
@@ -63,6 +82,7 @@ namespace SunnyFarm.Game.Entities.Player
             movementInput = context.ReadValue<Vector2>().normalized;
 
             IsMovePressed = movementInput.magnitude > 0;
+
         }
 
         private void Update()
@@ -75,7 +95,10 @@ namespace SunnyFarm.Game.Entities.Player
             stateMachine.FixedTick();   // Update the current state
         }
 
-
+        public void Flip()
+        {
+            transform.Rotate(0f, 180f, 0f);
+        }
 
     }
 }

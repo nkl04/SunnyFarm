@@ -30,7 +30,6 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Tick()
         {
-            Debug.Log("Player is idle");
             CheckSwitchState();
         }
     }

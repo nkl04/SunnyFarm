@@ -19,11 +19,14 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Enter()
         {
+            this.player.Animator.SetBool(this.player.IS_RUNNING, true);
         }
 
         public override void Exit()
         {
+            this.player.Animator.SetBool(this.player.IS_RUNNING, false);
         }
+
 
         public override void FixedTick()
         {
@@ -32,11 +35,33 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Tick()
         {
-            Debug.Log("Player is moving");
-
             Vector2 movement = this.player.MovementInput * this.player.WalkSpeed;
 
             this.player.Rb2d.velocity = movement;
+
+            this.player.Animator.SetFloat(this.player.INPUT_X, this.player.MovementInput.x);
+
+            this.player.Animator.SetFloat(this.player.INPUT_Y, this.player.MovementInput.y);
+
+            if (this.player.MovementInput != Vector2.zero)
+            {
+                this.player.Animator.SetFloat(this.player.LAST_INPUT_X, this.player.MovementInput.x);
+
+                this.player.Animator.SetFloat(this.player.LAST_INPUT_Y, this.player.MovementInput.y);
+            }
+
+            if (this.player.MovementInput.x > 0 && !this.player.IsFacingRight)
+            {
+                this.player.Flip();
+
+                this.player.IsFacingRight = true;
+            }
+            else if (this.player.MovementInput.x < 0 && this.player.IsFacingRight)
+            {
+                this.player.Flip();
+
+                this.player.IsFacingRight = false;
+            }
 
             CheckSwitchState();
         }

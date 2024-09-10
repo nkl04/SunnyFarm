@@ -5,6 +5,7 @@ namespace SunnyFarm.Game.Entities.Player
     using Unity.VisualScripting;
     using SunnyFarm.Game.Input;
     using UnityEngine.InputSystem;
+    using SunnyFarm.Game.Managers.GameInput;
     using System;
 
     public class Player : MonoBehaviour
@@ -63,18 +64,15 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Animator animator;
 
-
         private void Awake()
         {
-            inputActions = new PlayerInputAction();         // Create a new PlayerInputAction 
+            inputActions = GameInputManager.Instance.InputActions;
 
             stateMachine = new StateMachine<StatePlayer>();  // Create a new state machine
 
             rb2d = GetComponent<Rigidbody2D>();             // Get the Rigidbody2D component
 
             animator = GetComponentInChildren<Animator>();            // Get the Animator component in child Visual
-
-            inputActions.Enable();
 
             inputActions.Player.Move.performed += OnMoveInput;
 

@@ -48,7 +48,7 @@ namespace SunnyFarm.Game.DesignPattern.Singleton
                 }
             }
         }
-        public virtual void Awake()
+        protected virtual void Awake()
         {
             if (instance == null)
             {
@@ -60,7 +60,7 @@ namespace SunnyFarm.Game.DesignPattern.Singleton
                 Destroy(gameObject);
             }
         }
-        public void OnDestroy()
+        protected void OnDestroy()
         {
             applicationIsQuitting = true;
         }

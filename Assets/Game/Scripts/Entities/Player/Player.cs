@@ -11,6 +11,14 @@ namespace SunnyFarm.Game.Entities.Player
     {
         public readonly string IS_RUNNING = "isRunning";
 
+        public readonly string IS_DIGGING = "isDigging";
+
+        public readonly string IS_AXING = "isAxing";
+
+        public readonly string IS_PICKAXING = "isPickaxing";
+
+        public readonly string IS_WATERING = "isWatering";
+
         public readonly string INPUT_X = "InputX";
 
         public readonly string INPUT_Y = "InputY";
@@ -30,6 +38,14 @@ namespace SunnyFarm.Game.Entities.Player
         public float RunSpeed => runSpeed;
 
         public bool IsMovePressed { get; set; } = false;
+
+        public bool IsAxePressed { get; set; } = false;
+
+        public bool IsDigPressed { get; set; } = false;
+
+        public bool IsPickaxePressed { get; set; } = false;
+
+        public bool IsWaterPressed { get; set; } = false;
 
         public bool IsFacingRight { get; set; } = true;
 
@@ -64,7 +80,51 @@ namespace SunnyFarm.Game.Entities.Player
 
             inputActions.Player.Move.canceled += OnMoveInput;
 
+            inputActions.Player.Axe.performed += OnAxeInput;
+
+            inputActions.Player.Axe.canceled += OnAxeInput;
+
+            inputActions.Player.Dig.performed += OnDigInput;
+
+            inputActions.Player.Dig.canceled += OnDigInput;
+
+            inputActions.Player.Pickaxe.performed += OnPickaxeInput;
+
+            inputActions.Player.Pickaxe.canceled += OnPickaxeInput;
+
+            inputActions.Player.Water.performed += OnWaterInput;
+
+            inputActions.Player.Water.canceled += OnWaterInput;
+
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
+        }
+
+        private void OnWaterInput(InputAction.CallbackContext context)
+        {
+            IsWaterPressed = context.ReadValueAsButton();
+        }
+
+        private void OnPickaxeInput(InputAction.CallbackContext context)
+        {
+            IsPickaxePressed = context.ReadValueAsButton();
+        }
+
+        private void OnDigInput(InputAction.CallbackContext context)
+        {
+            IsDigPressed = context.ReadValueAsButton();
+        }
+
+        private void OnAxeInput(InputAction.CallbackContext context)
+        {
+            IsAxePressed = context.ReadValueAsButton();
+        }
+
+        private void OnMoveInput(InputAction.CallbackContext context)
+        {
+            movementInput = context.ReadValue<Vector2>().normalized;
+
+            IsMovePressed = movementInput.magnitude > 0;
+
         }
 
         private void OnEnable()
@@ -75,14 +135,6 @@ namespace SunnyFarm.Game.Entities.Player
         private void OnDisable()
         {
             inputActions.Disable();
-        }
-
-        private void OnMoveInput(InputAction.CallbackContext context)
-        {
-            movementInput = context.ReadValue<Vector2>().normalized;
-
-            IsMovePressed = movementInput.magnitude > 0;
-
         }
 
         private void Update()

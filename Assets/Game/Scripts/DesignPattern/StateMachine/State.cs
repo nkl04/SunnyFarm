@@ -7,7 +7,6 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
     {
         public abstract void Enter();
         public abstract void Tick();
-        public abstract void FixedTick();
         public abstract void Exit();
         public abstract void CheckSwitchState();
     }

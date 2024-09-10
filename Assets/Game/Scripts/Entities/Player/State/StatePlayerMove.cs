@@ -27,12 +27,6 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
             this.player.Animator.SetBool(this.player.IS_RUNNING, false);
         }
 
-
-        public override void FixedTick()
-        {
-
-        }
-
         public override void Tick()
         {
             Vector2 movement = this.player.MovementInput * this.player.WalkSpeed;

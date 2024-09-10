@@ -2,31 +2,28 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
     using SunnyFarm.Game.Entities.Player;
     using UnityEngine;
-
-    public class StatePlayerIdle : StatePlayer
+    public class StatePlayerDig : StatePlayer
     {
-        public StatePlayerIdle(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
+        public StatePlayerDig(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
         { }
 
         public override void CheckSwitchState()
         {
-            if (this.player.IsMovePressed)
-            {
-                this.stateMachine.TransitionTo(new StatePlayerMove(this.player, this.stateMachine));
-            }
         }
 
         public override void Enter()
         {
+            throw new System.NotImplementedException();
         }
 
         public override void Exit()
         {
+            throw new System.NotImplementedException();
         }
 
         public override void Tick()
         {
-            CheckSwitchState();
+            throw new System.NotImplementedException();
         }
     }
 }

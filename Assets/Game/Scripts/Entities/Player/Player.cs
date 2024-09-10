@@ -90,11 +90,6 @@ namespace SunnyFarm.Game.Entities.Player
             stateMachine.Tick();    // Update the current state
         }
 
-        private void FixedUpdate()
-        {
-            stateMachine.FixedTick();   // Update the current state
-        }
-
         public void Flip()
         {
             transform.Rotate(0f, 180f, 0f);

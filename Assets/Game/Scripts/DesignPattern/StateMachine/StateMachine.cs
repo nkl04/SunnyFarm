@@ -21,13 +21,5 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
                 currentState.Tick();
             }
         }
-
-        public void FixedTick()
-        {
-            if (currentState != null)
-            {
-                currentState.FixedTick();
-            }
-        }
     }
 }

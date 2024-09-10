@@ -39,18 +39,36 @@ namespace SunnyFarm.Game.Input
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""66c6f301-0122-447c-94b6-0fcbf1ddfdc0"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""Axe"",
+                    ""type"": ""Button"",
+                    ""id"": ""2189b1ba-86b2-4ab8-81fd-d5b9e38e70dd"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""Dig"",
                     ""type"": ""Button"",
-                    ""id"": ""3e593f1f-1302-4da1-84ee-241fbec8fbbf"",
+                    ""id"": ""48ac28c8-9838-45ae-8b2a-04e02df821ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pickaxe"",
+                    ""type"": ""Button"",
+                    ""id"": ""f70feb7e-f0e4-41d6-bfbb-7e96c7b934dc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Water"",
+                    ""type"": ""Button"",
+                    ""id"": ""921859da-ddc6-4d51-b78f-225a40ed420d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -192,89 +210,45 @@ namespace SunnyFarm.Game.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""id"": ""3dd905f2-0ad4-4795-ab40-d5d989fc475f"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
+                    ""groups"": """",
+                    ""action"": ""Axe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
-                    ""path"": ""<Pointer>/delta"",
+                    ""id"": ""9dda662e-c0be-4105-8de8-2c6fd9d9ce76"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Look"",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3e5f5442-8668-4b27-a940-df99bad7e831"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
+                    ""id"": ""87e5656a-2108-494f-86ae-451af3e4908b"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Look"",
+                    ""groups"": """",
+                    ""action"": ""Pickaxe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""143bb1cd-cc10-4eca-a2f0-a3664166fe91"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""id"": ""dd8ab7da-5fde-4086-a567-0d76a996eacd"",
+                    ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Touch"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
-                    ""path"": ""<Joystick>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8255d333-5683-4943-a58a-ccb207ff1dce"",
-                    ""path"": ""<XRController>/{PrimaryAction}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Fire"",
+                    ""groups"": """",
+                    ""action"": ""Water"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -863,8 +837,10 @@ namespace SunnyFarm.Game.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_Axe = m_Player.FindAction("Axe", throwIfNotFound: true);
+            m_Player_Dig = m_Player.FindAction("Dig", throwIfNotFound: true);
+            m_Player_Pickaxe = m_Player.FindAction("Pickaxe", throwIfNotFound: true);
+            m_Player_Water = m_Player.FindAction("Water", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -939,15 +915,19 @@ namespace SunnyFarm.Game.Input
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Look;
-        private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_Axe;
+        private readonly InputAction m_Player_Dig;
+        private readonly InputAction m_Player_Pickaxe;
+        private readonly InputAction m_Player_Water;
         public struct PlayerActions
         {
             private @PlayerInputAction m_Wrapper;
             public PlayerActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
-            public InputAction @Look => m_Wrapper.m_Player_Look;
-            public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @Axe => m_Wrapper.m_Player_Axe;
+            public InputAction @Dig => m_Wrapper.m_Player_Dig;
+            public InputAction @Pickaxe => m_Wrapper.m_Player_Pickaxe;
+            public InputAction @Water => m_Wrapper.m_Player_Water;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -960,12 +940,18 @@ namespace SunnyFarm.Game.Input
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
+                @Axe.started += instance.OnAxe;
+                @Axe.performed += instance.OnAxe;
+                @Axe.canceled += instance.OnAxe;
+                @Dig.started += instance.OnDig;
+                @Dig.performed += instance.OnDig;
+                @Dig.canceled += instance.OnDig;
+                @Pickaxe.started += instance.OnPickaxe;
+                @Pickaxe.performed += instance.OnPickaxe;
+                @Pickaxe.canceled += instance.OnPickaxe;
+                @Water.started += instance.OnWater;
+                @Water.performed += instance.OnWater;
+                @Water.canceled += instance.OnWater;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -973,12 +959,18 @@ namespace SunnyFarm.Game.Input
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
-                @Look.started -= instance.OnLook;
-                @Look.performed -= instance.OnLook;
-                @Look.canceled -= instance.OnLook;
-                @Fire.started -= instance.OnFire;
-                @Fire.performed -= instance.OnFire;
-                @Fire.canceled -= instance.OnFire;
+                @Axe.started -= instance.OnAxe;
+                @Axe.performed -= instance.OnAxe;
+                @Axe.canceled -= instance.OnAxe;
+                @Dig.started -= instance.OnDig;
+                @Dig.performed -= instance.OnDig;
+                @Dig.canceled -= instance.OnDig;
+                @Pickaxe.started -= instance.OnPickaxe;
+                @Pickaxe.performed -= instance.OnPickaxe;
+                @Pickaxe.canceled -= instance.OnPickaxe;
+                @Water.started -= instance.OnWater;
+                @Water.performed -= instance.OnWater;
+                @Water.canceled -= instance.OnWater;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1162,8 +1154,10 @@ namespace SunnyFarm.Game.Input
         public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
-            void OnLook(InputAction.CallbackContext context);
-            void OnFire(InputAction.CallbackContext context);
+            void OnAxe(InputAction.CallbackContext context);
+            void OnDig(InputAction.CallbackContext context);
+            void OnPickaxe(InputAction.CallbackContext context);
+            void OnWater(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

@@ -2,14 +2,16 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
     using SunnyFarm.Game.Entities.Player;
     using UnityEngine;
-    public class StatePlayerDig : StatePlayer
+
+    public class StatePlayerWater : StatePlayer
     {
-        public StatePlayerDig(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
-        { }
+        public StatePlayerWater(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
+        {
+        }
 
         public override void CheckSwitchState()
         {
-            if (!this.player.IsDigPressed)
+            if (!this.player.IsWaterPressed)
             {
                 this.stateMachine.TransitionTo(new StatePlayerIdle(this.player, this.stateMachine));
             }
@@ -17,12 +19,12 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Enter()
         {
-            this.player.Animator.SetBool(player.IS_DIGGING, true);
+            this.player.Animator.SetBool(player.IS_WATERING, true);
         }
 
         public override void Exit()
         {
-            this.player.Animator.SetBool(player.IS_DIGGING, false);
+            this.player.Animator.SetBool(player.IS_WATERING, false);
         }
 
         public override void Tick()

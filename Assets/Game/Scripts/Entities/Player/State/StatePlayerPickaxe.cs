@@ -2,14 +2,15 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
     using SunnyFarm.Game.Entities.Player;
     using UnityEngine;
-    public class StatePlayerDig : StatePlayer
+    public class StatePlayerPickaxe : StatePlayer
     {
-        public StatePlayerDig(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
-        { }
+        public StatePlayerPickaxe(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
+        {
+        }
 
         public override void CheckSwitchState()
         {
-            if (!this.player.IsDigPressed)
+            if (!this.player.IsPickaxePressed)
             {
                 this.stateMachine.TransitionTo(new StatePlayerIdle(this.player, this.stateMachine));
             }
@@ -17,12 +18,12 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Enter()
         {
-            this.player.Animator.SetBool(player.IS_DIGGING, true);
+            this.player.Animator.SetBool(player.IS_PICKAXING, true);
         }
 
         public override void Exit()
         {
-            this.player.Animator.SetBool(player.IS_DIGGING, false);
+            this.player.Animator.SetBool(player.IS_PICKAXING, false);
         }
 
         public override void Tick()

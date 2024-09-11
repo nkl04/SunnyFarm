@@ -64,7 +64,7 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Animator animator;
 
-        private void Awake()
+        private void Start()
         {
             inputActions = GameInputManager.Instance.InputActions;
 
@@ -123,16 +123,6 @@ namespace SunnyFarm.Game.Entities.Player
 
             IsMovePressed = movementInput.magnitude > 0;
 
-        }
-
-        private void OnEnable()
-        {
-            inputActions.Enable();
-        }
-
-        private void OnDisable()
-        {
-            inputActions.Disable();
         }
 
         private void Update()

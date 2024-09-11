@@ -15,8 +15,16 @@ namespace SunnyFarm.Game.Managers.GameInput
             base.Awake();
 
             inputActions = new PlayerInputAction();
+        }
 
+        private void OnEnable()
+        {
             inputActions.Enable();
+        }
+
+        private void OnDisable()
+        {
+            inputActions.Disable();
         }
     }
 }

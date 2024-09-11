@@ -1,6 +1,7 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
     using SunnyFarm.Game.Entities.Player;
+    using SunnyFarm.Game.Constant;
     using UnityEngine;
 
     public class StatePlayerAxe : StatePlayer
@@ -19,12 +20,12 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Enter()
         {
-            this.player.Animator.SetBool(player.IS_AXING, true);
+            this.player.Animator.SetBool(Constant.Player.IS_AXING, true);
         }
 
         public override void Exit()
         {
-            this.player.Animator.SetBool(player.IS_AXING, false);
+            this.player.Animator.SetBool(Constant.Player.IS_AXING, false);
         }
 
         public override void Tick()

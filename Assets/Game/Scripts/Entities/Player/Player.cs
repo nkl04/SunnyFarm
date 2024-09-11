@@ -10,24 +10,6 @@ namespace SunnyFarm.Game.Entities.Player
 
     public class Player : MonoBehaviour
     {
-        public readonly string IS_RUNNING = "isRunning";
-
-        public readonly string IS_DIGGING = "isDigging";
-
-        public readonly string IS_AXING = "isAxing";
-
-        public readonly string IS_PICKAXING = "isPickaxing";
-
-        public readonly string IS_WATERING = "isWatering";
-
-        public readonly string INPUT_X = "InputX";
-
-        public readonly string INPUT_Y = "InputY";
-
-        public readonly string LAST_INPUT_X = "LastInputX";
-
-        public readonly string LAST_INPUT_Y = "LastInputY";
-
         public Animator Animator => animator;
 
         public Rigidbody2D Rb2d => rb2d;
@@ -39,20 +21,25 @@ namespace SunnyFarm.Game.Entities.Player
         public float RunSpeed => runSpeed;
 
         public bool IsMovePressed { get; set; } = false;
-
         public bool IsAxePressed { get; set; } = false;
-
         public bool IsDigPressed { get; set; } = false;
-
         public bool IsPickaxePressed { get; set; } = false;
-
         public bool IsWaterPressed { get; set; } = false;
 
         public bool IsFacingRight { get; set; } = true;
 
+        public StatePlayerIdle StatePlayerIdle { get; private set; }
+        public StatePlayerMove StatePlayerMove { get; private set; }
+        public StatePlayerAxe StatePlayerAxe { get; private set; }
+        public StatePlayerDig StatePlayerDig { get; private set; }
+        public StatePlayerPickaxe StatePlayerPickaxe { get; private set; }
+        public StatePlayerWater StatePlayerWater { get; private set; }
+
+
         [SerializeField] private float walkSpeed = 5f;
 
         [SerializeField] private float runSpeed = 10f;
+
 
         private PlayerInputAction inputActions;
 

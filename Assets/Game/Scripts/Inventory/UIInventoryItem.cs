@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
-    IBeginDragHandler, IDragHandler, IEndDragHandler
+    IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
 {
     [Header("Item's info")]
     [SerializeField] private Image itemImage;
@@ -17,10 +17,9 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
     [SerializeField] private Image backgroundSlot;
 
     private bool isEmpty;
-    private bool isInteractable;
 
     public event Action<UIInventoryItem> OnItemClicked, OnItemDroppedOn,
-        OnItemBeginDrag, OnItemDrag;
+        OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover;
     private void Awake()
     {
         ResetData();
@@ -60,32 +59,37 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
     public void UnlockSlot()
     {
         backgroundSlot.sprite = unlockedBG;
-        isInteractable = true;
     }
 
     #region UI Events
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (isEmpty && !isInteractable) return;
+        if (isEmpty) return;
         OnItemBeginDrag?.Invoke(this);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("lmao");
-        if (!isInteractable) return;
+        if (!isEmpty) return;
         OnItemDrag?.Invoke(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-
+        if (!isEmpty) return;
+        OnItemEndDrag?.Invoke(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!isInteractable) return;
+        if (!isEmpty) return;
         OnItemClicked?.Invoke(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isEmpty) return;
+        OnItemHover?.Invoke(this);
     }
     #endregion
 }

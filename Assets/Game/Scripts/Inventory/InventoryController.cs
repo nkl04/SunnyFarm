@@ -24,17 +24,22 @@ public class InventoryController : MonoBehaviour
     private void Awake()
     {
         inputActions = new PlayerInputAction();
-
         inputActions.Enable();
         // register event
         inputActions.Inventory.Open.performed += inventoryView.OnOpenOrCloseInventory;
 
+        SetupModel();
+        SetupView();
+    }
+
+    private void SetupModel()
+    {
         inventoryDataController = InventoryDataController.Instance;
     }
 
-    private void SetupUI()
+    private void SetupView()
     {
-        inventoryView.InitializeInventoryUI(inventoryDataController.InventoryLevel);
-
+        int capacity = evolveInventoryMap[inventoryDataController.InventoryLevel];
+        inventoryView.InitializeInventoryUI(capacity);
     }
 }

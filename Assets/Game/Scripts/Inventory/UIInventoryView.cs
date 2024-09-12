@@ -1,17 +1,31 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
+    using SunnyFarm.Game.Constant;
+    using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
     public class UIInventoryView : MonoBehaviour
     {
-        // field to store the quick-access items
-        //[SerializeField] private 
+        [SerializeField] private UIInventoryItem itemPrefab;
+
+        [SerializeField] private RectTransform quickAccessPanel;
+        [SerializeField] private RectTransform notQuickAccessPanel;
+        [SerializeField] private UIInventoryDescription uiInventoryDescription;
+
+        // field to store quick-access items
+        List<UIInventoryItem> quickAccessItems = new List<UIInventoryItem>();
 
         // field to store not quick-access items
-        //
+        List<UIInventoryItem> nonQuickAccessItems = new List<UIInventoryItem>();
 
-        [SerializeField]
-        private UIInventoryDescription uiInventoryDescription;
+        public event Action<int> OnDescriptionRequested,
+                OnStartDragging;
+
+        private void Awake()
+        {
+
+        }
 
         /// <summary>
         /// Init item slot ui for the whole inventory 
@@ -19,26 +33,89 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="capacity"></param>
         public void InitializeInventoryUI(int capacity)
         {
-            for (int i = 1; i <= capacity; i++)
+            // Instantiate items first and set up their events
+            for (int i = 0; i < Constant.Inventory.MaxCapacity; i++)
+            {
+                // Instantiate item
+                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+
+                // set up events
+                item.OnItemClicked += HandleItemClick;
+                item.OnItemBeginDrag += HandleItemBeginDrag;
+                item.OnItemDrag += HandleItemDrag;
+                item.OnItemEndDrag += HandleItemEndDrag;
+                item.OnItemHover += HandleItemHover;
+
+                // set the item's parent and store in their array
+                if (i < Constant.Inventory.HotbarCapacity)
+                {
+                    item.transform.SetParent(quickAccessPanel);
+                    quickAccessItems.Add(item);
+                }
+                else
+                {
+                    item.transform.SetParent(notQuickAccessPanel);
+                    nonQuickAccessItems.Add(item);
+                }
+            }
+            // Unlock the slot item based on capacity
+            for (int i = 0; i < capacity; i++)
             {
                 // init for level 1 of inventory
-                if (i <= 10)
+                if (i < Constant.Inventory.HotbarCapacity)
                 {
-
+                    quickAccessItems[i].UnlockSlot();
                 }
-                // init for level 2 of inventory
-                else if (i > 10 && i <= 20)
+                // init for other levels of inventory
+                else
                 {
-
-                }
-                // init for level 3 of inventory
-                else if (i > 20 && i <= 30)
-                {
-
+                    nonQuickAccessItems[i - Constant.Inventory.HotbarCapacity].UnlockSlot();
                 }
             }
         }
 
+        #region Handle events' logic
+        /// <summary>
+        /// Check if can swap and implement the logic of swapping
+        /// </summary>
+        /// <param name="item"></param>
+        private void HandleItemEndDrag(UIInventoryItem item)
+        {
+
+        }
+        /// <summary>
+        /// Item follow the mouse position
+        /// </summary>
+        /// <param name="item"></param>
+        private void HandleItemDrag(UIInventoryItem item)
+        {
+
+        }
+        /// <summary>
+        /// Reset data in item ui and instantiate item
+        /// </summary>
+        /// <param name="item"></param>
+        private void HandleItemBeginDrag(UIInventoryItem item)
+        {
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        private void HandleItemClick(UIInventoryItem item)
+        {
+
+        }
+        /// <summary>
+        /// Show the description of the item
+        /// </summary>
+        /// <param name="item"></param>
+        private void HandleItemHover(UIInventoryItem item)
+        {
+
+        }
+        #endregion
 
         /// <summary>
         /// Open or close the inventory UI based on is E pressed?

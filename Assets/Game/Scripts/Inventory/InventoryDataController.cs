@@ -4,7 +4,7 @@ namespace SunnyFarm.Game.Inventory.Data
 
     public class InventoryDataController : Singleton<InventoryDataController>
     {
-        public int InventoryLevel { get; private set; } = 1;
+        public int InventoryLevel { get; private set; } = 3;
         // Start is called before the first frame update
         void Start()
         {

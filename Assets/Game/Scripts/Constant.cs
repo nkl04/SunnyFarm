@@ -26,6 +26,17 @@ namespace SunnyFarm.Game.Constant
         public static class Tag
         {
             public const string BoundConfiner = "BoundConfiner";
+
+            public const string Player = "Player";
+        }
+
+        public static class ColorStat
+        {
+            public const float TargetAlpha = 0.5f;
+
+            public const float FadeOutSeconds = 0.1f;
+
+            public const float FadeInSeconds = 0.1f;
         }
 
     }

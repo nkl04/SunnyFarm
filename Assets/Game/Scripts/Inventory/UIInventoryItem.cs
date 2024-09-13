@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
-    IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
+    IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler
 {
     [Header("Item's info")]
     [SerializeField] private Image itemImage;
@@ -53,10 +53,13 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
         isEmpty = true;
     }
 
-    public void HideDataTemp()
+    public void ShowData()
+    {
+        itemImage.gameObject.SetActive(true);
+    }
+    public void HideData()
     {
         itemImage.gameObject.SetActive(false);
-        itemQuantity.text = "";
     }
     /// <summary>
     /// Deselect item ui then disappear the select box
@@ -102,6 +105,11 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
     {
         if (isEmpty) return;
         OnItemHover?.Invoke(this);
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        OnItemDroppedOn?.Invoke(this);
     }
     #endregion
 }

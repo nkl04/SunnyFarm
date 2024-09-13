@@ -16,7 +16,9 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
     [SerializeField] private Sprite unlockedBG;
     [SerializeField] private Image backgroundSlot;
 
-    private bool isEmpty;
+    [SerializeField] private bool isEmpty = false; // serialize for test
+
+    public int ItemIndex { get; set; }
 
     public event Action<UIInventoryItem> OnItemClicked, OnItemDroppedOn,
         OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover;
@@ -24,6 +26,10 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
     {
         ResetData();
         Deselect();
+    }
+    public (Sprite, TMP_Text) GetData()
+    {
+        return (itemImage.sprite, itemQuantity);
     }
     /// <summary>
     /// Set data to the ui, use it when having data from the db
@@ -45,6 +51,12 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
         itemImage.gameObject.SetActive(false);
         itemQuantity.text = "";
         isEmpty = true;
+    }
+
+    public void HideDataTemp()
+    {
+        itemImage.gameObject.SetActive(false);
+        itemQuantity.text = "";
     }
     /// <summary>
     /// Deselect item ui then disappear the select box
@@ -70,19 +82,19 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isEmpty) return;
+        if (isEmpty) return;
         OnItemDrag?.Invoke(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isEmpty) return;
+        if (isEmpty) return;
         OnItemEndDrag?.Invoke(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!isEmpty) return;
+        if (isEmpty) return;
         OnItemClicked?.Invoke(this);
     }
 

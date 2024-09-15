@@ -1,8 +1,6 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities.Player;
-    using SunnyFarm.Game.Constant;
-    using UnityEngine;
+    using SunnyFarm.Game.Entities;
 
     public class StatePlayerAxe : StatePlayer
     {

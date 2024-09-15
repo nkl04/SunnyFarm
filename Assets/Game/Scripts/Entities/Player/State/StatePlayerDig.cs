@@ -1,8 +1,6 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities.Player;
-    using SunnyFarm.Game.Constant;
-    using UnityEngine;
+    using SunnyFarm.Game.Entities;
     public class StatePlayerDig : StatePlayer
     {
         public StatePlayerDig(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)

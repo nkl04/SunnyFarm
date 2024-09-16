@@ -1,12 +1,10 @@
-namespace SunnyFarm.Game.Entities.Player
+namespace SunnyFarm.Game.Entities
 {
     using UnityEngine;
     using SunnyFarm.Game.DesignPattern.StateMachine;
-    using Unity.VisualScripting;
     using SunnyFarm.Game.Input;
     using UnityEngine.InputSystem;
     using SunnyFarm.Game.Managers.GameInput;
-    using System;
 
     public class Player : MonoBehaviour
     {

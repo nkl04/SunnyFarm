@@ -2,7 +2,6 @@ namespace SunnyFarm.Game.Entities.Camera
 {
     using Cinemachine;
     using UnityEngine;
-    using SunnyFarm.Game.Constant;
 
     public class VirtualCam : MonoBehaviour
     {

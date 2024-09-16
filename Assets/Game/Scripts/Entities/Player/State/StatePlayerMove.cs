@@ -1,8 +1,6 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities.Player;
-    using UnityEditor.U2D.Aseprite;
-    using SunnyFarm.Game.Constant;
+    using SunnyFarm.Game.Entities;
     using UnityEngine;
 
     public class StatePlayerMove : StatePlayer

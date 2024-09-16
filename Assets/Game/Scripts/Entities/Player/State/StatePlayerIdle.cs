@@ -1,7 +1,6 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities.Player;
-    using UnityEngine;
+    using SunnyFarm.Game.Entities;
 
     public class StatePlayerIdle : StatePlayer
     {

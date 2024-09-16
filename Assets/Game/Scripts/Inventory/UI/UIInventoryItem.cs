@@ -28,6 +28,10 @@ namespace SunnyFarm.Game.Inventory.UI
             ResetData();
             Deselect();
         }
+        /// <summary>
+        /// Get the sprite and text in item ui
+        /// </summary>
+        /// <returns></returns>
         public (Sprite, TMP_Text) GetData()
         {
             return (itemImage.sprite, itemQuantity);
@@ -39,10 +43,10 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="quantity"></param>
         public void SetData(Sprite image, int quantity)
         {
-            itemImage.gameObject.SetActive(true);
+            itemImage.gameObject.SetActive(image != null);
             itemImage.sprite = image;
-            itemQuantity.text = quantity.ToString();
-            isEmpty = false;
+            itemQuantity.text = quantity > 1 ? quantity.ToString() : "";
+            isEmpty = image == null;
         }
         /// <summary>
         /// Reset data in item ui
@@ -56,7 +60,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
         public void ShowData()
         {
-            itemImage.gameObject.SetActive(true);
+            itemImage.gameObject.SetActive(itemImage.sprite != null);
         }
         public void HideData()
         {
@@ -92,7 +96,6 @@ namespace SunnyFarm.Game.Inventory.UI
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (isEmpty) return;
             OnItemEndDrag?.Invoke(this);
         }
 

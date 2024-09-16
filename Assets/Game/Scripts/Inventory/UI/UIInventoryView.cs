@@ -20,10 +20,11 @@ namespace SunnyFarm.Game.Inventory.UI
         private int currentlyDraggedItemIndex = -1;
 
         // field to store quick-access items
+        [SerializeField]
         UIInventoryItem[] listOfUIItems = new UIInventoryItem[Constant.Inventory.MaxCapacity];
 
         // Event
-        public event Action<int> OnDescriptionRequested;
+        public event Action OnDescriptionRequested;
         public event Action<int, int> OnSwapItems;
 
         private void Awake()
@@ -70,8 +71,18 @@ namespace SunnyFarm.Game.Inventory.UI
             }
         }
 
-
-
+        public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
+        {
+            listOfUIItems[itemIdx].SetData(sprite, quantity);
+        }
+        public void ResetAllUIItems()
+        {
+            foreach (var item in listOfUIItems)
+            {
+                item.ResetData();
+                item.Deselect();
+            }
+        }
         #region Handle events' logic
         /// <summary>
         /// Check if can swap and implement the logic of swapping
@@ -81,7 +92,7 @@ namespace SunnyFarm.Game.Inventory.UI
         private void HandleSwap(UIInventoryItem item)
         {
             int index = item.ItemIndex;
-            if (index == -1) return;
+            if (currentlyDraggedItemIndex == -1) return;
             OnSwapItems?.Invoke(index, currentlyDraggedItemIndex);
 
         }
@@ -144,7 +155,7 @@ namespace SunnyFarm.Game.Inventory.UI
             int index = item.ItemIndex;
             if (index == -1)
                 return;
-            OnDescriptionRequested?.Invoke(index);
+            OnDescriptionRequested?.Invoke();
         }
         /// <summary>
         /// Reset dragged item when end dragging

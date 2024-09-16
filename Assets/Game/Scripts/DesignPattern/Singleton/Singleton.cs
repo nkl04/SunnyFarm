@@ -48,7 +48,7 @@ namespace SunnyFarm.Game.DesignPattern.Singleton
                 }
             }
         }
-        public virtual void Awake()
+        protected virtual void Awake()
         {
             if (instance == null)
             {

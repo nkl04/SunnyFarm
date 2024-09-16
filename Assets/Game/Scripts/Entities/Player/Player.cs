@@ -5,8 +5,10 @@ namespace SunnyFarm.Game.Entities
     using SunnyFarm.Game.Input;
     using UnityEngine.InputSystem;
     using SunnyFarm.Game.Managers.GameInput;
+    using System;
+    using SunnyFarm.Game.DesignPattern.Singleton;
 
-    public class Player : MonoBehaviour
+    public class Player : Singleton<Player>
     {
         public Animator Animator => animator;
 

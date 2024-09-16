@@ -1,14 +1,14 @@
-
 namespace SunnyFarm.Game.Item.Data
 {
     using UnityEngine;
-    public abstract class Item : MonoBehaviour
+
+    public class Item : MonoBehaviour
     {
-        public string ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Sprite ItemImage { get; set; }
-        public bool IsStackable { get; set; }
-        public int MaxStackSize { get; set; } = 1;
+        public string ID;
+        public string Name;
+        public string Description;
+        public Sprite ItemImage;
+        public bool IsStackable;
+        public int MaxStackSize;
     }
 }

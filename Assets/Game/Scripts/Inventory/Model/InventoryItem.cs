@@ -1,29 +1,32 @@
 namespace SunnyFarm.Game.Inventory.Data
 {
     using SunnyFarm.Game.Item.Data;
+    using System;
+
+    [Serializable]
     public class InventoryItem
     {
-        public int Quantity { get; private set; }
-        public Item Item { get; private set; }
-        public bool IsEmpty => Item == null;
+        public int quantity;
+        public Item item;
+        public bool IsEmpty => item == null;
 
         /// <summary>
         /// Change the quantity of the item
         /// </summary>
         /// <param name="quantity"></param>
-        public void ChangeQuantity(int quantity)
+        public void ChangeQuantity(int _quantity)
         {
-            Quantity = quantity;
+            quantity = _quantity;
         }
         /// <summary>
         /// Change the item and quantity when swapping
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
-        public void SwapItem(Item item, int quantity)
+        public void SwapItem(Item _item, int _quantity)
         {
-            Item = item;
-            Quantity = quantity;
+            item = _item;
+            quantity = _quantity;
         }
     }
 }

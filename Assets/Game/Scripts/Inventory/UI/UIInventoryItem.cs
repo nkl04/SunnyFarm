@@ -57,11 +57,16 @@ namespace SunnyFarm.Game.Inventory.UI
             itemQuantity.text = "";
             isEmpty = true;
         }
-
+        /// <summary>
+        /// Show the data again when not dropping dragged item into slot
+        /// </summary>
         public void ShowData()
         {
             itemImage.gameObject.SetActive(itemImage.sprite != null);
         }
+        /// <summary>
+        /// Hide the data when begining to drag the item
+        /// </summary>
         public void HideData()
         {
             itemImage.gameObject.SetActive(false);

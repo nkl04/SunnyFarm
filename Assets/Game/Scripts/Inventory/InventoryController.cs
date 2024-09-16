@@ -64,17 +64,28 @@ namespace SunnyFarm.Game.Inventory
             inventoryView.OnSwapItems += HandleSwapItems;
             inventoryView.OnDescriptionRequested += HandleDescriptionRequested;
         }
-
+        #region Handle events
+        /// <summary>
+        /// Handle the swap event
+        /// </summary>
+        /// <param name="idx1"></param>
+        /// <param name="idx2"></param>
         private void HandleSwapItems(int idx1, int idx2)
         {
             inventoryData.SwapItems(idx1, idx2);
         }
-
+        /// <summary>
+        /// Handle the requested description event
+        /// </summary>
         private void HandleDescriptionRequested()
         {
 
         }
-
+        #endregion
+        /// <summary>
+        /// Update inventory view based on inventory list of data in model
+        /// </summary>
+        /// <param name="inventoryItems"></param>
         private void UpdateInventoryUI(InventoryItem[] inventoryItems)
         {
             inventoryView.ResetAllUIItems();

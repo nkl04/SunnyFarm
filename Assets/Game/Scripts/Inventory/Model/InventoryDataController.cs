@@ -23,7 +23,7 @@ namespace SunnyFarm.Game.Inventory.Data
             base.Awake();
         }
         /// <summary>
-        /// 
+        /// Check when the inventory is fully occupied
         /// </summary>
         private bool IsInventoryFullyOccupied()
         {
@@ -33,7 +33,10 @@ namespace SunnyFarm.Game.Inventory.Data
             }
             return true;
         }
-
+        /// <summary>
+        /// Set up the size of the inventory item data and create each item in array
+        /// </summary>
+        /// <param name="size"></param>
         public void SetupSize(int size)
         {
             maxSizeInventory = size;
@@ -45,7 +48,7 @@ namespace SunnyFarm.Game.Inventory.Data
         }
 
         /// <summary>
-        /// 
+        /// Logic that add item into inventory
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
@@ -66,7 +69,7 @@ namespace SunnyFarm.Game.Inventory.Data
             InformAboutChange();
         }
         /// <summary>
-        /// 
+        /// Add the item to the first free slot in inventory
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
@@ -82,7 +85,7 @@ namespace SunnyFarm.Game.Inventory.Data
             }
         }
         /// <summary>
-        /// 
+        /// Logic that add statckable into the inventory
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
@@ -116,7 +119,11 @@ namespace SunnyFarm.Game.Inventory.Data
             }
         }
 
-
+        /// <summary>
+        /// Logic that swap 2 inventory item data
+        /// </summary>
+        /// <param name="itemIdx1"></param>
+        /// <param name="itemIdx2"></param>
         public void SwapItems(int itemIdx1, int itemIdx2)
         {
             InventoryItem item = inventoryItems[itemIdx1];
@@ -124,6 +131,11 @@ namespace SunnyFarm.Game.Inventory.Data
             inventoryItems[itemIdx2] = item;
             InformAboutChange();
         }
+        /// <summary>
+        /// Remove quantity's item in the inventory
+        /// </summary>
+        /// <param name="itemIdx"></param>
+        /// <param name="quantity"></param>
         public void RemoveItem(int itemIdx, int quantity)
         {
             if (inventoryItems[itemIdx].IsEmpty) return;
@@ -139,7 +151,9 @@ namespace SunnyFarm.Game.Inventory.Data
             }
             InformAboutChange();
         }
-
+        /// <summary>
+        /// Events that trigger when having changes in the inventory list data
+        /// </summary>
         private void InformAboutChange()
         {
             OnInventoryUpdated?.Invoke(inventoryItems);

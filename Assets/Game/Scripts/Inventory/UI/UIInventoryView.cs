@@ -70,11 +70,19 @@ namespace SunnyFarm.Game.Inventory.UI
                 listOfUIItems[i].UnlockSlot();
             }
         }
-
+        /// <summary>
+        /// Update data for the inventory item UI
+        /// </summary>
+        /// <param name="itemIdx"></param>
+        /// <param name="sprite"></param>
+        /// <param name="quantity"></param>
         public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
         {
             listOfUIItems[itemIdx].SetData(sprite, quantity);
         }
+        /// <summary>
+        /// Reset all slot in inventory items
+        /// </summary>
         public void ResetAllUIItems()
         {
             foreach (var item in listOfUIItems)

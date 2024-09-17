@@ -39,6 +39,12 @@ namespace SunnyFarm.Game
             public const float FadeInSeconds = 0.1f;
         }
 
+        public static class Inventory
+        {
+            public const int HotbarCapacity = 10;
+            public const int MaxCapacity = 30;
+        }
+
         public static class Enums
         {
             public enum GridBoolProperty

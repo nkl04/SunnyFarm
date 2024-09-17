@@ -745,6 +745,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Inventory",
+            "id": "82998b29-51d4-433e-8a44-1bb802917154",
+            "actions": [
+                {
+                    "name": "Open",
+                    "type": "Button",
+                    "id": "3ba2b700-e18a-496c-bec6-12f45a22e7c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7fc8b193-0e39-4fc5-9bca-f93c90f28029",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

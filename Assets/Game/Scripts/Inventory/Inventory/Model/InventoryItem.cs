@@ -1,6 +1,6 @@
 namespace SunnyFarm.Game.Inventory.Data
 {
-    using SunnyFarm.Game.Item.Data;
+    using SunnyFarm.Game.Entities.Item.Data;
     using System;
 
     [Serializable]
@@ -8,9 +8,6 @@ namespace SunnyFarm.Game.Inventory.Data
     {
         public int Quantity;
         public Item Item;
-
-
-
         public bool IsEmpty => Item == null;
 
         /// <summary>

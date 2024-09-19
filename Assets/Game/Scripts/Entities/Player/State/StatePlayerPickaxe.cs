@@ -1,6 +1,7 @@
-namespace SunnyFarm.Game.DesignPattern.StateMachine
+namespace SunnyFarm.Game.State.Player
 {
-    using SunnyFarm.Game.Entities;
+    using Entities.Player;
+    using StateMachine;
     public class StatePlayerPickaxe : StatePlayer
     {
         public StatePlayerPickaxe(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)

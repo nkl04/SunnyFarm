@@ -73,6 +73,15 @@ namespace SunnyFarm.Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""f46fa855-01d2-4ca5-a69a-9170de27d4d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -249,6 +258,17 @@ namespace SunnyFarm.Game.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Water"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""088aaae0-ed39-423c-8584-1b604b796ed2"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -841,6 +861,7 @@ namespace SunnyFarm.Game.Input
             m_Player_Dig = m_Player.FindAction("Dig", throwIfNotFound: true);
             m_Player_Pickaxe = m_Player.FindAction("Pickaxe", throwIfNotFound: true);
             m_Player_Water = m_Player.FindAction("Water", throwIfNotFound: true);
+            m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -919,6 +940,7 @@ namespace SunnyFarm.Game.Input
         private readonly InputAction m_Player_Dig;
         private readonly InputAction m_Player_Pickaxe;
         private readonly InputAction m_Player_Water;
+        private readonly InputAction m_Player_Inventory;
         public struct PlayerActions
         {
             private @PlayerInputAction m_Wrapper;
@@ -928,6 +950,7 @@ namespace SunnyFarm.Game.Input
             public InputAction @Dig => m_Wrapper.m_Player_Dig;
             public InputAction @Pickaxe => m_Wrapper.m_Player_Pickaxe;
             public InputAction @Water => m_Wrapper.m_Player_Water;
+            public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -952,6 +975,9 @@ namespace SunnyFarm.Game.Input
                 @Water.started += instance.OnWater;
                 @Water.performed += instance.OnWater;
                 @Water.canceled += instance.OnWater;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -971,6 +997,9 @@ namespace SunnyFarm.Game.Input
                 @Water.started -= instance.OnWater;
                 @Water.performed -= instance.OnWater;
                 @Water.canceled -= instance.OnWater;
+                @Inventory.started -= instance.OnInventory;
+                @Inventory.performed -= instance.OnInventory;
+                @Inventory.canceled -= instance.OnInventory;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1158,6 +1187,7 @@ namespace SunnyFarm.Game.Input
             void OnDig(InputAction.CallbackContext context);
             void OnPickaxe(InputAction.CallbackContext context);
             void OnWater(InputAction.CallbackContext context);
+            void OnInventory(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

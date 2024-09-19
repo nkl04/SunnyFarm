@@ -1,7 +1,6 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities.Player;
-    using UnityEngine;
+    using SunnyFarm.Game.Entities;
 
     public class StatePlayerWater : StatePlayer
     {
@@ -19,12 +18,12 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Enter()
         {
-            this.player.Animator.SetBool(player.IS_WATERING, true);
+            this.player.Animator.SetBool(Constant.Player.IS_WATERING, true);
         }
 
         public override void Exit()
         {
-            this.player.Animator.SetBool(player.IS_WATERING, false);
+            this.player.Animator.SetBool(Constant.Player.IS_WATERING, false);
         }
 
         public override void Tick()

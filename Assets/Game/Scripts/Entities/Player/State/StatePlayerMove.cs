@@ -1,7 +1,6 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities.Player;
-    using UnityEditor.U2D.Aseprite;
+    using SunnyFarm.Game.Entities;
     using UnityEngine;
 
     public class StatePlayerMove : StatePlayer
@@ -19,12 +18,12 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Enter()
         {
-            this.player.Animator.SetBool(this.player.IS_RUNNING, true);
+            this.player.Animator.SetBool(Constant.Player.IS_RUNNING, true);
         }
 
         public override void Exit()
         {
-            this.player.Animator.SetBool(this.player.IS_RUNNING, false);
+            this.player.Animator.SetBool(Constant.Player.IS_RUNNING, false);
         }
 
         public override void Tick()
@@ -33,15 +32,15 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
             this.player.Rb2d.velocity = movement;
 
-            this.player.Animator.SetFloat(this.player.INPUT_X, this.player.MovementInput.x);
+            this.player.Animator.SetFloat(Constant.Player.INPUT_X, this.player.MovementInput.x);
 
-            this.player.Animator.SetFloat(this.player.INPUT_Y, this.player.MovementInput.y);
+            this.player.Animator.SetFloat(Constant.Player.INPUT_Y, this.player.MovementInput.y);
 
             if (this.player.MovementInput != Vector2.zero)
             {
-                this.player.Animator.SetFloat(this.player.LAST_INPUT_X, this.player.MovementInput.x);
+                this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_X, this.player.MovementInput.x);
 
-                this.player.Animator.SetFloat(this.player.LAST_INPUT_Y, this.player.MovementInput.y);
+                this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_Y, this.player.MovementInput.y);
             }
 
             if (this.player.MovementInput.x > 0 && !this.player.IsFacingRight)

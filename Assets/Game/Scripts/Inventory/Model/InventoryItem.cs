@@ -8,6 +8,9 @@ namespace SunnyFarm.Game.Inventory.Data
     {
         public int Quantity;
         public Item Item;
+
+
+
         public bool IsEmpty => Item == null;
 
         /// <summary>

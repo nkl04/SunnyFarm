@@ -1,4 +1,4 @@
-namespace SunnyFarm.Game
+namespace SunnyFarm.Game.Constant
 {
     public class Constant
     {
@@ -44,21 +44,5 @@ namespace SunnyFarm.Game
             public const int HotbarCapacity = 10;
             public const int MaxCapacity = 30;
         }
-
-        public static class Enums
-        {
-            public enum GridBoolProperty
-            {
-                Diggable,
-                Droppable,
-
-            }
-
-            public enum SceneName
-            {
-                Scene1_Farm,
-            }
-        }
     }
 }
-

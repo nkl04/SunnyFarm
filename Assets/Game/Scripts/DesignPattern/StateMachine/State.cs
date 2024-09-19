@@ -1,7 +1,8 @@
+using SunnyFarm.Game.Entities.Player;
+using UnityEngine.Playables;
+
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities;
-
     public abstract class State
     {
         public abstract void Enter();

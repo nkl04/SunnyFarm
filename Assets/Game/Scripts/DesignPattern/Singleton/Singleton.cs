@@ -60,7 +60,7 @@ namespace SunnyFarm.Game.DesignPattern.Singleton
                 Destroy(gameObject);
             }
         }
-        protected void OnDestroy()
+        public void OnDestroy()
         {
             applicationIsQuitting = true;
         }

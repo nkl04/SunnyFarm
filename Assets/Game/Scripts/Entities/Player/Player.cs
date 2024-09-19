@@ -1,13 +1,32 @@
-namespace SunnyFarm.Game.Entities
+namespace SunnyFarm.Game.Entities.Player
 {
     using UnityEngine;
     using SunnyFarm.Game.DesignPattern.StateMachine;
+    using Unity.VisualScripting;
     using SunnyFarm.Game.Input;
     using UnityEngine.InputSystem;
-    using SunnyFarm.Game.Managers.GameInput;
+    using System;
 
     public class Player : MonoBehaviour
     {
+        public readonly string IS_RUNNING = "isRunning";
+
+        public readonly string IS_DIGGING = "isDigging";
+
+        public readonly string IS_AXING = "isAxing";
+
+        public readonly string IS_PICKAXING = "isPickaxing";
+
+        public readonly string IS_WATERING = "isWatering";
+
+        public readonly string INPUT_X = "InputX";
+
+        public readonly string INPUT_Y = "InputY";
+
+        public readonly string LAST_INPUT_X = "LastInputX";
+
+        public readonly string LAST_INPUT_Y = "LastInputY";
+
         public Animator Animator => animator;
 
         public Rigidbody2D Rb2d => rb2d;
@@ -19,25 +38,20 @@ namespace SunnyFarm.Game.Entities
         public float RunSpeed => runSpeed;
 
         public bool IsMovePressed { get; set; } = false;
+
         public bool IsAxePressed { get; set; } = false;
+
         public bool IsDigPressed { get; set; } = false;
+
         public bool IsPickaxePressed { get; set; } = false;
+
         public bool IsWaterPressed { get; set; } = false;
 
         public bool IsFacingRight { get; set; } = true;
 
-        public StatePlayerIdle StatePlayerIdle { get; private set; }
-        public StatePlayerMove StatePlayerMove { get; private set; }
-        public StatePlayerAxe StatePlayerAxe { get; private set; }
-        public StatePlayerDig StatePlayerDig { get; private set; }
-        public StatePlayerPickaxe StatePlayerPickaxe { get; private set; }
-        public StatePlayerWater StatePlayerWater { get; private set; }
-
-
         [SerializeField] private float walkSpeed = 5f;
 
         [SerializeField] private float runSpeed = 10f;
-
 
         private PlayerInputAction inputActions;
 
@@ -49,15 +63,18 @@ namespace SunnyFarm.Game.Entities
 
         private Animator animator;
 
-        private void Start()
+
+        private void Awake()
         {
-            inputActions = GameInputManager.Instance.InputActions;
+            inputActions = new PlayerInputAction();         // Create a new PlayerInputAction 
 
             stateMachine = new StateMachine<StatePlayer>();  // Create a new state machine
 
             rb2d = GetComponent<Rigidbody2D>();             // Get the Rigidbody2D component
 
             animator = GetComponentInChildren<Animator>();            // Get the Animator component in child Visual
+
+            inputActions.Enable();
 
             inputActions.Player.Move.performed += OnMoveInput;
 
@@ -108,6 +125,16 @@ namespace SunnyFarm.Game.Entities
 
             IsMovePressed = movementInput.magnitude > 0;
 
+        }
+
+        private void OnEnable()
+        {
+            inputActions.Enable();
+        }
+
+        private void OnDisable()
+        {
+            inputActions.Disable();
         }
 
         private void Update()

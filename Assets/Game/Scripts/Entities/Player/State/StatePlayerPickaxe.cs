@@ -1,6 +1,7 @@
 namespace SunnyFarm.Game.DesignPattern.StateMachine
 {
-    using SunnyFarm.Game.Entities;
+    using SunnyFarm.Game.Entities.Player;
+    using UnityEngine;
     public class StatePlayerPickaxe : StatePlayer
     {
         public StatePlayerPickaxe(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
@@ -17,12 +18,12 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
 
         public override void Enter()
         {
-            this.player.Animator.SetBool(Constant.Player.IS_PICKAXING, true);
+            this.player.Animator.SetBool(player.IS_PICKAXING, true);
         }
 
         public override void Exit()
         {
-            this.player.Animator.SetBool(Constant.Player.IS_PICKAXING, false);
+            this.player.Animator.SetBool(player.IS_PICKAXING, false);
         }
 
         public override void Tick()

@@ -769,34 +769,6 @@ namespace SunnyFarm.Game.Input
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Inventory"",
-            ""id"": ""82998b29-51d4-433e-8a44-1bb802917154"",
-            ""actions"": [
-                {
-                    ""name"": ""Open"",
-                    ""type"": ""Button"",
-                    ""id"": ""3ba2b700-e18a-496c-bec6-12f45a22e7c5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""7fc8b193-0e39-4fc5-9bca-f93c90f28029"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Open"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -881,9 +853,6 @@ namespace SunnyFarm.Game.Input
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-            // Inventory
-            m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
-            m_Inventory_Open = m_Inventory.FindAction("Open", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1137,52 +1106,6 @@ namespace SunnyFarm.Game.Input
             }
         }
         public UIActions @UI => new UIActions(this);
-
-        // Inventory
-        private readonly InputActionMap m_Inventory;
-        private List<IInventoryActions> m_InventoryActionsCallbackInterfaces = new List<IInventoryActions>();
-        private readonly InputAction m_Inventory_Open;
-        public struct InventoryActions
-        {
-            private @PlayerInputAction m_Wrapper;
-            public InventoryActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Open => m_Wrapper.m_Inventory_Open;
-            public InputActionMap Get() { return m_Wrapper.m_Inventory; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
-            public void AddCallbacks(IInventoryActions instance)
-            {
-                if (instance == null || m_Wrapper.m_InventoryActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_InventoryActionsCallbackInterfaces.Add(instance);
-                @Open.started += instance.OnOpen;
-                @Open.performed += instance.OnOpen;
-                @Open.canceled += instance.OnOpen;
-            }
-
-            private void UnregisterCallbacks(IInventoryActions instance)
-            {
-                @Open.started -= instance.OnOpen;
-                @Open.performed -= instance.OnOpen;
-                @Open.canceled -= instance.OnOpen;
-            }
-
-            public void RemoveCallbacks(IInventoryActions instance)
-            {
-                if (m_Wrapper.m_InventoryActionsCallbackInterfaces.Remove(instance))
-                    UnregisterCallbacks(instance);
-            }
-
-            public void SetCallbacks(IInventoryActions instance)
-            {
-                foreach (var item in m_Wrapper.m_InventoryActionsCallbackInterfaces)
-                    UnregisterCallbacks(item);
-                m_Wrapper.m_InventoryActionsCallbackInterfaces.Clear();
-                AddCallbacks(instance);
-            }
-        }
-        public InventoryActions @Inventory => new InventoryActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -1248,10 +1171,6 @@ namespace SunnyFarm.Game.Input
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-        }
-        public interface IInventoryActions
-        {
-            void OnOpen(InputAction.CallbackContext context);
         }
     }
 }

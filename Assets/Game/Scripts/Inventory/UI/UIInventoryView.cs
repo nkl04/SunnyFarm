@@ -42,7 +42,7 @@ namespace SunnyFarm.Game.Inventory.UI
             for (int i = 0; i < listOfUIItems.Length; i++)
             {
                 // Instantiate item
-                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform.root);
                 item.ItemIndex = i;
                 listOfUIItems[i] = item;
 

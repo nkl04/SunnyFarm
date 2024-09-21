@@ -3,11 +3,13 @@ namespace SunnyFarm.Game.Entities.Player
     using SunnyFarm.Game.StateMachine;
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Managers.GameInput;
+    using System;
     using SunnyFarm.Game.State.Player;
     using UnityEngine;
     using UnityEngine.InputSystem;
 
-    public class Player : MonoBehaviour
+
+    public class Player : Singleton<Player>
     {
         public Animator Animator => animator;
 

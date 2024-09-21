@@ -5,9 +5,14 @@ namespace SunnyFarm.Game.Entities.Camera
 
     public class VirtualCam : MonoBehaviour
     {
-        void Start()
+        private void OnEnable()
         {
-            SetBoundConfiner();
+            EventHandler.OnAfterSceneLoad += SetBoundConfiner;
+        }
+
+        private void OnDisable()
+        {
+            EventHandler.OnAfterSceneLoad -= SetBoundConfiner;
         }
 
         /// <summary>

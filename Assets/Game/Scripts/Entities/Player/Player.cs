@@ -7,7 +7,7 @@ namespace SunnyFarm.Game.Entities.Player
     using SunnyFarm.Game.State.Player;
     using UnityEngine;
     using UnityEngine.InputSystem;
-
+    using SunnyFarm.Game.DesignPattern;
 
     public class Player : Singleton<Player>
     {

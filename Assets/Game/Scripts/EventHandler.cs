@@ -1,6 +1,6 @@
 namespace SunnyFarm.Game
 {
-    using SunnyFarm.Game.DesignPattern.Singleton;
+    using SunnyFarm.Game.DesignPattern;
     using System;
 
     public static class EventHandler

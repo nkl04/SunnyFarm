@@ -1,6 +1,6 @@
 namespace SunnyFarm.Game.Inventory.Data
 {
-    using SunnyFarm.Game.DesignPattern.Singleton;
+    using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Entities.Item.Data;
     using System;
     using UnityEngine;

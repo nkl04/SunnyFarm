@@ -2,8 +2,8 @@ namespace SunnyFarm.Game
 {
     using System;
     using System.Collections;
-    using SunnyFarm.Game.DesignPattern.Singleton;
-    using SunnyFarm.Game.Entities;
+    using SunnyFarm.Game.DesignPattern;
+    using SunnyFarm.Game.Entities.Player;
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using UnityEngine.UI;

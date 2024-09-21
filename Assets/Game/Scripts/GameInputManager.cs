@@ -1,6 +1,6 @@
 namespace SunnyFarm.Game.Managers.GameInput
 {
-    using SunnyFarm.Game.DesignPattern.Singleton;
+    using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Input;
     using UnityEngine;
 

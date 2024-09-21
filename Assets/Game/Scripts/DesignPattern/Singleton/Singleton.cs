@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SunnyFarm.Game.DesignPattern.Singleton
+namespace SunnyFarm.Game.DesignPattern
 {
     public class Singleton<T> : MonoBehaviour where T : Component
     {

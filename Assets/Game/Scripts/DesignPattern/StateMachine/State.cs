@@ -1,6 +1,6 @@
-namespace SunnyFarm.Game.DesignPattern.StateMachine
+namespace SunnyFarm.Game.StateMachine
 {
-    using SunnyFarm.Game.Entities;
+    using SunnyFarm.Game.Entities.Player;
 
     public abstract class State
     {
@@ -22,5 +22,4 @@ namespace SunnyFarm.Game.DesignPattern.StateMachine
             this.stateMachine = stateMachine;
         }
     }
-
 }

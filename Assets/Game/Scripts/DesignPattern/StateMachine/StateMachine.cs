@@ -1,4 +1,4 @@
-namespace SunnyFarm.Game.DesignPattern.StateMachine
+namespace SunnyFarm.Game.StateMachine
 {
     using UnityEngine;
 

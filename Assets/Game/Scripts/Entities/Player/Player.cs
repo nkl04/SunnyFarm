@@ -1,12 +1,13 @@
-namespace SunnyFarm.Game.Entities
+namespace SunnyFarm.Game.Entities.Player
 {
-    using UnityEngine;
-    using SunnyFarm.Game.DesignPattern.StateMachine;
+    using SunnyFarm.Game.StateMachine;
     using SunnyFarm.Game.Input;
-    using UnityEngine.InputSystem;
     using SunnyFarm.Game.Managers.GameInput;
     using System;
-    using SunnyFarm.Game.DesignPattern.Singleton;
+    using SunnyFarm.Game.State.Player;
+    using UnityEngine;
+    using UnityEngine.InputSystem;
+
 
     public class Player : Singleton<Player>
     {

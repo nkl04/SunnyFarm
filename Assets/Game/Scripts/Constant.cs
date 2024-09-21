@@ -53,6 +53,12 @@ namespace SunnyFarm.Game
                 Scene1_Farm,
             }
         }
+
+        public static class Inventory
+        {
+            public const int HotbarCapacity = 10;
+            public const int MaxCapacity = 30;
+        }
     }
 }
 

@@ -7,7 +7,7 @@ namespace SunnyFarm.Game.Inventory.Data
     public class InventoryItem
     {
         public int Quantity;
-        public Item Item;
+        public ItemDetail Item;
         public bool IsEmpty => Item == null;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace SunnyFarm.Game.Inventory.Data
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
-        public void ChangeItem(Item item, int quantity)
+        public void ChangeItem(ItemDetail item, int quantity)
         {
             Item = item;
             Quantity = quantity;

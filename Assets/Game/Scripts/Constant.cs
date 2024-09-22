@@ -52,6 +52,17 @@ namespace SunnyFarm.Game
             {
                 Scene1_Farm,
             }
+
+            public enum ItemType
+            {
+                Tool,
+                Seed,
+                Crop,
+                Commodity,
+                Resource,
+                Reapable_Scenary,
+                None,
+            }
         }
 
         public static class Inventory

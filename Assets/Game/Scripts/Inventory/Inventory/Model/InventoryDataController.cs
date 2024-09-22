@@ -52,7 +52,7 @@ namespace SunnyFarm.Game.Inventory.Data
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
-        public void AddItem(Item item, int quantity)
+        public void AddItem(ItemDetail item, int quantity)
         {
             if (item.IsStackable == false)
             {
@@ -73,7 +73,7 @@ namespace SunnyFarm.Game.Inventory.Data
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
-        public void AddItemToFirstFreeSlot(Item item, int quantity)
+        public void AddItemToFirstFreeSlot(ItemDetail item, int quantity)
         {
             for (int i = 0; i < inventoryItems.Length; i++)
             {
@@ -89,7 +89,7 @@ namespace SunnyFarm.Game.Inventory.Data
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
-        public void AddStackableItem(Item item, int quantity)
+        public void AddStackableItem(ItemDetail item, int quantity)
         {
             for (int i = 0; i < inventoryItems.Length; i++)
             {

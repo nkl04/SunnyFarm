@@ -63,6 +63,13 @@ namespace SunnyFarm.Game
                 Reapable_Scenary,
                 None,
             }
+
+            public enum InventoryLocation
+            {
+                Player,
+                Chest,
+                None
+            }
         }
 
         public static class Inventory

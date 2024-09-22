@@ -1,7 +1,10 @@
 namespace SunnyFarm.Game
 {
     using SunnyFarm.Game.DesignPattern;
+    using SunnyFarm.Game.Inventory.Data;
     using System;
+    using System.Collections.Generic;
+    using static SunnyFarm.Game.Constant.Enums;
 
     public static class EventHandler
     {
@@ -48,6 +51,19 @@ namespace SunnyFarm.Game
             if (OnAfterSceneLoadFadeIn != null)
             {
                 OnAfterSceneLoadFadeIn?.Invoke();
+            }
+        }
+        #endregion
+
+        #region Inventory Events
+        // Inventory updated event
+        public static event Action<InventoryLocation, List<InventoryItem>> OnInventoryUpdated;
+
+        public static void CallOnInventoryUpdated(InventoryLocation location, List<InventoryItem> inventoryItems)
+        {
+            if (OnInventoryUpdated != null)
+            {
+                OnInventoryUpdated?.Invoke(location, inventoryItems);
             }
         }
         #endregion

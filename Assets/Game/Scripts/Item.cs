@@ -1,5 +1,7 @@
 namespace SunnyFarm.Game.Entities.Item
 {
+    using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Managers;
     using SunnyFarm.Game.Utilities.PropertyDrawer;
     using UnityEngine;
 
@@ -13,7 +15,7 @@ namespace SunnyFarm.Game.Entities.Item
 
         private void Awake()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void Start()
@@ -27,6 +29,17 @@ namespace SunnyFarm.Game.Entities.Item
 
         private void Init(string itemID)
         {
+            if (itemID != null)
+            {
+                ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemID);
+
+                spriteRenderer.sprite = itemDetail.ItemImage;
+
+                if (itemDetail.ItemType == Constant.Enums.ItemType.Reapable_Scenary)
+                {
+                    gameObject.AddComponent<ItemNudgeAnim>();
+                }
+            }
 
         }
     }

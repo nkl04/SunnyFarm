@@ -1,12 +1,12 @@
-
 namespace SunnyFarm.Game
 {
-    using UnityEngine;
     using System.Collections;
+    using UnityEngine;
 
     public class ObscuringItemFader : MonoBehaviour
     {
         private SpriteRenderer spriteRenderer;
+        private Coroutine activeFadeRoutine = null; // Track the currently active fade coroutine
 
         private void Start()
         {
@@ -17,7 +17,7 @@ namespace SunnyFarm.Game
         {
             if (collision.CompareTag(Constant.Tag.Player))
             {
-                FadeOut();
+                StartFadeOut();
             }
         }
 
@@ -25,18 +25,26 @@ namespace SunnyFarm.Game
         {
             if (collision.CompareTag(Constant.Tag.Player))
             {
-                FadeIn();
+                StartFadeIn();
             }
         }
 
-        public void FadeOut()
+        public void StartFadeOut()
         {
-            StartCoroutine(FadeOutRoutine());
+            if (activeFadeRoutine != null)
+            {
+                StopCoroutine(activeFadeRoutine); // Stop the current coroutine if it exists
+            }
+            activeFadeRoutine = StartCoroutine(FadeOutRoutine()); // Start the new fade out coroutine
         }
 
-        public void FadeIn()
+        public void StartFadeIn()
         {
-            StartCoroutine(FadeInRoutine());
+            if (activeFadeRoutine != null)
+            {
+                StopCoroutine(activeFadeRoutine); // Stop the current coroutine if it exists
+            }
+            activeFadeRoutine = StartCoroutine(FadeInRoutine()); // Start the new fade in coroutine
         }
 
         private IEnumerator FadeOutRoutine()
@@ -52,6 +60,7 @@ namespace SunnyFarm.Game
             }
 
             spriteRenderer.color = new Color(1, 1, 1, Constant.ColorStat.TargetAlpha);
+            activeFadeRoutine = null; // Reset the coroutine tracker
             Debug.Log("Faded out");
         }
 
@@ -66,6 +75,8 @@ namespace SunnyFarm.Game
                 spriteRenderer.color = new Color(1, 1, 1, currentAlpha);
                 yield return null;
             }
+
+            activeFadeRoutine = null; // Reset the coroutine tracker
             Debug.Log("Faded in");
         }
     }

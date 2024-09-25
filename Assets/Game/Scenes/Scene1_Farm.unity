@@ -196,6 +196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: House
       objectReference: {fileID: 0}
+    - target: {fileID: 1066913891086172991, guid: 8bbe2bf72adf0a647816f318080d4eaf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3210242804558436629, guid: 8bbe2bf72adf0a647816f318080d4eaf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.04
@@ -384,27 +388,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108761326682757740, guid: be1cbfeca066f0b46ae6c0bb09be54e2, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[0].second.m_AnimationSpeed
-      value: 8.948925
+      value: 5.5598354
       objectReference: {fileID: 0}
     - target: {fileID: 3108761326682757740, guid: be1cbfeca066f0b46ae6c0bb09be54e2, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[1].second.m_AnimationSpeed
-      value: 5.817427
+      value: 5.3255806
       objectReference: {fileID: 0}
     - target: {fileID: 3108761326682757740, guid: be1cbfeca066f0b46ae6c0bb09be54e2, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[2].second.m_AnimationSpeed
-      value: 7.877652
+      value: 8.338079
       objectReference: {fileID: 0}
     - target: {fileID: 3108761326682757740, guid: be1cbfeca066f0b46ae6c0bb09be54e2, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[3].second.m_AnimationSpeed
-      value: 4.991349
+      value: 4.302698
       objectReference: {fileID: 0}
     - target: {fileID: 3108761326682757740, guid: be1cbfeca066f0b46ae6c0bb09be54e2, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[4].second.m_AnimationSpeed
-      value: 4.606947
+      value: 5.003126
       objectReference: {fileID: 0}
     - target: {fileID: 3108761326682757740, guid: be1cbfeca066f0b46ae6c0bb09be54e2, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[5].second.m_AnimationSpeed
-      value: 9.654019
+      value: 7.694998
       objectReference: {fileID: 0}
     - target: {fileID: 7284299384179376653, guid: be1cbfeca066f0b46ae6c0bb09be54e2, type: 3}
       propertyPath: m_LocalPosition.x

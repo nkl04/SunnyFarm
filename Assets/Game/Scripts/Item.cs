@@ -24,7 +24,6 @@ namespace SunnyFarm.Game.Entities.Item
             {
                 Init(itemID);
             }
-
         }
 
         private void Init(string itemID)
@@ -40,7 +39,6 @@ namespace SunnyFarm.Game.Entities.Item
                     gameObject.AddComponent<ItemNudgeAnim>();
                 }
             }
-
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SunnyFarm.Game
     using UnityEngine.UI;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class SceneControllerManager : Singleton<SceneControllerManager>
+    public class SceneController : Singleton<SceneController>
     {
         public SceneName sceneName;
         [SerializeField] private Image fadeImage;

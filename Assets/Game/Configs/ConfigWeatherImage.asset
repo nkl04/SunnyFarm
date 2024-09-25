@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680caf14c7fc2db4a8aa8026c3b5f65c, type: 3}
+  m_Name: ConfigWeatherImage
+  m_EditorClassIdentifier: 
+  sunnySprite: {fileID: 1750544079, guid: 168f8bfd45e5e874ab9315931e105f39, type: 3}
+  rainySprite: {fileID: 363143839, guid: 168f8bfd45e5e874ab9315931e105f39, type: 3}
+  snownySprite: {fileID: 1036190836, guid: 168f8bfd45e5e874ab9315931e105f39, type: 3}
+  springSprite: {fileID: -911514781, guid: 168f8bfd45e5e874ab9315931e105f39, type: 3}
+  summerSprite: {fileID: -1701025876, guid: 168f8bfd45e5e874ab9315931e105f39, type: 3}
+  fallSprite: {fileID: -296327184, guid: 168f8bfd45e5e874ab9315931e105f39, type: 3}
+  winterSprite: {fileID: 492056187, guid: 168f8bfd45e5e874ab9315931e105f39, type: 3}

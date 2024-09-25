@@ -70,12 +70,43 @@ namespace SunnyFarm.Game
                 Chest,
                 None
             }
+
+            public enum Season
+            {
+                Spring,
+                Summer,
+                Fall,
+                Winter
+            }
+
+            public enum Weather
+            {
+                Sunny,
+                Rainy,
+                Snowny
+            }
+
+            public enum WeekDay
+            {
+                Mon,
+                Tue,
+                Wed,
+                Thur,
+                Fri,
+                Sat,
+                Sun
+            }
         }
 
         public static class Inventory
         {
             public const int HotbarCapacity = 10;
             public const int MaxCapacity = 30;
+        }
+
+        public static class Time
+        {
+            public const float secondPerGameSecond = 0.012f;
         }
     }
 }

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8069253271009975718}
   - component: {fileID: 8825795102501622832}
   - component: {fileID: 4221989601504150236}
+  - component: {fileID: 3173045734257758696}
+  - component: {fileID: 5991600148334932022}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -61,3 +63,28 @@ MonoBehaviour:
   fadeImage: {fileID: 0}
   fadeDuration: 1
   fadeCanvasGroup: {fileID: 0}
+--- !u!114 &3173045734257758696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7691776493010477639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e53991b502b1ef4e875a7b045a61c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5991600148334932022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7691776493010477639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac083f33147e8a4791984bcdc8f4863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configWeatherImage: {fileID: 11400000, guid: d5709dc8754df564599fa59bb6779ee4, type: 2}

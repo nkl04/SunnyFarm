@@ -52,7 +52,6 @@ namespace SunnyFarm.Game
             }
 
             spriteRenderer.color = new Color(1, 1, 1, Constant.ColorStat.TargetAlpha);
-            Debug.Log("Faded out");
         }
 
         private IEnumerator FadeInRoutine()
@@ -66,7 +65,6 @@ namespace SunnyFarm.Game
                 spriteRenderer.color = new Color(1, 1, 1, currentAlpha);
                 yield return null;
             }
-            Debug.Log("Faded in");
         }
     }
 }

@@ -75,8 +75,6 @@ namespace SunnyFarm.Game.Managers
             }
 
             EventHandler.CallAdvanceGameMinute(year, season, day, weekDay, hour, minute, second);
-
-            Debug.Log("Game Year: " + year + " - Season: " + season + " - Day: " + day + " - Weekday: " + weekDay + " - Hour: " + hour + " - Minute: " + minute);
         }
 
         private void UpdateGameHour()

@@ -2,13 +2,14 @@ namespace SunnyFarm.Game.Inventory.UI
 {
     using TMPro;
     using UnityEngine;
-    using UnityEngine.UI;
+    using static SunnyFarm.Game.Constant.Enums;
+
     public class UIInventoryDescription : MonoBehaviour
     {
         [SerializeField]
-        private Image itemImage;
-        [SerializeField]
         private TMP_Text title;
+        [SerializeField]
+        private TMP_Text type;
         [SerializeField]
         private TMP_Text description;
 
@@ -19,17 +20,16 @@ namespace SunnyFarm.Game.Inventory.UI
 
         public void ResetDescription()
         {
-            itemImage.gameObject.SetActive(false);
             title.text = "";
+            type.text = "";
             description.text = "";
         }
 
-        public void SetDescription(Sprite sprite, string itemName,
+        public void SetDescription(string itemName, ItemType itemType,
             string itemDescription)
         {
-            itemImage.gameObject.SetActive(true);
-            itemImage.sprite = sprite;
             title.text = itemName;
+            //type.text = itemType.ToString();
             description.text = itemDescription;
         }
     }

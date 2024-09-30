@@ -4,28 +4,24 @@ namespace SunnyFarm.Game.Inventory.UI
     using System;
     using TMPro;
     using UnityEngine;
-    using UnityEngine.InputSystem;
     using UnityEngine.UI;
+    using static SunnyFarm.Game.Constant.Enums;
 
-    public class UIInventoryView : MonoBehaviour
+    public abstract class UIInventoryView : MonoBehaviour
     {
-        [SerializeField] private UIInventoryItem itemPrefab;
+        [SerializeField] protected UIInventoryItem itemPrefab;
 
-        [SerializeField] private RectTransform draggedItem;
+        [SerializeField] protected RectTransform draggedItem;
 
-        [SerializeField] private RectTransform quickAccessPanel;
-        [SerializeField] private RectTransform notQuickAccessPanel;
-        [SerializeField] private UIInventoryDescription uiInventoryDescription;
+        [SerializeField] protected UIInventoryDescription uiInventoryDescription;
 
-        private int currentlyDraggedItemIndex = -1;
+        protected UIInventoryItem currentlyDraggedItem = null;
 
-        // field to store quick-access items
         [SerializeField]
-        UIInventoryItem[] listOfUIItems = new UIInventoryItem[Constant.Inventory.MaxCapacity];
+        protected UIInventoryItem[] listOfUIItems = new UIInventoryItem[Constant.Inventory.MaxCapacity];
 
         // Event
-        public event Action OnDescriptionRequested;
-        public event Action<int, int> OnSwapItems;
+        public event Action<UIInventoryItemKeyData> OnDescriptionRequested;
 
         private void Awake()
         {
@@ -36,40 +32,8 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Init item slot ui for the whole inventory 
         /// </summary>
         /// <param name="capacity"></param>
-        public void InitializeInventoryUI(int capacity)
-        {
-            // Instantiate items first and set up their events
-            for (int i = 0; i < listOfUIItems.Length; i++)
-            {
-                // Instantiate item
-                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform.root);
-                item.ItemIndex = i;
-                listOfUIItems[i] = item;
+        public abstract void InitializeInventoryUI(int capacity);
 
-                // set up events
-                item.OnItemClicked += HandleItemClick;
-                item.OnItemBeginDrag += HandleItemBeginDrag;
-                item.OnItemDrag += HandleItemDrag;
-                item.OnItemEndDrag += HandleItemEndDrag;
-                item.OnItemDroppedOn += HandleSwap;
-                item.OnItemHover += HandleItemHover;
-
-                // set the item's parent and store in their array
-                if (i < Constant.Inventory.HotbarCapacity)
-                {
-                    item.transform.SetParent(quickAccessPanel);
-                }
-                else
-                {
-                    item.transform.SetParent(notQuickAccessPanel);
-                }
-            }
-            // Unlock the slot item based on capacity
-            for (int i = 0; i < capacity; i++)
-            {
-                listOfUIItems[i].UnlockSlot();
-            }
-        }
         /// <summary>
         /// Update data for the inventory item UI
         /// </summary>
@@ -79,6 +43,11 @@ namespace SunnyFarm.Game.Inventory.UI
         public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
         {
             listOfUIItems[itemIdx].SetData(sprite, quantity);
+        }
+
+        public void UpdateItemDescription(int itemIdx, string itemName, ItemType itemType, string itemDescription)
+        {
+            uiInventoryDescription.SetDescription(itemName, itemType, itemDescription);
         }
         /// <summary>
         /// Reset all slot in inventory items
@@ -96,19 +65,13 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Check if can swap and implement the logic of swapping
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        private void HandleSwap(UIInventoryItem item)
-        {
-            int index = item.ItemIndex;
-            if (currentlyDraggedItemIndex == -1) return;
-            OnSwapItems?.Invoke(index, currentlyDraggedItemIndex);
+        protected abstract void HandleSwap(UIInventoryItem item);
 
-        }
         /// <summary>
         /// Check if can swap and implement the logic of swapping
         /// </summary>
         /// <param name="item"></param>
-        private void HandleItemEndDrag(UIInventoryItem item)
+        protected void HandleItemEndDrag(UIInventoryItem item)
         {
             ResetDraggedItem(item);
         }
@@ -116,10 +79,10 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Item follow the mouse position
         /// </summary>
         /// <param name="item"></param>
-        private void HandleItemDrag(UIInventoryItem item)
+        protected void HandleItemDrag(UIInventoryItem item)
         {
             Vector2 position;
-            Canvas canvas = transform.root.GetComponent<Canvas>();
+            Canvas canvas = transform.root.GetComponentInParent<Canvas>();
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 (RectTransform)canvas.transform,
                 Input.mousePosition,
@@ -132,12 +95,12 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Reset data in item ui and instantiate item
         /// </summary>
         /// <param name="item"></param>
-        private void HandleItemBeginDrag(UIInventoryItem item)
+        protected void HandleItemBeginDrag(UIInventoryItem item)
         {
             int index = item.ItemIndex;
             if (index == -1)
                 return;
-            currentlyDraggedItemIndex = index;
+            currentlyDraggedItem = item;
             // Hide the data in drag slot
             item.HideData();
             // Set up for the dragged item
@@ -158,12 +121,43 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Show the description of the item
         /// </summary>
         /// <param name="item"></param>
-        private void HandleItemHover(UIInventoryItem item)
+        protected void HandleItemHover(UIInventoryItem item)
         {
             int index = item.ItemIndex;
             if (index == -1)
                 return;
-            OnDescriptionRequested?.Invoke();
+
+            UIInventoryItemKeyData itemData = new UIInventoryItemKeyData
+            {
+                Index = item.ItemIndex,
+                ItemLocation = item.ItemLocation
+            };
+
+            uiInventoryDescription.gameObject.SetActive(true);
+
+            Vector2 position;
+            Canvas canvas = transform.GetComponentInParent<Canvas>();
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                (RectTransform)canvas.transform,
+                Input.mousePosition,
+                canvas.worldCamera,
+                out position
+                    );
+            uiInventoryDescription.transform.position = canvas.transform.TransformPoint(position);
+
+            OnDescriptionRequested?.Invoke(itemData);
+        }
+        /// <summary>
+        /// Show the description of the item
+        /// </summary>
+        /// <param name="item"></param>
+        protected void HandleItemEndHover(UIInventoryItem item)
+        {
+            int index = item.ItemIndex;
+            if (index == -1)
+                return;
+
+            uiInventoryDescription.gameObject.SetActive(false);
         }
         /// <summary>
         /// Reset dragged item when end dragging
@@ -173,12 +167,12 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             item.ShowData();
             draggedItem.gameObject.SetActive(false);
-            currentlyDraggedItemIndex = -1;
+            currentlyDraggedItem = null;
         }
         #endregion
 
         /// <summary>
-        /// Set data for the dragged item
+        /// Set data for the dragged item 
         /// </summary>
         /// <param name="sprite"></param>
         /// <param name="quantity"></param>
@@ -186,18 +180,6 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             draggedItem.GetComponent<Image>().sprite = sprite;
             draggedItem.GetComponentInChildren<TMP_Text>().text = quantity.text;
-        }
-
-
-        /// <summary>
-        /// Open or close the inventory UI based on is E pressed?
-        /// </summary>
-        /// <param name="context"></param>
-        public void OnOpenOrCloseInventory(InputAction.CallbackContext context)
-        {
-            if (!gameObject.activeSelf)
-                gameObject.SetActive(true);
-            else gameObject.SetActive(false);
         }
 
     }

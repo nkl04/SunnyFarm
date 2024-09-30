@@ -5,8 +5,10 @@ namespace SunnyFarm.Game.Inventory.UI
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
+    using static SunnyFarm.Game.Constant.Enums;
+
     public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
-        IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler
+        IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Item's info")]
         [SerializeField] private Image itemImage;
@@ -17,16 +19,22 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField] private Sprite unlockedBG;
         [SerializeField] private Image backgroundSlot;
 
+        public InventoryLocation ItemLocation { get; private set; }
+
         [SerializeField] private bool isEmpty = false; // serialize for test
 
         public int ItemIndex { get; set; }
 
         public event Action<UIInventoryItem> OnItemClicked, OnItemDroppedOn,
-            OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover;
+            OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover, OnItemEndHover;
         private void Awake()
         {
             ResetData();
             Deselect();
+        }
+        public void SetItemLocation(InventoryLocation location)
+        {
+            ItemLocation = location;
         }
         /// <summary>
         /// Get the sprite and text in item ui
@@ -119,6 +127,12 @@ namespace SunnyFarm.Game.Inventory.UI
         public void OnDrop(PointerEventData eventData)
         {
             OnItemDroppedOn?.Invoke(this);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (isEmpty) return;
+            OnItemEndHover?.Invoke(this);
         }
         #endregion
     }

@@ -31,7 +31,7 @@ namespace SunnyFarm.Game.Managers
 
             foreach (Collider2D collider in colliders)
             {
-                ToolHit toolHit = collider.GetComponent<ToolHit>();
+                ToolHit toolHit = collider.GetComponentInParent<ToolHit>();
 
                 if (toolHit != null)
                 {

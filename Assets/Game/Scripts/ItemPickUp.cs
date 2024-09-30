@@ -14,6 +14,20 @@ namespace SunnyFarm.Game
         [SerializeField] private float pickUpDistance = 2f;
         [SerializeField] private CircleCollider2D lootingArea;
 
+#if UNITY_EDITOR
+
+        private void OnValidate()
+        {
+            SetLootingAreaRadius(pickUpDistance);
+        }
+
+        private void SetLootingAreaRadius(float radius)
+        {
+            lootingArea.radius = radius;
+        }
+
+#endif
+
         private void Start()
         {
             lootingArea.radius = pickUpDistance;
@@ -31,7 +45,6 @@ namespace SunnyFarm.Game
                 }
             }
         }
-
         private IEnumerator MoveItemToPlayer(Item item)
         {
             Vector3 playerPos = transform.position;

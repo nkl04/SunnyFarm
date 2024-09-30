@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass_Spring_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3900666391890391650, guid: fbbb5bacd4231b942ac500e5cd1030cf, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4114319631393875908, guid: fbbb5bacd4231b942ac500e5cd1030cf, type: 3}
       propertyPath: itemID
       value: 40003

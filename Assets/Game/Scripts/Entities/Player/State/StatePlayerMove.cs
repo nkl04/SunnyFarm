@@ -39,9 +39,11 @@ namespace SunnyFarm.Game.State.Player
 
             if (this.player.MovementInput != Vector2.zero)
             {
-                this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_X, this.player.MovementInput.x);
+                this.player.LastMovementInput = this.player.MovementInput;
 
-                this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_Y, this.player.MovementInput.y);
+                this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_X, this.player.LastMovementInput.x);
+
+                this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_Y, this.player.LastMovementInput.y);
             }
 
             if (this.player.MovementInput.x > 0 && !this.player.IsFacingRight)

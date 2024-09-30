@@ -22,6 +22,15 @@ MonoBehaviour:
     MaxStackSize: 32
     CanBePickUp: 1
     CanBeEaten: 1
+  - ID: 50001
+    ItemType: 2
+    Name: Log
+    Description: 
+    ItemImage: {fileID: -1019866753, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 0
   - ID: 40001
     ItemType: 5
     Name: Grass_Spring_0
@@ -48,13 +57,4 @@ MonoBehaviour:
     IsStackable: 0
     MaxStackSize: 1
     CanBePickUp: 0
-    CanBeEaten: 0
-  - ID: 50001
-    ItemType: 2
-    Name: Log
-    Description: 
-    ItemImage: {fileID: -1019866753, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
-    IsStackable: 1
-    MaxStackSize: 32
-    CanBePickUp: 1
     CanBeEaten: 0

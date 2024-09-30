@@ -35,7 +35,7 @@ namespace SunnyFarm.Game.Managers
 
                 if (toolHit != null)
                 {
-                    toolHit.Hit();
+                    toolHit.Hit(this.player);
                     break;
                 }
             }

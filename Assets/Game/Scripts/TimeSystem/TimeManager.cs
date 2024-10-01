@@ -3,6 +3,7 @@ namespace SunnyFarm.Game.Managers
     using SunnyFarm.Game;
     using SunnyFarm.Game.DesignPattern;
     using UnityEngine;
+    using UnityEngine.Rendering.Universal;
     using static SunnyFarm.Game.Constant.Enums;
 
     public class TimeManager : Singleton<TimeManager>
@@ -37,6 +38,11 @@ namespace SunnyFarm.Game.Managers
             if (Input.GetKeyDown(KeyCode.N) & Input.GetKey(KeyCode.LeftControl))
             {
                 TestAdvanceDay();
+            }
+
+            if (Input.GetKeyDown(KeyCode.H) & Input.GetKey(KeyCode.LeftControl))
+            {
+                TestAdvanceHour();
             }
         }
 
@@ -139,6 +145,18 @@ namespace SunnyFarm.Game.Managers
 
         //TODO: Remove
         /// <summary>
+        /// Advance 1 game hour
+        /// </summary>
+        public void TestAdvanceHour()
+        {
+            for (int i = 0; i < 3600; i++)
+            {
+                UpdateGameSecond();
+            }
+        }
+
+        //TODO: Remove
+        /// <summary>
         /// Advance 1 game day
         /// </summary>
         public void TestAdvanceDay()
@@ -148,5 +166,9 @@ namespace SunnyFarm.Game.Managers
                 UpdateGameSecond();
             }
         }
+
+
+
+
     }
 }

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3657060965499773783}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -291,5 +291,7 @@ MonoBehaviour:
   bodyTree: {fileID: 4699703938272059942}
   stoolTree: {fileID: 3657060965499773783}
   dropPrefab: {fileID: 6280926952856602585, guid: eb465695787840b4595f6a4197f80179, type: 3}
-  dropAmount: 5
+  bodyDropAmount: 5
+  stoolDropAmount: 5
   spread: 0.7
+  hp: 10

@@ -11,14 +11,17 @@ public class TreeCuttable : ToolHit
 
     [Space(5)]
 
-    [Header("Tree Drops")]
+    [Header("Tree Data")]
     [SerializeField] private GameObject dropPrefab;
     [SerializeField] private int bodyDropAmount = 5;
     [SerializeField] private float stoolDropAmount = 5f;
-    [SerializeField] private float spread = 2f;
+    [SerializeField] private float spread = 3f;
 
-    private float fallDegreeZ = 60f;
+    // Fall animation
+    private float fallDegreeZ = 80f;
     private float fallDuration = 1f;
+    private float baseTreeLength = 2f;
+    private bool isBodyFall = false;
 
     //TODO: Remove
     public int hp = 10;
@@ -32,57 +35,115 @@ public class TreeCuttable : ToolHit
         if (hp == 5)
         {
             BodyFallAnim(player.LastMovementInput);
+
+            return;
         }
 
-        if (bodyTree != null)
+
+        if (bodyTree != null && !isBodyFall)
         {
-            ShakeAnim(bodyTree);
+            RotateBodyAnim();
         }
-        else
+        else if (stoolTree != null && isBodyFall)
         {
-            ShakeAnim(stoolTree);
+            VibrateStoolAnim();
         }
+
 
         if (hp <= 0)
         {
-            while (bodyDropAmount > 0)
-            {
-                bodyDropAmount--;
+            DropLog(stoolTree.transform.position, (int)stoolDropAmount);
 
-                Vector3 pos = transform.position;
-                pos.x += spread * Random.value - spread / 2;
-                pos.y += spread * Random.value - spread / 2;
-
-                Instantiate(dropPrefab, pos, Quaternion.identity);
-            }
             Destroy(gameObject);
         }
     }
 
-    public void ShakeAnim(GameObject gameObject)
+
+    public void RotateBodyAnim()
     {
-        gameObject.transform.DOShakePosition(0.5f, 0.5f, 10, 90, false, true);
+        bodyTree.transform.DORotate(new Vector3(0, 0, -3f), 0.1f, RotateMode.LocalAxisAdd)
+        .OnComplete(() =>
+        {
+            bodyTree.transform.DORotate(new Vector3(0, 0, 4f), 0.15f, RotateMode.LocalAxisAdd)
+            .OnComplete(() =>
+            {
+                bodyTree.transform.DORotate(new Vector3(0, 0, -1f), 0.05f, RotateMode.LocalAxisAdd)
+                .OnComplete(() =>
+                {
+                    // do something 
+                });
+            });
+        });
+    }
+
+    private void VibrateStoolAnim()
+    {
+        stoolTree.transform.DOShakePosition(0.5f, new Vector3(0.05f, 0, 0), 10, 0, false, true)
+        .OnComplete(() =>
+        {
+            // do something
+        });
     }
 
     public void BodyFallAnim(Vector2 directionImpact)
     {
-        float fallDirectionZ = directionImpact.x != 0 ? -directionImpact.x * fallDegreeZ : Random.Range(-1f, 1f) * fallDegreeZ;
-        //body tree fall
-        bodyTree.transform.DORotate(new Vector3(0f, 0f, fallDirectionZ), fallDuration).OnComplete(() =>
-        {
-            //drop log
-            while (bodyDropAmount > 0)
+        isBodyFall = true;
+
+        float fallDirectionZ = directionImpact.x != 0 ? -directionImpact.x * fallDegreeZ : Mathf.Sign(Random.Range(-1f, 1f)) * fallDegreeZ;
+
+        bodyTree.transform.DORotate(new Vector3(0f, 0f, fallDirectionZ), fallDuration)
+            .SetEase(Ease.InCubic)
+            .OnComplete(() =>
             {
-                bodyDropAmount--;
+                Vector3 finalPosition = bodyTree.transform.position;
 
-                Vector3 pos = bodyTree.transform.position;
-                pos.x += spread * Random.value - spread / 2;
-                pos.y += spread * Random.value - spread / 2;
+                Vector3 direction = new Vector3(-fallDirectionZ, 0, 0).normalized;
 
-                Instantiate(dropPrefab, pos, Quaternion.identity);
-            }
+                // Drop log position when body tree fall
+                Vector3 adjustedPosition = finalPosition + direction * baseTreeLength;
 
-            Destroy(bodyTree);
-        });
+                DropLog(adjustedPosition, bodyDropAmount);
+
+                Destroy(bodyTree);
+            });
+    }
+
+
+    /// <summary>
+    /// Drop logs
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="amount"></param>
+    private void DropLog(Vector2 position, int amount)
+    {
+        while (amount > 0)
+        {
+            amount--;
+
+            Vector3 pos = position;
+
+            pos.x += spread * Random.value - spread / 2;
+
+            pos.y += spread * Random.value - spread / 2;
+
+            GameObject logObject = Instantiate(dropPrefab, pos, Quaternion.identity);
+
+            // log jump anim
+            logObject.transform.DOJump(
+            pos,
+            jumpPower: 1f,
+            numJumps: 1,
+            duration: 0.5f
+            ).OnComplete(() =>
+            {
+
+                logObject.transform.DOJump(
+                    pos,
+                    jumpPower: 0.2f,
+                    numJumps: 1,
+                    duration: 0.3f
+                );
+            });
+        }
     }
 }

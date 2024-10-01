@@ -9,6 +9,9 @@ namespace SunnyFarm.Game.Managers
         private Player player;
         private Rigidbody2D rb2d;
 
+        //TODO: Remove
+        private bool isUseTool = false;
+
         private void Start()
         {
             player = GetComponent<Player>();
@@ -17,11 +20,17 @@ namespace SunnyFarm.Game.Managers
 
         private void Update()
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1) & !isUseTool)
             {
                 UseTool();
+                isUseTool = true;
+            }
+            else if (Input.GetMouseButton(0) & isUseTool)
+            {
+                isUseTool = false;
             }
         }
+
 
         private void UseTool()
         {

@@ -105,13 +105,13 @@ namespace SunnyFarm.Game
         /// <summary>
         /// Call the advance game hour event
         /// </summary>
-        /// <param name="hour"></param>
+        /// <param name="year"></param>
         /// <param name="season"></param>
         /// <param name="day"></param>
         /// <param name="dayOfWeek"></param>
+        /// <param name="hour"></param>
         /// <param name="minute"></param>
-        /// <param name="minuteOfDay"></param>
-        /// <param name="dayOfYear"></param>
+        /// <param name="second"></param>
         public static void CallAdvanceGameHour(int year, Season season, int day, WeekDay dayOfWeek, int hour, int minute, int second)
         {
             if (OnAdvanceGameHour != null)
@@ -130,12 +130,13 @@ namespace SunnyFarm.Game
         /// <summary>
         /// Call the advance game day event
         /// </summary>
-        /// <param name="dayOfWeek"></param>
-        /// <param name="hour"></param>
+        /// <param name="year"></param>
         /// <param name="season"></param>
         /// <param name="day"></param>
-        /// <param name="minuteOfDay"></param>
-        /// <param name="dayOfYear"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        /// <param name="second"></param>
         public static void CallAdvanceGameDay(int year, Season season, int day, WeekDay dayOfWeek, int hour, int minute, int second)
         {
             if (OnAdvanceGameDay != null)
@@ -154,12 +155,13 @@ namespace SunnyFarm.Game
         /// <summary>
         /// Call the advance game season event
         /// </summary>
-        /// <param name="dayOfWeek"></param>
-        /// <param name="hour"></param>
+        /// <param name="year"></param>
         /// <param name="season"></param>
         /// <param name="day"></param>
-        /// <param name="minuteOfDay"></param>
-        /// <param name="dayOfYear"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        /// <param name="second"></param>
         public static void CallAdvanceGameSeason(int year, Season season, int day, WeekDay dayOfWeek, int hour, int minute, int second)
         {
             if (OnAdvanceGameSeason != null)
@@ -178,12 +180,13 @@ namespace SunnyFarm.Game
         /// <summary>
         /// Call the advance game year event
         /// </summary>
-        /// <param name="dayOfWeek"></param>
-        /// <param name="hour"></param>
+        /// <param name="year"></param>
         /// <param name="season"></param>
         /// <param name="day"></param>
-        /// <param name="minuteOfDay"></param>
-        /// <param name="dayOfYear"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        /// <param name="second"></param>
         public static void CallAdvanceGameYear(int year, Season season, int day, WeekDay dayOfWeek, int hour, int minute, int second)
         {
             if (OnAdvanceGameYear != null)

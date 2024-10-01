@@ -1,4 +1,3 @@
-
 namespace SunnyFarm.Game
 {
     using UnityEngine;

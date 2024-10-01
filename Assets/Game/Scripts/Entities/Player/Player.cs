@@ -17,6 +17,8 @@ namespace SunnyFarm.Game.Entities.Player
 
         public Vector2 MovementInput => movementInput;
 
+        public Vector2 LastMovementInput { get => lastMovementInput; set => lastMovementInput = value; }
+
         public float WalkSpeed => walkSpeed;
 
         public float RunSpeed => runSpeed;
@@ -47,6 +49,8 @@ namespace SunnyFarm.Game.Entities.Player
         private StateMachine<StatePlayer> stateMachine;
 
         private Vector2 movementInput;
+
+        private Vector2 lastMovementInput;
 
         private Rigidbody2D rb2d;
 

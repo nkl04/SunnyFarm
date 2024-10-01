@@ -1644,7 +1644,7 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.05971876, g: 0.088247016, b: 0.20754719, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -1953,12 +1953,84 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
       propertyPath: nightLightCurve.m_Curve.Array.data[3].time
       value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
       propertyPath: nightLightCurve.m_Curve.Array.data[4].time
-      value: 19
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[5].time
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[6].time
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[4].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[5].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[6].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[4].inSlope
+      value: -0.002673997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[5].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[6].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[4].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[4].outSlope
+      value: -0.002673997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[5].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[6].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[6].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[4].outWeight
+      value: 0.20298815
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[5].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[5].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352007274439222609, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
+      propertyPath: nightLightCurve.m_Curve.Array.data[6].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 4221989601504150236, guid: 11cf2496cea373f4a9289c4196022419, type: 3}
       propertyPath: fadeImage

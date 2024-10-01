@@ -48,7 +48,7 @@ namespace SunnyFarm.Game.Inventory
         private void SetupModel()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-            inventoryData.SetupSize(capacity);
+            inventoryData.Setup();
 
             inventoryData.OnBagUpdated += UpdateBagUIItems;
             inventoryData.OnChestUpdated += UpdateChestUIItems;
@@ -72,10 +72,9 @@ namespace SunnyFarm.Game.Inventory
             uiBagView.OnSwapItems += HandleSwapItemsInBagView;
             uiBagView.OnDescriptionRequested += HandleDescriptionRequested;
 
-
+            uiChestView.InitializeInventoryUI(30); // test
             uiChestView.OnSwapItems += HandleSwapItemsInChestView;
             uiChestView.OnDescriptionRequested += HandleDescriptionRequested;
-
         }
 
 

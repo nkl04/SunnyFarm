@@ -82,7 +82,7 @@ namespace SunnyFarm.Game.Inventory.UI
         protected void HandleItemDrag(UIInventoryItem item)
         {
             Vector2 position;
-            Canvas canvas = transform.root.GetComponentInParent<Canvas>();
+            Canvas canvas = transform.GetComponentInParent<Canvas>();
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 (RectTransform)canvas.transform,
                 Input.mousePosition,
@@ -97,9 +97,6 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="item"></param>
         protected void HandleItemBeginDrag(UIInventoryItem item)
         {
-            int index = item.ItemIndex;
-            if (index == -1)
-                return;
             currentlyDraggedItem = item;
             // Hide the data in drag slot
             item.HideData();
@@ -133,7 +130,7 @@ namespace SunnyFarm.Game.Inventory.UI
                 ItemLocation = item.ItemLocation
             };
 
-            uiInventoryDescription.gameObject.SetActive(true);
+
 
             Vector2 position;
             Canvas canvas = transform.GetComponentInParent<Canvas>();
@@ -143,10 +140,26 @@ namespace SunnyFarm.Game.Inventory.UI
                 canvas.worldCamera,
                 out position
                     );
-            uiInventoryDescription.transform.position = canvas.transform.TransformPoint(position);
+            ShowUpDescription(position, canvas);
 
             OnDescriptionRequested?.Invoke(itemData);
         }
+
+        private void ShowUpDescription(Vector2 position, Canvas canvas)
+        {
+            uiInventoryDescription.gameObject.SetActive(true);
+
+            Vector2 sizeUI = uiInventoryDescription.GetComponent<RectTransform>().sizeDelta;
+
+            Debug.Log(sizeUI);
+
+            Vector2 resolution = new Vector2(480, 270);
+
+            if (position.y < -1 * (resolution.y) / 2) { }
+
+            uiInventoryDescription.transform.position = canvas.transform.TransformPoint(position);
+        }
+
         /// <summary>
         /// Show the description of the item
         /// </summary>

@@ -1,12 +1,14 @@
 using SunnyFarm.Game.Inventory.UI;
 using System;
+using UnityEngine;
 using static SunnyFarm.Game.Constant.Enums;
 
 public class UIChestView : UIInventoryView
 {
-    private string id; // for complie error
-    // field: the items in bag
-    //
+    [SerializeField] private string id; // for complie error
+
+    [SerializeField] private RectTransform content;
+
 
 
     public string ID { get; private set; }
@@ -19,14 +21,33 @@ public class UIChestView : UIInventoryView
 
     public override void InitializeInventoryUI(int capacity)
     {
+        // Instantiate items first and set up their events
+        for (int i = 0; i < listOfUIItems.Length; i++)
+        {
+            // Instantiate item in main inventory
+            UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, content);
+            item.ItemIndex = i;
+            item.SetItemLocation(InventoryLocation.Chest);
+            listOfUIItems[i] = item;
 
+            // set up events
+            item.OnItemBeginDrag += HandleItemBeginDrag;
+            item.OnItemDrag += HandleItemDrag;
+            item.OnItemEndDrag += HandleItemEndDrag;
+            item.OnItemDroppedOn += HandleSwap;
+            item.OnItemHover += HandleItemHover;
+            item.OnItemEndHover += HandleItemEndHover;
+        }
+        // Unlock the slot item based on capacity
+        for (int i = 0; i < capacity; i++)
+        {
+            listOfUIItems[i].UnlockSlot();
+        }
     }
 
     protected override void HandleSwap(UIInventoryItem item)
     {
-        int index = item.ItemIndex;
-        if (index == -1)
-            return;
+        if (currentlyDraggedItem == null) return;
 
         UIInventoryItemKeyData itemData1 = new UIInventoryItemKeyData
         {

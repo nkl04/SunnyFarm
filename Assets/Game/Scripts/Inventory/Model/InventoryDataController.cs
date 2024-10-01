@@ -41,11 +41,10 @@ namespace SunnyFarm.Game.Inventory.Data
         /// Set up the size of the inventory item data and create each item in array
         /// </summary>
         /// <param name="size"></param>
-        public void SetupSize(int size)
+        public void Setup()
         {
-            maxSizeInventory = size;
-            bagItems = new InventoryItem[size];
-            for (int i = 0; i < size; i++)
+            bagItems = new InventoryItem[Constant.Inventory.MaxCapacity];
+            for (int i = 0; i < bagItems.Length; i++)
             {
                 bagItems[i] = new InventoryItem();
             }

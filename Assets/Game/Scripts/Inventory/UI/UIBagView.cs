@@ -32,7 +32,7 @@ namespace SunnyFarm.Game.Inventory.UI
             for (int i = 0; i < listOfUIItems.Length; i++)
             {
                 // Instantiate item in main inventory
-                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform.root);
+                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
                 item.ItemIndex = i;
                 item.SetItemLocation(InventoryLocation.Player);
                 listOfUIItems[i] = item;
@@ -82,7 +82,6 @@ namespace SunnyFarm.Game.Inventory.UI
 
         protected override void HandleSwap(UIInventoryItem item)
         {
-            int index = item.ItemIndex;
             if (currentlyDraggedItem == null) return;
 
             UIInventoryItemKeyData itemData1 = new UIInventoryItemKeyData

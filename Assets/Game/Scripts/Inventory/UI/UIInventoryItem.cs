@@ -7,7 +7,7 @@ namespace SunnyFarm.Game.Inventory.UI
     using UnityEngine.UI;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
+    public class UIInventoryItem : MonoBehaviour,
         IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Item's info")]
@@ -21,16 +21,15 @@ namespace SunnyFarm.Game.Inventory.UI
 
         public InventoryLocation ItemLocation { get; private set; }
 
-        [SerializeField] private bool isEmpty = false; // serialize for test
+        private bool isEmpty = false; // serialize for test
 
         public int ItemIndex { get; set; }
 
-        public event Action<UIInventoryItem> OnItemClicked, OnItemDroppedOn,
+        public event Action<UIInventoryItem> OnItemDroppedOn,
             OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover, OnItemEndHover;
         private void Awake()
         {
-            ResetData();
-            Deselect();
+
         }
         public void SetItemLocation(InventoryLocation location)
         {
@@ -112,15 +111,10 @@ namespace SunnyFarm.Game.Inventory.UI
             OnItemEndDrag?.Invoke(this);
         }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (isEmpty) return;
-            OnItemClicked?.Invoke(this);
-        }
-
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (isEmpty) return;
+
             OnItemHover?.Invoke(this);
         }
 

@@ -151,11 +151,14 @@ namespace SunnyFarm.Game.Inventory.UI
 
             Vector2 sizeUI = uiInventoryDescription.GetComponent<RectTransform>().sizeDelta;
 
-            Debug.Log(sizeUI);
-
             Vector2 resolution = new Vector2(480, 270);
 
-            if (position.y < -1 * (resolution.y) / 2) { }
+            if (position.y - sizeUI.y < -resolution.y / 2)
+            {
+                Vector2 curPivot = uiInventoryDescription.GetComponent<RectTransform>().pivot;
+                Vector2 newPivot = new Vector2(curPivot.x, -curPivot.y + 1f);
+                uiInventoryDescription.GetComponent<RectTransform>().pivot = newPivot;
+            }
 
             uiInventoryDescription.transform.position = canvas.transform.TransformPoint(position);
         }
@@ -170,6 +173,7 @@ namespace SunnyFarm.Game.Inventory.UI
             if (index == -1)
                 return;
 
+            uiInventoryDescription.ResetPivot();
             uiInventoryDescription.gameObject.SetActive(false);
         }
         /// <summary>

@@ -13,8 +13,10 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField]
         private TMP_Text description;
 
+        public Vector2 InitPivot { get; private set; }
         public void Awake()
         {
+            InitPivot = GetComponent<RectTransform>().pivot;
             ResetDescription();
         }
 
@@ -31,6 +33,10 @@ namespace SunnyFarm.Game.Inventory.UI
             title.text = itemName;
             //type.text = itemType.ToString();
             description.text = itemDescription;
+        }
+        public void ResetPivot()
+        {
+            GetComponent<RectTransform>().pivot = InitPivot;
         }
     }
 }

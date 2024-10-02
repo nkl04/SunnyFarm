@@ -68,10 +68,11 @@ namespace SunnyFarm.Game.Inventory
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
             uiBagView.InitializeInventoryUI(capacity);
 
-            // Regist events
+            // Regist events for bag view
             uiBagView.OnSwapItems += HandleSwapItemsInBagView;
             uiBagView.OnDescriptionRequested += HandleDescriptionRequested;
 
+            // Regist events for chest view
             uiChestView.InitializeInventoryUI(30); // test
             uiChestView.OnSwapItems += HandleSwapItemsInChestView;
             uiChestView.OnDescriptionRequested += HandleDescriptionRequested;
@@ -81,10 +82,10 @@ namespace SunnyFarm.Game.Inventory
 
         #region Handle events
         /// <summary>
-        /// Handle the swap event
+        /// Hande logic of swap item in bag view
         /// </summary>
-        /// <param name="idx1"></param>
-        /// <param name="idx2"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
         private void HandleSwapItemsInBagView(UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
         {
             if (item1.CompareLocation(item2))
@@ -92,6 +93,12 @@ namespace SunnyFarm.Game.Inventory
             else
                 inventoryData.SwapItemsInDifLocation(uiChestView.ID, item1, item2);
         }
+        /// <summary>
+        /// Hande logic of swap item in chest view
+        /// </summary>
+        /// <param name="chestID"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
         private void HandleSwapItemsInChestView(string chestID, UIInventoryItemKeyData item1,
             UIInventoryItemKeyData item2)
         {
@@ -110,19 +117,23 @@ namespace SunnyFarm.Game.Inventory
             {
                 item = inventoryData.GetItemInBag(itemData.Index);
                 if (item.IsEmpty) return;
-                uiBagView.UpdateItemDescription(itemData.Index, item.Item.Name, item.Item.ItemType, item.Item.Description);
+
+                uiBagView.UpdateItemDescription(itemData.Index, item.Item.Name,
+                    item.Item.ItemType, item.Item.Description);
             }
             else
             {
                 item = inventoryData.GetItemInChest(uiChestView.ID, itemData.Index);
                 if (item.IsEmpty) return;
-                uiChestView.UpdateItemDescription(itemData.Index, item.Item.Name, item.Item.ItemType, item.Item.Description);
+
+                uiChestView.UpdateItemDescription(itemData.Index, item.Item.Name,
+                    item.Item.ItemType, item.Item.Description);
             }
         }
         #endregion
 
         /// <summary>
-        /// Update bag view based on inventory list of data in model
+        /// Update bag view and mini bag view based on inventory list of data in model
         /// </summary>
         /// <param name="inventoryItems"></param>
         private void UpdateBagUIItems(InventoryItem[] inventoryItems)

@@ -9,15 +9,8 @@ public class UIChestView : UIInventoryView
 
     [SerializeField] private RectTransform content;
 
-
-
     public string ID { get; private set; }
     public event Action<string, UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     public override void InitializeInventoryUI(int capacity)
     {
@@ -44,7 +37,10 @@ public class UIChestView : UIInventoryView
             listOfUIItems[i].UnlockSlot();
         }
     }
-
+    /// <summary>
+    /// Hande swap logic in chest view
+    /// </summary>
+    /// <param name="item"></param>
     protected override void HandleSwap(UIInventoryItem item)
     {
         if (currentlyDraggedItem == null) return;
@@ -65,6 +61,9 @@ public class UIChestView : UIInventoryView
 
 
 }
+/// <summary>
+/// Struct for store key data of UI inventory item
+/// </summary>
 public struct UIInventoryItemKeyData
 {
     public int Index;

@@ -19,22 +19,15 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField] private Sprite unlockedBG;
         [SerializeField] private Image backgroundSlot;
 
-        public InventoryLocation ItemLocation { get; private set; }
-
-        private bool isEmpty = false; // serialize for test
+        private bool isEmpty = false;
+        private bool isUnlocked = false;
 
         public int ItemIndex { get; set; }
+        public InventoryLocation ItemLocation { get; private set; }
 
         public event Action<UIInventoryItem> OnItemDroppedOn,
             OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover, OnItemEndHover;
-        private void Awake()
-        {
 
-        }
-        public void SetItemLocation(InventoryLocation location)
-        {
-            ItemLocation = location;
-        }
         /// <summary>
         /// Get the sprite and text in item ui
         /// </summary>
@@ -54,6 +47,14 @@ namespace SunnyFarm.Game.Inventory.UI
             itemImage.sprite = image;
             itemQuantity.text = quantity > 1 ? quantity.ToString() : "";
             isEmpty = image == null;
+        }
+        /// <summary>
+        /// Set item's location to item
+        /// </summary>
+        /// <param name="location"></param>
+        public void SetItemLocation(InventoryLocation location)
+        {
+            ItemLocation = location;
         }
         /// <summary>
         /// Reset data in item ui
@@ -90,6 +91,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         public void UnlockSlot()
         {
+            isUnlocked = true;
             backgroundSlot.sprite = unlockedBG;
         }
 
@@ -114,12 +116,12 @@ namespace SunnyFarm.Game.Inventory.UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (isEmpty) return;
-
             OnItemHover?.Invoke(this);
         }
 
         public void OnDrop(PointerEventData eventData)
         {
+            if (!isUnlocked) return;
             OnItemDroppedOn?.Invoke(this);
         }
 

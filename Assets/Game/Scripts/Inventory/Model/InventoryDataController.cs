@@ -17,7 +17,6 @@ namespace SunnyFarm.Game.Inventory.Data
 
         public int InventoryLevel { get; private set; } = 1;
 
-        private int maxSizeInventory;
         void Start()
         {
             GetData();
@@ -50,17 +49,32 @@ namespace SunnyFarm.Game.Inventory.Data
             }
         }
 
+        #region Get item logic
+        /// <summary>
+        /// Get item data in player's bag based on index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public InventoryItem GetItemInBag(int index)
         {
             return bagItems[index];
         }
 
+        /// <summary>
+        /// Get item data in player's chest based on index and chest Id
+        /// </summary>
+        /// <param name="chestID"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public InventoryItem GetItemInChest(string chestID, int index)
         {
             return chests[chestID][index];
         }
+        #endregion
+
+        #region Add item logic
         /// <summary>
-        /// Logic that add item into inventory
+        /// Logic that add item into player's bag
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
@@ -81,7 +95,7 @@ namespace SunnyFarm.Game.Inventory.Data
             InformAboutBagChange();
         }
         /// <summary>
-        /// Add the item to the first free slot in inventory
+        /// Add the item to the first free slot in player's bag
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
@@ -97,7 +111,7 @@ namespace SunnyFarm.Game.Inventory.Data
             }
         }
         /// <summary>
-        /// Logic that add statckable into the inventory
+        /// Logic that add statckable into the player's bag
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
@@ -130,12 +144,14 @@ namespace SunnyFarm.Game.Inventory.Data
                 AddItemToFirstFreeSlot(item, newQuantity);
             }
         }
+        #endregion
 
+        #region Swap item logic
         /// <summary>
-        /// Logic that swap 2 bag item data
+        /// Logic that swap 2 items' data in bag
         /// </summary>
-        /// <param name="itemIdx1"></param>
-        /// <param name="itemIdx2"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
         public void SwapItemsInBag(UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
         {
             int itemIdx1 = item1.Index;
@@ -147,6 +163,12 @@ namespace SunnyFarm.Game.Inventory.Data
 
             InformAboutBagChange();
         }
+        /// <summary>
+        /// Logic that swap 2 items' data in chest
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
         public void SwapItemsInChest(string id, UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
         {
             var items = chests[id];
@@ -160,6 +182,12 @@ namespace SunnyFarm.Game.Inventory.Data
 
             InformAboutChestChange(id);
         }
+        /// <summary>
+        /// Logic that swap item's data from chest to bag or vice versa
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
         public void SwapItemsInDifLocation(string id, UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
         {
             var chestItems = chests[id];
@@ -168,6 +196,7 @@ namespace SunnyFarm.Game.Inventory.Data
             int itemIdx2 = item2.Index;
 
             InventoryItem item = null;
+
             if (item1.ItemLocation == InventoryLocation.Chest)
             {
                 item = chestItems[itemIdx1];
@@ -184,8 +213,11 @@ namespace SunnyFarm.Game.Inventory.Data
             InformAboutBagChange();
             InformAboutChestChange(id);
         }
+        #endregion
+
+        #region Remove item logic
         /// <summary>
-        /// Remove quantity's item in the inventory
+        /// Remove quantity's item in the player's bag
         /// </summary>
         /// <param name="itemIdx"></param>
         /// <param name="quantity"></param>
@@ -204,6 +236,12 @@ namespace SunnyFarm.Game.Inventory.Data
             }
             InformAboutBagChange();
         }
+        /// <summary>
+        /// Remove quantity's item in the player's chest
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="itemIdx"></param>
+        /// <param name="quantity"></param>
         public void RemoveChestItem(string id, int itemIdx, int quantity)
         {
             var items = chests[id];
@@ -220,6 +258,9 @@ namespace SunnyFarm.Game.Inventory.Data
             }
             InformAboutChestChange(id);
         }
+        #endregion
+
+
         /// <summary>
         /// Events that trigger when having changes in the bag list data
         /// </summary>

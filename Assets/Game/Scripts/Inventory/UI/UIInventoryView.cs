@@ -20,13 +20,10 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField]
         protected UIInventoryItem[] listOfUIItems = new UIInventoryItem[Constant.Inventory.MaxCapacity];
 
+        private bool isDragging;
+
         // Event
         public event Action<UIInventoryItemKeyData> OnDescriptionRequested;
-
-        private void Awake()
-        {
-
-        }
 
         /// <summary>
         /// Init item slot ui for the whole inventory 
@@ -44,7 +41,13 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             listOfUIItems[itemIdx].SetData(sprite, quantity);
         }
-
+        /// <summary>
+        /// Update description for the hover's item
+        /// </summary>
+        /// <param name="itemIdx"></param>
+        /// <param name="itemName"></param>
+        /// <param name="itemType"></param>
+        /// <param name="itemDescription"></param>
         public void UpdateItemDescription(int itemIdx, string itemName, ItemType itemType, string itemDescription)
         {
             uiInventoryDescription.SetDescription(itemName, itemType, itemDescription);
@@ -73,6 +76,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="item"></param>
         protected void HandleItemEndDrag(UIInventoryItem item)
         {
+            isDragging = false;
             ResetDraggedItem(item);
         }
         /// <summary>
@@ -97,6 +101,8 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="item"></param>
         protected void HandleItemBeginDrag(UIInventoryItem item)
         {
+            isDragging = true;
+
             currentlyDraggedItem = item;
             // Hide the data in drag slot
             item.HideData();
@@ -107,22 +113,12 @@ namespace SunnyFarm.Game.Inventory.UI
             draggedItem.gameObject.SetActive(true);
         }
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        private void HandleItemClick(UIInventoryItem item)
-        {
-
-        }
-        /// <summary>
         /// Show the description of the item
         /// </summary>
         /// <param name="item"></param>
         protected void HandleItemHover(UIInventoryItem item)
         {
-            int index = item.ItemIndex;
-            if (index == -1)
-                return;
+            if (isDragging) return;
 
             UIInventoryItemKeyData itemData = new UIInventoryItemKeyData
             {
@@ -130,22 +126,18 @@ namespace SunnyFarm.Game.Inventory.UI
                 ItemLocation = item.ItemLocation
             };
 
-
-
-            Vector2 position;
-            Canvas canvas = transform.GetComponentInParent<Canvas>();
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                (RectTransform)canvas.transform,
-                Input.mousePosition,
-                canvas.worldCamera,
-                out position
-                    );
-            ShowUpDescription(position, canvas);
+            Vector2 position = item.transform.position;
+            ShowUpDescription(position);
 
             OnDescriptionRequested?.Invoke(itemData);
         }
 
-        private void ShowUpDescription(Vector2 position, Canvas canvas)
+        /// <summary>
+        /// Show the description based on mouse position
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="canvas"></param>
+        private void ShowUpDescription(Vector2 position)
         {
             uiInventoryDescription.gameObject.SetActive(true);
 
@@ -153,14 +145,13 @@ namespace SunnyFarm.Game.Inventory.UI
 
             Vector2 resolution = new Vector2(480, 270);
 
-            if (position.y - sizeUI.y < -resolution.y / 2)
+            Debug.Log(position.y - (sizeUI.y + 10));
+            if (position.y - (sizeUI.y + 10) < 0)
             {
-                Vector2 curPivot = uiInventoryDescription.GetComponent<RectTransform>().pivot;
-                Vector2 newPivot = new Vector2(curPivot.x, -curPivot.y + 1f);
-                uiInventoryDescription.GetComponent<RectTransform>().pivot = newPivot;
+                uiInventoryDescription.ChangePivot();
             }
 
-            uiInventoryDescription.transform.position = canvas.transform.TransformPoint(position);
+            uiInventoryDescription.transform.position = position;
         }
 
         /// <summary>

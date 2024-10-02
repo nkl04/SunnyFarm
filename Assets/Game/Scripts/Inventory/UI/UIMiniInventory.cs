@@ -15,6 +15,10 @@ namespace SunnyFarm.Game.Inventory.UI
         {
 
         }
+        /// <summary>
+        /// Set up items' UI to the mini bag view
+        /// </summary>
+        /// <returns></returns>
         public UIInventoryItem[] SetupItemsUI()
         {
             for (int i = 0; i < itemsUI.Length; i++)
@@ -24,6 +28,12 @@ namespace SunnyFarm.Game.Inventory.UI
             }
             return itemsUI;
         }
+        /// <summary>
+        /// Update the item's data in mini bag view
+        /// </summary>
+        /// <param name="itemIdx"></param>
+        /// <param name="sprite"></param>
+        /// <param name="quantity"></param>
         public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
         {
             itemsUI[itemIdx].SetData(sprite, quantity);

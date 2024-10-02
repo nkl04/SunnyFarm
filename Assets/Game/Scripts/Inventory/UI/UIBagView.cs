@@ -13,20 +13,10 @@ namespace SunnyFarm.Game.Inventory.UI
         public UIMiniBag UIMiniBag;
 
         public event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
-        // Start is called before the first frame update
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
         public override void InitializeInventoryUI(int capacity)
         {
-            //
+            // Set up mini bag UI
             SetupMiniBagUI();
             // Instantiate items first and set up their events
             for (int i = 0; i < listOfUIItems.Length; i++)
@@ -61,6 +51,9 @@ namespace SunnyFarm.Game.Inventory.UI
                 listOfUIItems[i].UnlockSlot();
             }
         }
+        /// <summary>
+        /// Set up mini bag UI and event
+        /// </summary>
         void SetupMiniBagUI()
         {
             var items = UIMiniBag.SetupItemsUI();
@@ -79,7 +72,10 @@ namespace SunnyFarm.Game.Inventory.UI
             UIMiniBag.gameObject.SetActive(gameObject.activeSelf);
             gameObject.SetActive(!gameObject.activeSelf);
         }
-
+        /// <summary>
+        /// Handle logic of swap data in bag view
+        /// </summary>
+        /// <param name="item"></param>
         protected override void HandleSwap(UIInventoryItem item)
         {
             if (currentlyDraggedItem == null) return;

@@ -4,9 +4,10 @@ namespace SunnyFarm.Game.Inventory
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Inventory.UI;
     using SunnyFarm.Game.Managers.GameInput;
-
     using System.Collections.Generic;
     using UnityEngine;
+    using static SunnyFarm.Game.Constant.Enums;
+
     public class InventoryController : MonoBehaviour
     {
         // Define map for capacity of the inventory based on inventory's level
@@ -19,7 +20,9 @@ namespace SunnyFarm.Game.Inventory
         };
 
         [SerializeField]
-        private UIInventoryView inventoryView;
+        private UIBagView uiBagView;
+        [SerializeField]
+        private UIChestView uiChestView;
         private InventoryDataController inventoryData;
 
         [SerializeField] private List<InventoryItem> initialItems = new List<InventoryItem>();
@@ -30,7 +33,8 @@ namespace SunnyFarm.Game.Inventory
         {
 
             // register event
-            GameInputManager.Instance.InputActions.Player.Inventory.started += inventoryView.OnOpenOrCloseInventory;
+            GameInputManager.Instance.InputActions.Player.Inventory.started += uiBagView.OnOpenOrCloseBag;
+
             // assign data controller
             inventoryData = InventoryDataController.Instance;
 
@@ -44,9 +48,10 @@ namespace SunnyFarm.Game.Inventory
         private void SetupModel()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-            inventoryData.SetupSize(capacity);
+            inventoryData.Setup();
 
-            inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+            inventoryData.OnBagUpdated += UpdateBagUIItems;
+            inventoryData.OnChestUpdated += UpdateChestUIItems;
 
             foreach (InventoryItem item in initialItems)
             {
@@ -61,43 +66,102 @@ namespace SunnyFarm.Game.Inventory
         private void SetupView()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-            inventoryView.InitializeInventoryUI(capacity);
+            uiBagView.InitializeInventoryUI(capacity);
 
-            // Regist events
-            inventoryView.OnSwapItems += HandleSwapItems;
-            inventoryView.OnDescriptionRequested += HandleDescriptionRequested;
+            // Regist events for bag view
+            uiBagView.OnSwapItems += HandleSwapItemsInBagView;
+            uiBagView.OnDescriptionRequested += HandleDescriptionRequested;
+
+            // Regist events for chest view
+            uiChestView.InitializeInventoryUI(30); // test
+            uiChestView.OnSwapItems += HandleSwapItemsInChestView;
+            uiChestView.OnDescriptionRequested += HandleDescriptionRequested;
         }
+
+
 
         #region Handle events
         /// <summary>
-        /// Handle the swap event
+        /// Hande logic of swap item in bag view
         /// </summary>
-        /// <param name="idx1"></param>
-        /// <param name="idx2"></param>
-        private void HandleSwapItems(int idx1, int idx2)
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
+        private void HandleSwapItemsInBagView(UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
         {
-            inventoryData.SwapItems(idx1, idx2);
+            if (item1.CompareLocation(item2))
+                inventoryData.SwapItemsInBag(item1, item2);
+            else
+                inventoryData.SwapItemsInDifLocation(uiChestView.ID, item1, item2);
         }
-
+        /// <summary>
+        /// Hande logic of swap item in chest view
+        /// </summary>
+        /// <param name="chestID"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
+        private void HandleSwapItemsInChestView(string chestID, UIInventoryItemKeyData item1,
+            UIInventoryItemKeyData item2)
+        {
+            if (item1.CompareLocation(item2))
+                inventoryData.SwapItemsInChest(chestID, item1, item2);
+            else
+                inventoryData.SwapItemsInDifLocation(chestID, item1, item2);
+        }
         /// <summary>
         /// Handle the requested description event
         /// </summary>
-        private void HandleDescriptionRequested()
+        private void HandleDescriptionRequested(UIInventoryItemKeyData itemData)
         {
+            InventoryItem item = null;
+            if (itemData.ItemLocation == InventoryLocation.Player)
+            {
+                item = inventoryData.GetItemInBag(itemData.Index);
+                if (item.IsEmpty) return;
 
+                uiBagView.UpdateItemDescription(itemData.Index, item.Item.Name,
+                    item.Item.ItemType, item.Item.Description);
+            }
+            else
+            {
+                item = inventoryData.GetItemInChest(uiChestView.ID, itemData.Index);
+                if (item.IsEmpty) return;
+
+                uiChestView.UpdateItemDescription(itemData.Index, item.Item.Name,
+                    item.Item.ItemType, item.Item.Description);
+            }
         }
         #endregion
 
         /// <summary>
-        /// Update inventory view based on inventory list of data in model
+        /// Update bag view and mini bag view based on inventory list of data in model
         /// </summary>
         /// <param name="inventoryItems"></param>
-        private void UpdateInventoryUI(InventoryItem[] inventoryItems)
+        private void UpdateBagUIItems(InventoryItem[] inventoryItems)
         {
-            inventoryView.ResetAllUIItems();
+            uiBagView.ResetAllUIItems();
             for (int i = 0; i < evolveInventoryMap[inventoryData.InventoryLevel]; i++)
             {
-                inventoryView.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
+                uiBagView.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
+                    inventoryItems[i].Quantity);
+
+                if (i < Constant.Inventory.HotbarCapacity)
+                {
+                    uiBagView.UIMiniBag.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
+                        inventoryItems[i].Quantity);
+                }
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="inventoryItems"></param>
+        private void UpdateChestUIItems(string id, InventoryItem[] inventoryItems)
+        {
+            uiChestView.ResetAllUIItems();
+            for (int i = 0; i < inventoryItems.Length; i++)
+            {
+                uiChestView.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
                     inventoryItems[i].Quantity);
             }
         }

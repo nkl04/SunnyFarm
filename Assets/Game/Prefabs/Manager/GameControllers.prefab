@@ -44,25 +44,116 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1200ac33890354f4ab67d0462eba8d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryView: {fileID: 0}
+  uiBagView: {fileID: 5445663389367276774, guid: c51eed9fac58c83448baad4da8b09bb5, type: 3}
+  uiChestView: {fileID: 4763597677058019178, guid: 3933ebb6048170d4982c17b10861eb83, type: 3}
   initialItems:
   - Quantity: 1
-    Item: {fileID: 1668744428361869957, guid: e4888c91aaea464489271808f64a3aab, type: 3}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 1
-    Item: {fileID: 6941619257877976384, guid: f693a698efb394a428e14484da9facb2, type: 3}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 12
-    Item: {fileID: 1668744428361869957, guid: 6d314c329bbbfeb4f810fbb2db91070b, type: 3}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 13
-    Item: {fileID: 1668744428361869957, guid: 6d314c329bbbfeb4f810fbb2db91070b, type: 3}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 0
-    Item: {fileID: 0}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 0
-    Item: {fileID: 0}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 0
-    Item: {fileID: 0}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 0
-    Item: {fileID: 0}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 0
-    Item: {fileID: 0}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0
   - Quantity: 0
-    Item: {fileID: 0}
+    Item:
+      ID: 
+      ItemType: 0
+      Name: 
+      Description: 
+      ItemImage: {fileID: 0}
+      IsStackable: 0
+      MaxStackSize: 0
+      CanBePickUp: 0
+      CanBeEaten: 0

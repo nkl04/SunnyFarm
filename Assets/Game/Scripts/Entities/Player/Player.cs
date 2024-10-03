@@ -56,8 +56,12 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Animator animator;
 
+        private Camera mainCamera;
+
         private void Start()
         {
+            mainCamera = Camera.main;
+
             inputActions = GameInputManager.Instance.InputActions;
 
             stateMachine = new StateMachine<StatePlayer>();  // Create a new state machine
@@ -125,6 +129,16 @@ namespace SunnyFarm.Game.Entities.Player
         public void Flip()
         {
             transform.Rotate(0f, 180f, 0f);
+        }
+
+        /// <summary>
+        /// Get the viewport position of the player
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 GetViewportPosition()
+        {
+            // Vector3 Viewport position for player (0,0) is bottom left and (1,1) is top right
+            return mainCamera.WorldToViewportPoint(transform.position);
         }
 
     }

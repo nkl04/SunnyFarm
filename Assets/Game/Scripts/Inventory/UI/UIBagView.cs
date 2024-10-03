@@ -17,7 +17,7 @@ namespace SunnyFarm.Game.Inventory.UI
         public override void InitializeInventoryUI(int capacity)
         {
             // Set up mini bag UI
-            SetupMiniBagUI();
+            SetupToolBarUI();
             // Instantiate items first and set up their events
             for (int i = 0; i < listOfUIItems.Length; i++)
             {
@@ -54,7 +54,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <summary>
         /// Set up mini bag UI and event
         /// </summary>
-        void SetupMiniBagUI()
+        void SetupToolBarUI()
         {
             var items = UIToolBar.SetupItemsUI();
             for (int i = 0; i < items.Length; i++)

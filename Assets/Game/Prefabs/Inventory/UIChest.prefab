@@ -402,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 412570884795833003, guid: f3b811e1777fde6438f07f54cae61002, type: 3}
   draggedItem: {fileID: 4607559631768205431}
-  uiInventoryDescription: {fileID: 0}
+  uiInventoryDescription: {fileID: 2420843094998766428, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
   listOfUIItems:
   - {fileID: 0}
   - {fileID: 0}

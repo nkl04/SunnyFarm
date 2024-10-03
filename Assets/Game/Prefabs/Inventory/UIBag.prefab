@@ -1837,7 +1837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 412570884795833003, guid: f3b811e1777fde6438f07f54cae61002, type: 3}
   draggedItem: {fileID: 5302136044826251755}
-  uiInventoryDescription: {fileID: 0}
+  uiInventoryDescription: {fileID: 2420843094998766428, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
   listOfUIItems:
   - {fileID: 0}
   - {fileID: 0}
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   - {fileID: 0}
   quickAccessPanel: {fileID: 4119705520001661693}
   notQuickAccessPanel: {fileID: 2848172728449375112}
-  UIMiniBag: {fileID: 7432603365784814170, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
+  UIToolBar: {fileID: 7432603365784814170, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
 --- !u!1 &8294429493475335954
 GameObject:
   m_ObjectHideFlags: 0

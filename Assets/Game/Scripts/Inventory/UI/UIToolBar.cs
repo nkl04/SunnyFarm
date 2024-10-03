@@ -1,5 +1,6 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
+    using SunnyFarm.Game.Entities.Player;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
@@ -8,7 +9,20 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField]
         private UIInventoryItem[] itemsUI = new UIInventoryItem[Constant.Inventory.ToolbarCapacity];
 
+        [SerializeField] private Vector3 bottomPosition;
 
+        [SerializeField] private Vector3 topPosition;
+
+        private RectTransform rectTransform;
+
+        private void Awake()
+        {
+            rectTransform = GetComponent<RectTransform>();
+        }
+        private void Update()
+        {
+            SwitchUIToolBarPosition();
+        }
 
         /// <summary>
         /// Set up items' UI to the tool bar
@@ -32,6 +46,28 @@ namespace SunnyFarm.Game.Inventory.UI
         public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
         {
             itemsUI[itemIdx].SetData(sprite, quantity);
+        }
+
+        private void SwitchUIToolBarPosition()
+        {
+            Vector3 playerPos = Player.Instance.GetViewportPosition(); // Get the player's viewport position
+
+            if (playerPos.y > 0.3f && transform.position == topPosition)
+            {
+
+                rectTransform.pivot = new Vector2(0.5f, 0f);
+                rectTransform.anchorMin = new Vector2(0.5f, 1f);
+                rectTransform.anchorMax = new Vector2(0.5f, 1f);
+                rectTransform.anchoredPosition = bottomPosition;
+
+            }
+            else if (playerPos.y <= 0.3f && transform.position == bottomPosition)
+            {
+                rectTransform.pivot = new Vector2(0.5f, 1f);
+                rectTransform.anchorMin = new Vector2(0.5f, 0f);
+                rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                rectTransform.anchoredPosition = topPosition;
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField] private RectTransform quickAccessPanel;
         [SerializeField] private RectTransform notQuickAccessPanel;
 
-        public UIMiniBag UIMiniBag;
+        public UIToolBar UIToolBar;
 
         public event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
 
@@ -36,7 +36,7 @@ namespace SunnyFarm.Game.Inventory.UI
                 item.OnItemEndHover += HandleItemEndHover;
 
                 // set the item's parent and store in their array
-                if (i < Constant.Inventory.HotbarCapacity)
+                if (i < Constant.Inventory.ToolbarCapacity)
                 {
                     item.transform.SetParent(quickAccessPanel);
                 }
@@ -56,7 +56,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         void SetupMiniBagUI()
         {
-            var items = UIMiniBag.SetupItemsUI();
+            var items = UIToolBar.SetupItemsUI();
             for (int i = 0; i < items.Length; i++)
             {
                 items[i].OnItemHover += HandleItemHover;
@@ -69,7 +69,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="context"></param>
         public void OnOpenOrCloseBag(InputAction.CallbackContext context)
         {
-            UIMiniBag.gameObject.SetActive(gameObject.activeSelf);
+            UIToolBar.gameObject.SetActive(gameObject.activeSelf);
             gameObject.SetActive(!gameObject.activeSelf);
         }
         /// <summary>

@@ -101,7 +101,7 @@ namespace SunnyFarm.Game
 
         public static class Inventory
         {
-            public const int HotbarCapacity = 10;
+            public const int ToolbarCapacity = 10;
             public const int MaxCapacity = 30;
         }
 

@@ -3,20 +3,15 @@ namespace SunnyFarm.Game.Inventory.UI
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class UIMiniBag : MonoBehaviour
+    public class UIToolBar : MonoBehaviour
     {
         [SerializeField]
-        private UIInventoryItem[] itemsUI = new UIInventoryItem[Constant.Inventory.HotbarCapacity];
-        private void Awake()
-        {
+        private UIInventoryItem[] itemsUI = new UIInventoryItem[Constant.Inventory.ToolbarCapacity];
 
-        }
-        void Start()
-        {
 
-        }
+
         /// <summary>
-        /// Set up items' UI to the mini bag view
+        /// Set up items' UI to the tool bar
         /// </summary>
         /// <returns></returns>
         public UIInventoryItem[] SetupItemsUI()
@@ -29,7 +24,7 @@ namespace SunnyFarm.Game.Inventory.UI
             return itemsUI;
         }
         /// <summary>
-        /// Update the item's data in mini bag view
+        /// Update the item's data in tool bar
         /// </summary>
         /// <param name="itemIdx"></param>
         /// <param name="sprite"></param>

@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 1678000185176219729}
   - component: {fileID: 4763597677058019178}
   m_Layer: 5
-  m_Name: UIChestView
+  m_Name: UIChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

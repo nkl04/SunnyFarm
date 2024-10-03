@@ -1728,7 +1728,7 @@ GameObject:
   - component: {fileID: 2450437298123329789}
   - component: {fileID: 5445663389367276774}
   m_Layer: 5
-  m_Name: UIBagView
+  m_Name: UIBag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   - {fileID: 0}
   quickAccessPanel: {fileID: 4119705520001661693}
   notQuickAccessPanel: {fileID: 2848172728449375112}
-  UIMiniBag: {fileID: 0}
+  UIMiniBag: {fileID: 7432603365784814170, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
 --- !u!1 &8294429493475335954
 GameObject:
   m_ObjectHideFlags: 0

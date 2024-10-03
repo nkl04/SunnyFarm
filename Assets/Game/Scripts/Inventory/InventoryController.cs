@@ -144,9 +144,9 @@ namespace SunnyFarm.Game.Inventory
                 uiBagView.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
                     inventoryItems[i].Quantity);
 
-                if (i < Constant.Inventory.HotbarCapacity)
+                if (i < Constant.Inventory.ToolbarCapacity)
                 {
-                    uiBagView.UIMiniBag.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
+                    uiBagView.UIToolBar.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
                         inventoryItems[i].Quantity);
                 }
             }

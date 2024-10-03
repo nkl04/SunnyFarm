@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1070323634530876805}
   - component: {fileID: 7432603365784814170}
   m_Layer: 0
-  m_Name: UIMiniBag
+  m_Name: UIToolBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

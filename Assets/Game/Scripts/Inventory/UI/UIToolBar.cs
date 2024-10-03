@@ -8,12 +8,9 @@ namespace SunnyFarm.Game.Inventory.UI
     {
         [SerializeField]
         private UIInventoryItem[] itemsUI = new UIInventoryItem[Constant.Inventory.ToolbarCapacity];
-
-        [SerializeField] private Vector3 bottomPosition;
-
-        [SerializeField] private Vector3 topPosition;
-
         private RectTransform rectTransform;
+        private bool isToolBarBottomPosition = true;
+
 
         private void Awake()
         {
@@ -52,21 +49,24 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             Vector3 playerPos = Player.Instance.GetViewportPosition(); // Get the player's viewport position
 
-            if (playerPos.y > 0.3f && transform.position == topPosition)
+            if (playerPos.y > 0.3f && !isToolBarBottomPosition)
             {
 
                 rectTransform.pivot = new Vector2(0.5f, 0f);
-                rectTransform.anchorMin = new Vector2(0.5f, 1f);
-                rectTransform.anchorMax = new Vector2(0.5f, 1f);
-                rectTransform.anchoredPosition = bottomPosition;
-
-            }
-            else if (playerPos.y <= 0.3f && transform.position == bottomPosition)
-            {
-                rectTransform.pivot = new Vector2(0.5f, 1f);
                 rectTransform.anchorMin = new Vector2(0.5f, 0f);
                 rectTransform.anchorMax = new Vector2(0.5f, 0f);
-                rectTransform.anchoredPosition = topPosition;
+                rectTransform.anchoredPosition = new Vector2(0, 8f);
+
+                isToolBarBottomPosition = true;
+            }
+            else if (playerPos.y <= 0.3f && isToolBarBottomPosition)
+            {
+                rectTransform.pivot = new Vector2(0.5f, 1f);
+                rectTransform.anchorMin = new Vector2(0.5f, 1f);
+                rectTransform.anchorMax = new Vector2(0.5f, 1f);
+                rectTransform.anchoredPosition = new Vector2(0, -8f);
+
+                isToolBarBottomPosition = false;
             }
         }
     }

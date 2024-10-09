@@ -69,6 +69,7 @@ namespace SunnyFarm.Game
             {
                 Player,
                 Chest,
+                Count,
                 None
             }
 
@@ -101,8 +102,8 @@ namespace SunnyFarm.Game
 
         public static class Inventory
         {
-            public const int ToolbarCapacity = 10;
-            public const int MaxCapacity = 30;
+            public const int PlayerInventoryMinCapacity = 12;
+            public const int PlayerInventoryMaxCapacity = 36;
         }
 
         public static class Time

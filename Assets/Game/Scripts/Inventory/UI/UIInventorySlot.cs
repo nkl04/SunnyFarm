@@ -1,23 +1,24 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
     using System;
+    using SunnyFarm.Game.Entities.Item.Data;
     using TMPro;
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class UIInventoryItem : MonoBehaviour,
+    public class UIInventorySlot : MonoBehaviour,
         IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [Header("Item's info")]
         [SerializeField] private Image itemImage;
         [SerializeField] private TMP_Text itemQuantity;
         [SerializeField] private RectTransform selectBox;
 
-        [Header("Background Image")]
-        [SerializeField] private Sprite unlockedBG;
-        [SerializeField] private Image backgroundSlot;
+        [Header("Slot")]
+        public Image inventorySlotHighlightImage;
+        public Image inventorySlotImage;
+        public TextMeshProUGUI itemQuantityText;
 
         private bool isEmpty = false;
         private bool isUnlocked = false;
@@ -25,7 +26,7 @@ namespace SunnyFarm.Game.Inventory.UI
         public int ItemIndex { get; set; }
         public InventoryLocation ItemLocation { get; private set; }
 
-        public event Action<UIInventoryItem> OnItemDroppedOn,
+        public event Action<UIInventorySlot> OnItemDroppedOn,
             OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover, OnItemEndHover;
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             itemImage.gameObject.SetActive(image != null);
             itemImage.sprite = image;
-            itemQuantity.text = quantity > 1 ? quantity.ToString() : "";
+            // itemQuantity.text = quantity > 1 ? quantity.ToString() : "";
             isEmpty = image == null;
         }
         /// <summary>
@@ -62,7 +63,7 @@ namespace SunnyFarm.Game.Inventory.UI
         public void ResetData()
         {
             itemImage.gameObject.SetActive(false);
-            itemQuantity.text = "";
+            // itemQuantity.text = "";
             isEmpty = true;
         }
         /// <summary>
@@ -92,43 +93,43 @@ namespace SunnyFarm.Game.Inventory.UI
         public void UnlockSlot()
         {
             isUnlocked = true;
-            backgroundSlot.sprite = unlockedBG;
+            // backgroundSlot.sprite = unlockedBG;
         }
 
         #region UI Events
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (isEmpty) return;
-            OnItemBeginDrag?.Invoke(this);
+            EventHandlers.CallOnItemBeginDrag(this);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (isEmpty) return;
-            OnItemDrag?.Invoke(this);
+            EventHandlers.CallOnItemDrag(this);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            OnItemEndDrag?.Invoke(this);
+            EventHandlers.CallOnItemEndDrag(this);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (isEmpty) return;
-            OnItemHover?.Invoke(this);
+            EventHandlers.CallOnItemHover(this);
         }
 
         public void OnDrop(PointerEventData eventData)
         {
             if (!isUnlocked) return;
-            OnItemDroppedOn?.Invoke(this);
+            EventHandlers.CallOnItemDroppedOn(this);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             if (isEmpty) return;
-            OnItemEndHover?.Invoke(this);
+            EventHandlers.CallOnItemEndHover(this);
         }
         #endregion
     }

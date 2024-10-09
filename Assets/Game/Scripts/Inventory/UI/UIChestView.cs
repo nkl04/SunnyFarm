@@ -18,7 +18,7 @@ public class UIChestView : UIInventoryView
         for (int i = 0; i < listOfUIItems.Length; i++)
         {
             // Instantiate item in main inventory
-            UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, content);
+            UIInventorySlot item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, content);
             item.ItemIndex = i;
             item.SetItemLocation(InventoryLocation.Chest);
             listOfUIItems[i] = item;
@@ -41,7 +41,7 @@ public class UIChestView : UIInventoryView
     /// Hande swap logic in chest view
     /// </summary>
     /// <param name="item"></param>
-    protected override void HandleSwap(UIInventoryItem item)
+    protected override void HandleSwap(UIInventorySlot item)
     {
         if (currentlyDraggedItem == null) return;
 

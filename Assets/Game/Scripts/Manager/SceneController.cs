@@ -27,7 +27,7 @@ namespace SunnyFarm.Game
             yield return StartCoroutine(LoadAndActiveScene(sceneName));
 
             // If this event has any subscribers, call it
-            EventHandler.CallOnAfterSceneLoad();
+            EventHandlers.CallOnAfterSceneLoad();
 
             // Start fading back in and wait until fade is finished
             yield return StartCoroutine(Fade(0f));
@@ -47,7 +47,7 @@ namespace SunnyFarm.Game
         private IEnumerator FadeAndSwitchScenes(SceneName sceneName, Vector3 spawnPosition)
         {
             // Call before scene unload fade out event
-            EventHandler.CallOnBeforeSceneUnloadFadeOut();
+            EventHandlers.CallOnBeforeSceneUnloadFadeOut();
 
             // Start fading to black and wait until fade is finished
             yield return StartCoroutine(Fade(1f));
@@ -56,7 +56,7 @@ namespace SunnyFarm.Game
             Player.Instance.transform.position = spawnPosition;
 
             // Call before scene unload event
-            EventHandler.CallOnBeforeSceneUnload();
+            EventHandlers.CallOnBeforeSceneUnload();
 
             // Unload the current active scene
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
@@ -65,13 +65,13 @@ namespace SunnyFarm.Game
             yield return StartCoroutine(LoadAndActiveScene(sceneName));
 
             // Call after scene load event
-            EventHandler.CallOnAfterSceneLoad();
+            EventHandlers.CallOnAfterSceneLoad();
 
             // Start fading back in and wait until fade is finished
             yield return StartCoroutine(Fade(0f));
 
             // Call after scene load fade in event
-            EventHandler.CallOnAfterSceneLoadFadeIn();
+            EventHandlers.CallOnAfterSceneLoadFadeIn();
         }
 
         private IEnumerator LoadAndActiveScene(SceneName sceneName)

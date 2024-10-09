@@ -4,9 +4,11 @@ namespace SunnyFarm.Game
     using System.Collections;
     using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
     using Unity.VisualScripting;
     using UnityEngine;
+    using static SunnyFarm.Game.Constant.Enums;
 
     public class ItemPickUp : MonoBehaviour
     {
@@ -77,6 +79,7 @@ namespace SunnyFarm.Game
         {
             if (item != null)
             {
+                InventoryDataController.Instance.AddItem(InventoryLocation.Player, item, 1);
                 Destroy(item.gameObject);
             }
         }

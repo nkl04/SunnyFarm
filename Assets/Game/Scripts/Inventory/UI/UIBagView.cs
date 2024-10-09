@@ -22,21 +22,21 @@ namespace SunnyFarm.Game.Inventory.UI
             for (int i = 0; i < listOfUIItems.Length; i++)
             {
                 // Instantiate item in main inventory
-                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
+                UIInventorySlot item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
                 item.ItemIndex = i;
                 item.SetItemLocation(InventoryLocation.Player);
                 listOfUIItems[i] = item;
 
-                // set up events
-                item.OnItemBeginDrag += HandleItemBeginDrag;
-                item.OnItemDrag += HandleItemDrag;
-                item.OnItemEndDrag += HandleItemEndDrag;
-                item.OnItemDroppedOn += HandleSwap;
-                item.OnItemHover += HandleItemHover;
-                item.OnItemEndHover += HandleItemEndHover;
+                // // set up events
+                // item.OnItemBeginDrag += HandleItemBeginDrag;
+                // item.OnItemDrag += HandleItemDrag;
+                // item.OnItemEndDrag += HandleItemEndDrag;
+                // item.OnItemDroppedOn += HandleSwap;
+                // item.OnItemHover += HandleItemHover;
+                // item.OnItemEndHover += HandleItemEndHover;
 
                 // set the item's parent and store in their array
-                if (i < Constant.Inventory.ToolbarCapacity)
+                if (i < Constant.Inventory.PlayerInventoryMinCapacity)
                 {
                     item.transform.SetParent(quickAccessPanel);
                 }
@@ -46,10 +46,10 @@ namespace SunnyFarm.Game.Inventory.UI
                 }
             }
             // Unlock the slot item based on capacity
-            for (int i = 0; i < capacity; i++)
-            {
-                listOfUIItems[i].UnlockSlot();
-            }
+            // for (int i = 0; i < capacity; i++)
+            // {
+            //     listOfUIItems[i].UnlockSlot();
+            // }
         }
         /// <summary>
         /// Set up mini bag UI and event
@@ -64,10 +64,10 @@ namespace SunnyFarm.Game.Inventory.UI
             }
         }
         /// <summary>
-        /// Open or close the inventory UI based on is E pressed?
+        /// Toggle inventory view
         /// </summary>
         /// <param name="context"></param>
-        public void OnOpenOrCloseBag(InputAction.CallbackContext context)
+        public void ToggleInventory(InputAction.CallbackContext context)
         {
             UIToolBar.gameObject.SetActive(gameObject.activeSelf);
             gameObject.SetActive(!gameObject.activeSelf);
@@ -76,7 +76,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Handle logic of swap data in bag view
         /// </summary>
         /// <param name="item"></param>
-        protected override void HandleSwap(UIInventoryItem item)
+        protected override void HandleSwap(UIInventorySlot item)
         {
             if (currentlyDraggedItem == null) return;
 

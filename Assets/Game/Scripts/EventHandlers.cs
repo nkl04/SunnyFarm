@@ -2,11 +2,12 @@ namespace SunnyFarm.Game
 {
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Inventory.Data;
+    using SunnyFarm.Game.Inventory.UI;
     using System;
     using System.Collections.Generic;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public static class EventHandler
+    public static class EventHandlers
     {
 
         #region  Scene Load Events - in the order they are called
@@ -61,11 +62,54 @@ namespace SunnyFarm.Game
 
         public static void CallOnInventoryUpdated(InventoryLocation location, List<InventoryItem> inventoryItems)
         {
-            if (OnInventoryUpdated != null)
-            {
-                OnInventoryUpdated?.Invoke(location, inventoryItems);
-            }
+            OnInventoryUpdated?.Invoke(location, inventoryItems);
+
         }
+
+        public static event Action<UIInventorySlot> OnItemDroppedOn,
+                                                    OnItemBeginDrag,
+                                                    OnItemDrag,
+                                                    OnItemEndDrag,
+                                                    OnItemHover,
+                                                    OnItemEndHover;
+
+        public static void CallOnItemDroppedOn(UIInventorySlot item)
+        {
+            OnItemDroppedOn?.Invoke(item);
+        }
+
+        public static void CallOnItemBeginDrag(UIInventorySlot item)
+        {
+            OnItemBeginDrag?.Invoke(item);
+        }
+
+        public static void CallOnItemDrag(UIInventorySlot item)
+        {
+            OnItemDrag?.Invoke(item);
+        }
+
+        public static void CallOnItemEndDrag(UIInventorySlot item)
+        {
+            OnItemEndDrag?.Invoke(item);
+        }
+
+        public static void CallOnItemHover(UIInventorySlot item)
+        {
+            OnItemHover?.Invoke(item);
+        }
+
+        public static void CallOnItemEndHover(UIInventorySlot item)
+        {
+            OnItemEndHover?.Invoke(item);
+        }
+
+        public static event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
+
+        public static void CallOnSwapItems(UIInventoryItemKeyData from, UIInventoryItemKeyData to)
+        {
+            OnSwapItems?.Invoke(from, to);
+        }
+
         #endregion
 
         #region Time Events

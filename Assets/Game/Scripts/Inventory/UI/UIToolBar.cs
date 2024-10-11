@@ -8,42 +8,43 @@ namespace SunnyFarm.Game.Inventory.UI
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class UIToolBar : MonoBehaviour
+    public class UIToolBar : UIInventoryView
     {
-        [SerializeField] private UIInventorySlot[] inventorySlots = new UIInventorySlot[Constant.Inventory.PlayerInventoryMinCapacity];
         [SerializeField] private Sprite transparentSprite;
         private RectTransform rectTransform;
         private bool isToolBarBottomPosition = true;
 
-        private void OnEnable()
+        private void Awake()
         {
+            rectTransform = GetComponent<RectTransform>();
+
             EventHandlers.OnInventoryUpdated += InventoryUpdated;
         }
 
-        private void OnDisable()
+        private void Start()
         {
-            EventHandlers.OnInventoryUpdated -= InventoryUpdated;
+            SetupItemsUI();
         }
 
-        private void InventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItemList)
+        private void InventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItems)
         {
             if (location == InventoryLocation.Player)
             {
                 ClearInventorySlot();
 
-                if (inventorySlots.Length > 0 && inventoryItemList.Length > 0)
+                if (uiInventorySlots.Length > 0 && inventoryItems.Length > 0)
                 {
-                    for (int i = 0; i < inventorySlots.Length; i++)
+                    for (int i = 0; i < uiInventorySlots.Length; i++)
                     {
-                        if (i < inventoryItemList.Length)
+                        if (i < inventoryItems.Length)
                         {
-                            string itemId = inventoryItemList[i].itemId;
+                            string itemId = inventoryItems[i].itemId;
 
                             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
                             if (itemDetail != null)
                             {
-                                inventorySlots[i].SetData(itemDetail.ItemImage, inventoryItemList[i].quantity);
+                                uiInventorySlots[i].SetData(itemDetail.ItemImage, inventoryItems[i].quantity);
                             }
                         }
                     }
@@ -53,20 +54,16 @@ namespace SunnyFarm.Game.Inventory.UI
 
         private void ClearInventorySlot()
         {
-            if (inventorySlots.Length > 0)
+            if (uiInventorySlots.Length > 0)
             {
-                for (int i = 0; i < inventorySlots.Length; i++)
+                for (int i = 0; i < uiInventorySlots.Length; i++)
                 {
-                    inventorySlots[i].inventorySlotItemImage.sprite = transparentSprite;
-                    inventorySlots[i].itemQuantityText.text = "";
+                    uiInventorySlots[i].inventorySlotItemImage.sprite = transparentSprite;
+                    uiInventorySlots[i].itemQuantityText.text = "";
                 }
             }
         }
 
-        private void Awake()
-        {
-            rectTransform = GetComponent<RectTransform>();
-        }
         private void Update()
         {
             SwitchUIToolBarPosition();
@@ -78,21 +75,13 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <returns></returns>
         public UIInventorySlot[] SetupItemsUI()
         {
-            for (int i = 0; i < inventorySlots.Length; i++)
+            for (int i = 0; i < uiInventorySlots.Length; i++)
             {
-                inventorySlots[i].SetItemLocation(InventoryLocation.Player);
+                uiInventorySlots[i].SetItemLocation(InventoryLocation.Player);
+                uiInventorySlots[i].OnItemHover += HandleItemHover;
+                uiInventorySlots[i].OnItemEndHover += HandleItemEndHover;
             }
-            return inventorySlots;
-        }
-        /// <summary>
-        /// Update the item's data in tool bar
-        /// </summary>
-        /// <param name="itemIdx"></param>
-        /// <param name="sprite"></param>
-        /// <param name="quantity"></param>
-        public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
-        {
-            inventorySlots[itemIdx].SetData(sprite, quantity);
+            return uiInventorySlots;
         }
 
         private void SwitchUIToolBarPosition()
@@ -118,6 +107,12 @@ namespace SunnyFarm.Game.Inventory.UI
 
                 isToolBarBottomPosition = false;
             }
+        }
+
+
+        public override void InitializeInventoryUI(int capacity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

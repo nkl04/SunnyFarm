@@ -1,16 +1,19 @@
 namespace SunnyFarm.Game.Inventory
 {
+    using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Entities.Item.Data;
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Inventory.UI;
     using SunnyFarm.Game.Managers;
     using SunnyFarm.Game.Managers.GameInput;
+    using System;
     using System.Collections.Generic;
+    using UnityEditor.UIElements;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class InventoryController : MonoBehaviour
+    public class InventoryController : Singleton<InventoryController>
     {
         // Define map for capacity of the inventory based on inventory's level
         // key: level, value: capacity
@@ -25,7 +28,7 @@ namespace SunnyFarm.Game.Inventory
 
         [SerializeField] private UIChestView uiChestView;
 
-        [SerializeField] private InventoryItem[] initialItems;
+        [SerializeField] private UIToolBar uiToolBarView;
 
         private InventoryDataController inventoryData;
 
@@ -41,7 +44,6 @@ namespace SunnyFarm.Game.Inventory
 
         private void Start()
         {
-            GameInputManager.Instance.InputActions.Player.Inventory.started += uiBagView.ToggleInventory;
             // assign data controller
             inventoryData = InventoryDataController.Instance;
             SetupView();
@@ -85,7 +87,19 @@ namespace SunnyFarm.Game.Inventory
             // uiChestView.OnDescriptionRequested += HandleDescriptionRequested;
         }
 
-
+        public void ToggleInventoryView()
+        {
+            if (uiBagView.gameObject.activeSelf)
+            {
+                uiBagView.Hide();
+                uiToolBarView.Show();
+            }
+            else
+            {
+                uiBagView.Show();
+                uiToolBarView.Hide();
+            }
+        }
 
         #region Handle events
         // /// <summary>

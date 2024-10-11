@@ -8,6 +8,7 @@ namespace SunnyFarm.Game.Entities.Player
     using UnityEngine;
     using UnityEngine.InputSystem;
     using SunnyFarm.Game.DesignPattern;
+    using SunnyFarm.Game.Inventory;
 
     public class Player : Singleton<Player>
     {
@@ -28,7 +29,6 @@ namespace SunnyFarm.Game.Entities.Player
         public bool IsDigPressed { get; set; } = false;
         public bool IsPickaxePressed { get; set; } = false;
         public bool IsWaterPressed { get; set; } = false;
-
         public bool IsFacingRight { get; set; } = true;
 
         public StatePlayerIdle StatePlayerIdle { get; private set; }
@@ -58,6 +58,8 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Camera mainCamera;
 
+        private InventoryController inventoryController;
+
         private void Start()
         {
             mainCamera = Camera.main;
@@ -69,6 +71,8 @@ namespace SunnyFarm.Game.Entities.Player
             rb2d = GetComponent<Rigidbody2D>();             // Get the Rigidbody2D component
 
             animator = GetComponentInChildren<Animator>();            // Get the Animator component in child Visual
+
+            inventoryController = InventoryController.Instance;
 
             inputActions.Player.Move.performed += OnMoveInput;
 
@@ -90,7 +94,14 @@ namespace SunnyFarm.Game.Entities.Player
 
             inputActions.Player.Water.canceled += OnWaterInput;
 
+            inputActions.Player.Inventory.started += OnToggleInventory;
+
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
+        }
+
+        private void OnToggleInventory(InputAction.CallbackContext context)
+        {
+            inventoryController.ToggleInventoryView();
         }
 
         private void OnWaterInput(InputAction.CallbackContext context)

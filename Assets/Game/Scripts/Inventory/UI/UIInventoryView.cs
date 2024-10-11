@@ -9,38 +9,30 @@ namespace SunnyFarm.Game.Inventory.UI
 
     public abstract class UIInventoryView : MonoBehaviour
     {
-        [SerializeField] protected UIInventorySlot itemPrefab;
-
         [SerializeField] protected RectTransform draggedItem;
 
         [SerializeField] protected UIInventoryDescription uiInventoryDescription;
 
         protected UIInventorySlot currentlyDraggedItem = null;
 
-        [SerializeField]
-        protected UIInventorySlot[] listOfUIItems = new UIInventorySlot[Constant.Inventory.PlayerInventoryMaxCapacity];
+        [SerializeField] protected UIInventorySlot[] uiInventorySlots;
 
         private bool isDragging;
 
         // Event
         public event Action<UIInventoryItemKeyData> OnDescriptionRequested;
 
-        private void OnEnable()
+
+        protected virtual void OnEnable()
         {
-            EventHandlers.OnItemBeginDrag += HandleItemBeginDrag;
-            EventHandlers.OnItemDrag += HandleItemDrag;
-            EventHandlers.OnItemEndDrag += HandleItemEndDrag;
-            EventHandlers.OnItemDroppedOn += HandleSwap;
+
             EventHandlers.OnItemHover += HandleItemHover;
             EventHandlers.OnItemEndHover += HandleItemEndHover;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
-            EventHandlers.OnItemBeginDrag -= HandleItemBeginDrag;
-            EventHandlers.OnItemDrag -= HandleItemDrag;
-            EventHandlers.OnItemEndDrag -= HandleItemEndDrag;
-            EventHandlers.OnItemDroppedOn -= HandleSwap;
+
             EventHandlers.OnItemHover -= HandleItemHover;
             EventHandlers.OnItemEndHover -= HandleItemEndHover;
         }
@@ -77,18 +69,14 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         public void ResetAllUIItems()
         {
-            foreach (var item in listOfUIItems)
+            foreach (var item in uiInventorySlots)
             {
                 item.ResetData();
                 item.Deselect();
             }
         }
         #region Handle events' logic
-        /// <summary>
-        /// Check if can swap and implement the logic of swapping
-        /// </summary>
-        /// <returns></returns>
-        protected abstract void HandleSwap(UIInventorySlot item);
+
 
         /// <summary>
         /// Check if can swap and implement the logic of swapping
@@ -209,5 +197,42 @@ namespace SunnyFarm.Game.Inventory.UI
             draggedItem.GetComponentInChildren<TMP_Text>().text = quantity.text;
         }
 
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    public abstract class UILargeInventoryView : UIInventoryView
+    {
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            EventHandlers.OnItemBeginDrag += HandleItemBeginDrag;
+            EventHandlers.OnItemDrag += HandleItemDrag;
+            EventHandlers.OnItemEndDrag += HandleItemEndDrag;
+            EventHandlers.OnItemDroppedOn += HandleSwap;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            EventHandlers.OnItemBeginDrag -= HandleItemBeginDrag;
+            EventHandlers.OnItemDrag -= HandleItemDrag;
+            EventHandlers.OnItemEndDrag -= HandleItemEndDrag;
+            EventHandlers.OnItemDroppedOn -= HandleSwap;
+        }
+
+        /// <summary>
+        /// Check if can swap and implement the logic of swapping
+        /// </summary>
+        /// <returns></returns>
+        protected abstract void HandleSwap(UIInventorySlot item);
     }
 }

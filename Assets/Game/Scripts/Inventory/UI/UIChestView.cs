@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using static SunnyFarm.Game.Constant.Enums;
 
-public class UIChestView : UIInventoryView
+public class UIChestView : UILargeInventoryView
 {
     [SerializeField] private string id; // for complie error
 
@@ -15,26 +15,15 @@ public class UIChestView : UIInventoryView
     public override void InitializeInventoryUI(int capacity)
     {
         // Instantiate items first and set up their events
-        for (int i = 0; i < listOfUIItems.Length; i++)
+        for (int i = 0; i < uiInventorySlots.Length; i++)
         {
             // Instantiate item in main inventory
-            UIInventorySlot item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, content);
-            item.ItemIndex = i;
-            item.SetItemLocation(InventoryLocation.Chest);
-            listOfUIItems[i] = item;
-
-            // set up events
-            item.OnItemBeginDrag += HandleItemBeginDrag;
-            item.OnItemDrag += HandleItemDrag;
-            item.OnItemEndDrag += HandleItemEndDrag;
-            item.OnItemDroppedOn += HandleSwap;
-            item.OnItemHover += HandleItemHover;
-            item.OnItemEndHover += HandleItemEndHover;
+            uiInventorySlots[i].SetItemLocation(InventoryLocation.Chest);
         }
         // Unlock the slot item based on capacity
         for (int i = 0; i < capacity; i++)
         {
-            listOfUIItems[i].UnlockSlot();
+            uiInventorySlots[i].UnlockSlot();
         }
     }
     /// <summary>

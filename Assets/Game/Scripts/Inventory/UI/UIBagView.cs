@@ -1,77 +1,61 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
     using System;
+    using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory.Data;
+    using SunnyFarm.Game.Managers;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class UIBagView : UIInventoryView
+    public class UIBagView : UILargeInventoryView
     {
-        [SerializeField] private RectTransform quickAccessPanel;
-        [SerializeField] private RectTransform notQuickAccessPanel;
-
         public UIToolBar UIToolBar;
 
         public event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
 
-        public override void InitializeInventoryUI(int capacity)
+        private void Awake()
         {
-            // Set up mini bag UI
-            SetupToolBarUI();
-            // Instantiate items first and set up their events
-            for (int i = 0; i < listOfUIItems.Length; i++)
-            {
-                // Instantiate item in main inventory
-                UIInventorySlot item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
-                item.ItemIndex = i;
-                item.SetItemLocation(InventoryLocation.Player);
-                listOfUIItems[i] = item;
+            EventHandlers.OnInventoryUpdated += UpdateBagUIItems;
 
-                // // set up events
-                // item.OnItemBeginDrag += HandleItemBeginDrag;
-                // item.OnItemDrag += HandleItemDrag;
-                // item.OnItemEndDrag += HandleItemEndDrag;
-                // item.OnItemDroppedOn += HandleSwap;
-                // item.OnItemHover += HandleItemHover;
-                // item.OnItemEndHover += HandleItemEndHover;
-
-                // set the item's parent and store in their array
-                if (i < Constant.Inventory.PlayerInventoryMinCapacity)
-                {
-                    item.transform.SetParent(quickAccessPanel);
-                }
-                else
-                {
-                    item.transform.SetParent(notQuickAccessPanel);
-                }
-            }
-            // Unlock the slot item based on capacity
-            // for (int i = 0; i < capacity; i++)
-            // {
-            //     listOfUIItems[i].UnlockSlot();
-            // }
         }
-        /// <summary>
-        /// Set up mini bag UI and event
-        /// </summary>
-        void SetupToolBarUI()
+
+        private void UpdateBagUIItems(InventoryLocation location, InventoryItem[] inventoryItems)
         {
-            var items = UIToolBar.SetupItemsUI();
-            for (int i = 0; i < items.Length; i++)
+            if (location == InventoryLocation.Player)
             {
-                items[i].OnItemHover += HandleItemHover;
-                items[i].OnItemEndHover += HandleItemEndHover;
+                if (uiInventorySlots.Length > 0 && inventoryItems.Length > 0)
+                {
+                    for (int i = 0; i < uiInventorySlots.Length; i++)
+                    {
+                        if (i < inventoryItems.Length)
+                        {
+                            string itemId = inventoryItems[i].itemId;
+
+                            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+
+                            if (itemDetail != null)
+                            {
+                                uiInventorySlots[i].SetData(itemDetail.ItemImage, inventoryItems[i].quantity);
+                            }
+                        }
+                    }
+                }
+
+
             }
         }
-        /// <summary>
-        /// Toggle inventory view
-        /// </summary>
-        /// <param name="context"></param>
-        public void ToggleInventory(InputAction.CallbackContext context)
+
+        public override void InitializeInventoryUI(int avalableCapacity)
         {
-            UIToolBar.gameObject.SetActive(gameObject.activeSelf);
-            gameObject.SetActive(!gameObject.activeSelf);
+            for (int i = 0; i < uiInventorySlots.Length; i++)
+            {
+                uiInventorySlots[i].SetItemLocation(InventoryLocation.Player);
+            }
+
         }
+
+
         /// <summary>
         /// Handle logic of swap data in bag view
         /// </summary>
@@ -94,5 +78,6 @@ namespace SunnyFarm.Game.Inventory.UI
             OnSwapItems?.Invoke(itemData1, itemData2);
         }
     }
+
 }
 

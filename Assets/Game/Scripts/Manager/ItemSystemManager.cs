@@ -38,6 +38,8 @@ namespace SunnyFarm.Game.Managers
         /// <returns></returns>
         public ItemDetail GetItemDetail(string itemID)
         {
+            if (itemID == null) return null;
+
             if (itemDetails.ContainsKey(itemID))
             {
                 return itemDetails[itemID];

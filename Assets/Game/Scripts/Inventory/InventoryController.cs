@@ -25,29 +25,25 @@ namespace SunnyFarm.Game.Inventory
 
         [SerializeField] private UIChestView uiChestView;
 
-        [SerializeField] private List<InventoryItem> initialItems = new List<InventoryItem>();
+        [SerializeField] private InventoryItem[] initialItems;
 
         private InventoryDataController inventoryData;
 
         private void OnEnable()
         {
-            GameInputManager.Instance.InputActions.Player.Inventory.started += uiBagView.ToggleInventory;
-
             EventHandlers.OnInventoryUpdated += UpdateBagUIItems;
         }
 
         private void OnDisable()
         {
-            GameInputManager.Instance.InputActions.Player.Inventory.started -= uiBagView.ToggleInventory;
-
             EventHandlers.OnInventoryUpdated -= UpdateBagUIItems;
         }
 
         private void Start()
         {
+            GameInputManager.Instance.InputActions.Player.Inventory.started += uiBagView.ToggleInventory;
             // assign data controller
             inventoryData = InventoryDataController.Instance;
-
             SetupView();
             SetupModel();
         }
@@ -58,7 +54,8 @@ namespace SunnyFarm.Game.Inventory
         private void SetupModel()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-            inventoryData.Setup();
+            inventoryData.CreateInventoryList();
+            // inventoryData.Setup();
 
             EventHandlers.OnInventoryUpdated += UpdateBagUIItems;
             // inventoryData.OnChestUpdated += UpdateChestUIItems;
@@ -146,27 +143,27 @@ namespace SunnyFarm.Game.Inventory
         /// Update bag view and mini bag view based on inventory list of data in model
         /// </summary>
         /// <param name="inventoryItems"></param>
-        private void UpdateBagUIItems(InventoryLocation inventoryLocation, List<InventoryItem> inventoryItems)
+        private void UpdateBagUIItems(InventoryLocation inventoryLocation, InventoryItem[] inventoryItems)
         {
-            uiBagView.ResetAllUIItems();
-            for (int i = 0; i < inventoryItems.Count; i++)
-            {
-                string itemId = inventoryItems[i].itemId;
+            // uiBagView.ResetAllUIItems();
+            // for (int i = 0; i < inventoryItems.Length; i++)
+            // {
+            //     string itemId = inventoryItems[i].itemId;
 
-                ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
-                if (itemDetail != null)
-                {
-                    uiBagView.UpdateUIItemData(i, itemDetail.ItemImage,
-                    inventoryItems[i].quantity);
+            //     ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+            //     if (itemDetail != null)
+            //     {
+            //         uiBagView.UpdateUIItemData(i, itemDetail.ItemImage,
+            //         inventoryItems[i].quantity);
 
-                    if (i < Constant.Inventory.PlayerInventoryMinCapacity)
-                    {
-                        uiBagView.UIToolBar.UpdateUIItemData(i, itemDetail.ItemImage,
-                            inventoryItems[i].quantity);
-                    }
-                }
+            //         if (i < Constant.Inventory.PlayerInventoryMinCapacity)
+            //         {
+            //             uiBagView.UIToolBar.UpdateUIItemData(i, itemDetail.ItemImage,
+            //                 inventoryItems[i].quantity);
+            //         }
+            //     }
 
-            }
+            // }
         }
         /// <summary>
         /// 

@@ -25,17 +25,17 @@ namespace SunnyFarm.Game.Inventory.UI
             EventHandlers.OnInventoryUpdated -= InventoryUpdated;
         }
 
-        private void InventoryUpdated(InventoryLocation location, List<InventoryItem> inventoryItemList)
+        private void InventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItemList)
         {
             if (location == InventoryLocation.Player)
             {
                 ClearInventorySlot();
 
-                if (inventorySlots.Length > 0 && inventoryItemList.Count > 0)
+                if (inventorySlots.Length > 0 && inventoryItemList.Length > 0)
                 {
                     for (int i = 0; i < inventorySlots.Length; i++)
                     {
-                        if (i < inventoryItemList.Count)
+                        if (i < inventoryItemList.Length)
                         {
                             string itemId = inventoryItemList[i].itemId;
 
@@ -57,7 +57,7 @@ namespace SunnyFarm.Game.Inventory.UI
             {
                 for (int i = 0; i < inventorySlots.Length; i++)
                 {
-                    inventorySlots[i].inventorySlotImage.sprite = transparentSprite;
+                    inventorySlots[i].inventorySlotItemImage.sprite = transparentSprite;
                     inventorySlots[i].itemQuantityText.text = "";
                 }
             }

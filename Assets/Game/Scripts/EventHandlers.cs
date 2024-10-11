@@ -58,9 +58,9 @@ namespace SunnyFarm.Game
 
         #region Inventory Events
         // Inventory updated event
-        public static event Action<InventoryLocation, List<InventoryItem>> OnInventoryUpdated;
+        public static event Action<InventoryLocation, InventoryItem[]> OnInventoryUpdated;
 
-        public static void CallOnInventoryUpdated(InventoryLocation location, List<InventoryItem> inventoryItems)
+        public static void CallOnInventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItems)
         {
             OnInventoryUpdated?.Invoke(location, inventoryItems);
 

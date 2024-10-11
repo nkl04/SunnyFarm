@@ -59,7 +59,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="quantity"></param>
         public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
         {
-            listOfUIItems[itemIdx].SetData(sprite, quantity);
+            // listOfUIItems[itemIdx].SetData(sprite, quantity);
         }
         /// <summary>
         /// Update description for the hover's item

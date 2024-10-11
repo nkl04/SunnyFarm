@@ -24,5 +24,11 @@ namespace SunnyFarm.Game.Inventory.Data
             this.itemId = itemId;
             this.quantity = quantity;
         }
+
+        public void SetData(string itemId, int quantity)
+        {
+            this.itemId = itemId;
+            this.quantity = quantity;
+        }
     }
 }

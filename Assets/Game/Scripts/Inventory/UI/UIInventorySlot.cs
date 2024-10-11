@@ -11,13 +11,11 @@ namespace SunnyFarm.Game.Inventory.UI
     public class UIInventorySlot : MonoBehaviour,
         IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private Image itemImage;
-        [SerializeField] private TMP_Text itemQuantity;
         [SerializeField] private RectTransform selectBox;
 
         [Header("Slot")]
         public Image inventorySlotHighlightImage;
-        public Image inventorySlotImage;
+        public Image inventorySlotItemImage;
         public TextMeshProUGUI itemQuantityText;
 
         private bool isEmpty = false;
@@ -33,9 +31,9 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Get the sprite and text in item ui
         /// </summary>
         /// <returns></returns>
-        public (Sprite, TMP_Text) GetData()
+        public (Sprite, TextMeshProUGUI) GetData()
         {
-            return (itemImage.sprite, itemQuantity);
+            return (inventorySlotItemImage.sprite, itemQuantityText);
         }
         /// <summary>
         /// Set data to the ui, use it when having data from the db
@@ -44,10 +42,11 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="quantity"></param>
         public void SetData(Sprite image, int quantity)
         {
-            itemImage.gameObject.SetActive(image != null);
-            itemImage.sprite = image;
-            // itemQuantity.text = quantity > 1 ? quantity.ToString() : "";
+            inventorySlotItemImage.gameObject.SetActive(image != null);
+            inventorySlotItemImage.sprite = image;
+            itemQuantityText.text = quantity > 1 ? quantity.ToString() : "";
             isEmpty = image == null;
+
         }
         /// <summary>
         /// Set item's location to item
@@ -62,7 +61,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         public void ResetData()
         {
-            itemImage.gameObject.SetActive(false);
+            inventorySlotItemImage.gameObject.SetActive(false);
             // itemQuantity.text = "";
             isEmpty = true;
         }
@@ -71,14 +70,14 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         public void ShowData()
         {
-            itemImage.gameObject.SetActive(itemImage.sprite != null);
+            inventorySlotItemImage.gameObject.SetActive(inventorySlotItemImage.sprite != null);
         }
         /// <summary>
         /// Hide the data when begining to drag the item
         /// </summary>
         public void HideData()
         {
-            itemImage.gameObject.SetActive(false);
+            inventorySlotItemImage.gameObject.SetActive(false);
         }
         /// <summary>
         /// Deselect item ui then disappear the select box

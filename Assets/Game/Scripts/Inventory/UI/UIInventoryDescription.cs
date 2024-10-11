@@ -6,12 +6,14 @@ namespace SunnyFarm.Game.Inventory.UI
 
     public class UIInventoryDescription : MonoBehaviour
     {
-        [SerializeField]
-        private TMP_Text title;
-        [SerializeField]
-        private TMP_Text type;
-        [SerializeField]
-        private TMP_Text description;
+        [SerializeField] private TextMeshProUGUI textTop1;
+        [SerializeField] private TextMeshProUGUI textTop2;
+        [SerializeField] private TextMeshProUGUI textTop3;
+
+        [SerializeField] private TextMeshProUGUI textBottom1;
+        [SerializeField] private TextMeshProUGUI textBottom2;
+        [SerializeField] private TextMeshProUGUI textBottom3;
+
 
         public Vector2 InitPivot { get; private set; } = new Vector2(-0.1f, 1.1f);
         public void Awake()
@@ -23,9 +25,9 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         public void ResetDescription()
         {
-            title.text = "";
-            type.text = "";
-            description.text = "";
+            // title.text = "";
+            // type.text = "";
+            // description.text = "";
         }
         /// <summary>
         /// Set data to the UI elements
@@ -36,9 +38,9 @@ namespace SunnyFarm.Game.Inventory.UI
         public void SetDescription(string itemName, ItemType itemType,
             string itemDescription)
         {
-            title.text = itemName;
-            //type.text = itemType.ToString();
-            description.text = itemDescription;
+            // title.text = itemName;
+            // //type.text = itemType.ToString();
+            // description.text = itemDescription;
         }
         /// <summary>
         /// Change pivot of the description

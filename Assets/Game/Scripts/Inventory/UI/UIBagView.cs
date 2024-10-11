@@ -17,7 +17,6 @@ namespace SunnyFarm.Game.Inventory.UI
         private void Awake()
         {
             EventHandlers.OnInventoryUpdated += UpdateBagUIItems;
-
         }
 
         private void UpdateBagUIItems(InventoryLocation location, InventoryItem[] inventoryItems)

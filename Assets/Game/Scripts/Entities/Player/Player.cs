@@ -9,6 +9,7 @@ namespace SunnyFarm.Game.Entities.Player
     using UnityEngine.InputSystem;
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Inventory;
+    using TMPro;
 
     public class Player : Singleton<Player>
     {
@@ -94,9 +95,20 @@ namespace SunnyFarm.Game.Entities.Player
 
             inputActions.Player.Water.canceled += OnWaterInput;
 
-            inputActions.Player.Inventory.started += OnToggleInventory;
+            inputActions.Player.ToggleInventory.started += OnToggleInventory;
+
+            inputActions.Player.QuickSelectSlot.started += SelectInventorySlot;
 
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
+        }
+
+        private void SelectInventorySlot(InputAction.CallbackContext context)
+        {
+            var bindings = inputActions.Player.QuickSelectSlot.bindings;
+
+            int bindingIndex = inputActions.Player.QuickSelectSlot.GetBindingIndexForControl(context.control);
+
+            Debug.Log(bindingIndex);
         }
 
         private void OnToggleInventory(InputAction.CallbackContext context)

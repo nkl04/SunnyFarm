@@ -78,8 +78,8 @@ namespace SunnyFarm.Game.Inventory.UI
             for (int i = 0; i < uiInventorySlots.Length; i++)
             {
                 uiInventorySlots[i].SetItemLocation(InventoryLocation.Player);
-                uiInventorySlots[i].OnItemHover += HandleItemHover;
-                uiInventorySlots[i].OnItemEndHover += HandleItemEndHover;
+                // uiInventorySlots[i].OnItemHover += HandleItemHover;
+                // uiInventorySlots[i].OnItemEndHover += HandleItemEndHover;
             }
             return uiInventorySlots;
         }

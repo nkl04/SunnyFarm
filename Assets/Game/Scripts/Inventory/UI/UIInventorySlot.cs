@@ -11,21 +11,20 @@ namespace SunnyFarm.Game.Inventory.UI
     public class UIInventorySlot : MonoBehaviour,
         IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private RectTransform selectBox;
-
         [Header("Slot")]
         public Image inventorySlotHighlightImage;
         public Image inventorySlotItemImage;
         public TextMeshProUGUI itemQuantityText;
 
+        public int ItemIndex { get; set; }
+        public InventoryLocation ItemLocation { get; private set; }
         private bool isEmpty = false;
         private bool isUnlocked = false;
 
-        public int ItemIndex { get; set; }
-        public InventoryLocation ItemLocation { get; private set; }
-
-        public event Action<UIInventorySlot> OnItemDroppedOn,
-            OnItemBeginDrag, OnItemDrag, OnItemEndDrag, OnItemHover, OnItemEndHover;
+        private void Awake()
+        {
+            Deselect();
+        }
 
         /// <summary>
         /// Get the sprite and text in item ui
@@ -79,13 +78,25 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             inventorySlotItemImage.gameObject.SetActive(false);
         }
+
+        #region Select & Deselect
+        /// <summary>
+        /// Select item ui then show the select box
+        /// </summary>
+        public void Select()
+        {
+            inventorySlotHighlightImage.gameObject.SetActive(true);
+        }
+
         /// <summary>
         /// Deselect item ui then disappear the select box
         /// </summary>
         public void Deselect()
         {
-            selectBox.gameObject.SetActive(false);
+            inventorySlotHighlightImage.gameObject.SetActive(false);
         }
+
+        #endregion
         /// <summary>
         /// User can interact the slot when unlocking
         /// </summary>

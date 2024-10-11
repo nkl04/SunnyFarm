@@ -75,9 +75,18 @@ namespace SunnyFarm.Game.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Inventory"",
+                    ""name"": ""ToggleInventory"",
                     ""type"": ""Button"",
                     ""id"": ""f46fa855-01d2-4ca5-a69a-9170de27d4d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickSelectSlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6c086f7-19c6-4a5b-866b-02c3bf0447fa"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -268,7 +277,139 @@ namespace SunnyFarm.Game.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Inventory"",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fdffd2c-ddcb-40a9-a5e6-a47f54390fca"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4dd7a5a-bf6c-42a8-b726-ce9f2db40d39"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbf6d280-8e60-4ac6-836c-ba004dbfa838"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""171880c4-d5c5-4b82-813e-4e9e7e39cc8c"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fd2b260-0a7e-4cd3-a7d0-e3f2bace8393"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55ae4656-d1f4-493a-ae13-6c288fc600bd"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5f1938d-5948-4f1c-bfa8-75e982921b02"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd422eb9-2872-4b8b-9174-5e0f6a7e54b1"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2de4919e-ecdb-4d66-a94e-729fbe537c24"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1aa7e685-c727-4dc2-8ad8-c13e07b74ca8"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15622e13-0313-4a88-b12c-e0acf5340af4"",
+                    ""path"": ""<Keyboard>/minus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a9d9f84-f2c2-4eb3-9af9-baee5e6e7bfa"",
+                    ""path"": ""<Keyboard>/equals"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSelectSlot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -861,7 +1002,8 @@ namespace SunnyFarm.Game.Input
             m_Player_Dig = m_Player.FindAction("Dig", throwIfNotFound: true);
             m_Player_Pickaxe = m_Player.FindAction("Pickaxe", throwIfNotFound: true);
             m_Player_Water = m_Player.FindAction("Water", throwIfNotFound: true);
-            m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+            m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
+            m_Player_QuickSelectSlot = m_Player.FindAction("QuickSelectSlot", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -940,7 +1082,8 @@ namespace SunnyFarm.Game.Input
         private readonly InputAction m_Player_Dig;
         private readonly InputAction m_Player_Pickaxe;
         private readonly InputAction m_Player_Water;
-        private readonly InputAction m_Player_Inventory;
+        private readonly InputAction m_Player_ToggleInventory;
+        private readonly InputAction m_Player_QuickSelectSlot;
         public struct PlayerActions
         {
             private @PlayerInputAction m_Wrapper;
@@ -950,7 +1093,8 @@ namespace SunnyFarm.Game.Input
             public InputAction @Dig => m_Wrapper.m_Player_Dig;
             public InputAction @Pickaxe => m_Wrapper.m_Player_Pickaxe;
             public InputAction @Water => m_Wrapper.m_Player_Water;
-            public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+            public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
+            public InputAction @QuickSelectSlot => m_Wrapper.m_Player_QuickSelectSlot;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -975,9 +1119,12 @@ namespace SunnyFarm.Game.Input
                 @Water.started += instance.OnWater;
                 @Water.performed += instance.OnWater;
                 @Water.canceled += instance.OnWater;
-                @Inventory.started += instance.OnInventory;
-                @Inventory.performed += instance.OnInventory;
-                @Inventory.canceled += instance.OnInventory;
+                @ToggleInventory.started += instance.OnToggleInventory;
+                @ToggleInventory.performed += instance.OnToggleInventory;
+                @ToggleInventory.canceled += instance.OnToggleInventory;
+                @QuickSelectSlot.started += instance.OnQuickSelectSlot;
+                @QuickSelectSlot.performed += instance.OnQuickSelectSlot;
+                @QuickSelectSlot.canceled += instance.OnQuickSelectSlot;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -997,9 +1144,12 @@ namespace SunnyFarm.Game.Input
                 @Water.started -= instance.OnWater;
                 @Water.performed -= instance.OnWater;
                 @Water.canceled -= instance.OnWater;
-                @Inventory.started -= instance.OnInventory;
-                @Inventory.performed -= instance.OnInventory;
-                @Inventory.canceled -= instance.OnInventory;
+                @ToggleInventory.started -= instance.OnToggleInventory;
+                @ToggleInventory.performed -= instance.OnToggleInventory;
+                @ToggleInventory.canceled -= instance.OnToggleInventory;
+                @QuickSelectSlot.started -= instance.OnQuickSelectSlot;
+                @QuickSelectSlot.performed -= instance.OnQuickSelectSlot;
+                @QuickSelectSlot.canceled -= instance.OnQuickSelectSlot;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1187,7 +1337,8 @@ namespace SunnyFarm.Game.Input
             void OnDig(InputAction.CallbackContext context);
             void OnPickaxe(InputAction.CallbackContext context);
             void OnWater(InputAction.CallbackContext context);
-            void OnInventory(InputAction.CallbackContext context);
+            void OnToggleInventory(InputAction.CallbackContext context);
+            void OnQuickSelectSlot(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

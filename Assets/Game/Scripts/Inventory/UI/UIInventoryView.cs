@@ -46,17 +46,6 @@ namespace SunnyFarm.Game.Inventory.UI
         public abstract void InitializeInventoryUI(int capacity);
 
         /// <summary>
-        /// Update data for the inventory item UI
-        /// </summary>
-        /// <param name="itemIdx"></param>
-        /// <param name="sprite"></param>
-        /// <param name="quantity"></param>
-        public void UpdateUIItemData(int itemIdx, Sprite sprite, int quantity)
-        {
-            // listOfUIItems[itemIdx].SetData(sprite, quantity);
-        }
-
-        /// <summary>
         /// Reset all slot in inventory items
         /// </summary>
         public void ResetAllUIItems()

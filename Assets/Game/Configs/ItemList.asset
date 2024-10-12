@@ -13,19 +13,39 @@ MonoBehaviour:
   m_Name: ItemList
   m_EditorClassIdentifier: 
   itemDetails:
-  - ID: 10000
+  - ID: 10001
     ItemType: 2
-    Name: Beetroot
-    Description: 
-    ItemImage: {fileID: 21300000, guid: 21fc77b907e70f1468fc87c54341c033, type: 3}
+    Name: Beet
+    Description: A sweet and earthy root vegetable. As a bonus, the leaves make a
+      great salad.
+    ItemImage: {fileID: 1130745165, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 1
+  - ID: 10002
+    ItemType: 2
+    Name: Carrot
+    Description: A fast-growing, colorful tuber that makes for a great snack.
+    ItemImage: {fileID: 217176905, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 1
+  - ID: 10003
+    ItemType: 2
+    Name: Cauliflower
+    Description: Valuable, but slow-growing. Despite its pale color, the florets
+      are packed with nutrients.
+    ItemImage: {fileID: -650372627, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
     CanBeEaten: 1
   - ID: 50001
-    ItemType: 2
-    Name: Log
-    Description: 
+    ItemType: 4
+    Name: Wood
+    Description: A sturdy, yet flexible plant material with a wide variety of uses.
     ItemImage: {fileID: -1019866753, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
     IsStackable: 1
     MaxStackSize: 32

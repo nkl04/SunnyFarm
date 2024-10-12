@@ -14,12 +14,15 @@ namespace SunnyFarm.Game.Inventory.UI
 
         public event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
 
-        private void Awake()
+        public override void InitializeInventoryUI(int avalableCapacity)
         {
-            EventHandlers.OnInventoryUpdated += UpdateBagUIItems;
+            for (int i = 0; i < uiInventorySlots.Length; i++)
+            {
+                uiInventorySlots[i].SetItemLocation(InventoryLocation.Player);
+            }
         }
 
-        private void UpdateBagUIItems(InventoryLocation location, InventoryItem[] inventoryItems)
+        public void UpdateUIBag(InventoryLocation location, InventoryItem[] inventoryItems)
         {
             if (location == InventoryLocation.Player)
             {
@@ -40,20 +43,8 @@ namespace SunnyFarm.Game.Inventory.UI
                         }
                     }
                 }
-
-
             }
         }
-
-        public override void InitializeInventoryUI(int avalableCapacity)
-        {
-            for (int i = 0; i < uiInventorySlots.Length; i++)
-            {
-                uiInventorySlots[i].SetItemLocation(InventoryLocation.Player);
-            }
-
-        }
-
 
         /// <summary>
         /// Handle logic of swap data in bag view

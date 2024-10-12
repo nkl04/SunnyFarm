@@ -19,7 +19,6 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             rectTransform = GetComponent<RectTransform>();
 
-            EventHandlers.OnInventoryUpdated += InventoryUpdated;
         }
 
         private void Start()
@@ -27,7 +26,7 @@ namespace SunnyFarm.Game.Inventory.UI
             SetupItemsUI();
         }
 
-        private void InventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItems)
+        public void UpdateUIToolBar(InventoryLocation location, InventoryItem[] inventoryItems)
         {
             if (location == InventoryLocation.Player)
             {

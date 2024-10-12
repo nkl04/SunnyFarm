@@ -34,12 +34,12 @@ namespace SunnyFarm.Game.Inventory
 
         private void OnEnable()
         {
-            EventHandlers.OnInventoryUpdated += UpdateBagUIItems;
+            EventHandlers.OnInventoryUpdated += UpdateUIInventory;
         }
 
         private void OnDisable()
         {
-            EventHandlers.OnInventoryUpdated -= UpdateBagUIItems;
+            EventHandlers.OnInventoryUpdated -= UpdateUIInventory;
         }
 
         private void Start()
@@ -59,7 +59,7 @@ namespace SunnyFarm.Game.Inventory
             inventoryData.CreateInventoryList();
             // inventoryData.Setup();
 
-            EventHandlers.OnInventoryUpdated += UpdateBagUIItems;
+            EventHandlers.OnInventoryUpdated += UpdateUIInventory;
             // inventoryData.OnChestUpdated += UpdateChestUIItems;
 
             // foreach (InventoryItem item in initialItems)
@@ -154,30 +154,14 @@ namespace SunnyFarm.Game.Inventory
         #endregion
 
         /// <summary>
-        /// Update bag view and mini bag view based on inventory list of data in model
+        /// Update UI inventory
         /// </summary>
+        /// <param name="inventoryLocation"></param>
         /// <param name="inventoryItems"></param>
-        private void UpdateBagUIItems(InventoryLocation inventoryLocation, InventoryItem[] inventoryItems)
+        private void UpdateUIInventory(InventoryLocation inventoryLocation, InventoryItem[] inventoryItems)
         {
-            // uiBagView.ResetAllUIItems();
-            // for (int i = 0; i < inventoryItems.Length; i++)
-            // {
-            //     string itemId = inventoryItems[i].itemId;
-
-            //     ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
-            //     if (itemDetail != null)
-            //     {
-            //         uiBagView.UpdateUIItemData(i, itemDetail.ItemImage,
-            //         inventoryItems[i].quantity);
-
-            //         if (i < Constant.Inventory.PlayerInventoryMinCapacity)
-            //         {
-            //             uiBagView.UIToolBar.UpdateUIItemData(i, itemDetail.ItemImage,
-            //                 inventoryItems[i].quantity);
-            //         }
-            //     }
-
-            // }
+            uiBagView.UpdateUIBag(inventoryLocation, inventoryItems);
+            uiToolBarView.UpdateUIToolBar(inventoryLocation, inventoryItems);
         }
         /// <summary>
         /// 

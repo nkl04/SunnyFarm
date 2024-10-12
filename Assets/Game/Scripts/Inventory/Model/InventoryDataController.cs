@@ -132,7 +132,6 @@ namespace SunnyFarm.Game.Inventory.Data
         /// <param name="quantity"></param>
         public void AddStackableItem(InventoryItem[] inventoryItems, ItemDetail item, int quantity)
         {
-            Debug.Log("<color=green>Adding stackable item</color>");
             string itemId = item.ID;
 
             // Check if the item is already in the inventory
@@ -152,7 +151,6 @@ namespace SunnyFarm.Game.Inventory.Data
 
                     // If we can take the whole quantity or a partial amount
                     int amountToAdd = Mathf.Min(quantity, amountPossibleToTake);
-                    Debug.Log(amountToAdd);
                     // Increment quantity in stack and decrease the amount we need to add
                     inventoryItems[i].IncrementQuantity(amountToAdd);
                     // Debug.Log(inventoryItem.quantity);

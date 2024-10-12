@@ -14,12 +14,6 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField] private TextMeshProUGUI textBottom2;
         [SerializeField] private TextMeshProUGUI textBottom3;
 
-
-        public Vector2 InitPivot { get; private set; } = new Vector2(-0.1f, 1.1f);
-        public void Awake()
-        {
-            ResetTextBox();
-        }
         /// <summary>
         /// Reset UI elements
         /// </summary>

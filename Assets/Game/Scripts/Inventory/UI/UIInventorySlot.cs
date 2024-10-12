@@ -139,8 +139,6 @@ namespace SunnyFarm.Game.Inventory.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Debug.Log("Hovering");
-
             if (isEmpty) return;
             EventHandlers.CallOnItemHover(this);
         }

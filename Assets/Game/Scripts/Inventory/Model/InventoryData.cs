@@ -10,7 +10,7 @@ namespace SunnyFarm.Game.Inventory.Data
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class InventoryDataController : Singleton<InventoryDataController>
+    public class InventoryData
     {
         public event Action<InventoryItem[]> OnBagUpdated;
         public event Action<string, InventoryItem[]> OnChestUpdated;
@@ -36,24 +36,6 @@ namespace SunnyFarm.Game.Inventory.Data
 
         }
 
-        private void Start()
-        {
-            GetData();
-        }
-
-        // /// <summary>
-        // /// Set up the size of the inventory item data and create each item in array
-        // /// </summary>
-        // /// <param name="size"></param>
-        // public void Setup()
-        // {
-        //     inventoryItemList = new InventoryItem[](Constant.Inventory.PlayerInventoryMaxCapacity);
-        //     for (int i = 0; i < inventoryItemList.Count; i++)
-        //     {
-        //         inventoryItemList[i] = new InventoryItem();
-        //     }
-        // }
-
         #region Get item logic
         /// <summary>
         /// Get item data in player's bag based on index
@@ -63,6 +45,36 @@ namespace SunnyFarm.Game.Inventory.Data
         public InventoryItem GetItemInInventory(int index, InventoryItem[] inventoryItemList)
         {
             return inventoryItemList[index];
+        }
+
+        /// <summary>
+        /// Find the position of the item in the inventory
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns>-1 if not found</returns>
+        private int GetItemPositionInInventory(string itemId, InventoryLocation inventoryLocation)
+        {
+            InventoryItem[] inventoryItemList = inventoryArray[(int)inventoryLocation];
+            for (int i = 0; i < inventoryItemList.Length; i++)
+            {
+                if (inventoryItemList[i].itemId == itemId)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private int FindFirstEmptySlot(InventoryItem[] inventoryItems)
+        {
+            for (int i = 0; i < inventoryItems.Length; i++)
+            {
+                if (inventoryItems[i].isEmpty)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         // /// <summary>
@@ -109,6 +121,13 @@ namespace SunnyFarm.Game.Inventory.Data
             EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }
 
+        /// <summary>
+        /// Logic that add item into position in player's inventory
+        /// </summary>
+        /// <param name="inventoryItemList"></param>
+        /// <param name="itemId"></param>
+        /// <param name="itemPosition"></param>
+        /// <param name="quantity"></param>
         private void AddItemAtPosition(InventoryItem[] inventoryItemList, string itemId, int itemPosition, int quantity)
         {
 
@@ -297,37 +316,16 @@ namespace SunnyFarm.Game.Inventory.Data
         // }
         #endregion
 
-        #region Find logic
-        /// <summary>
-        /// Find the position of the item in the inventory
-        /// </summary>
-        /// <param name="itemId"></param>
-        /// <returns>-1 if not found</returns>
-        private int FindItemPositionInInventory(string itemId, InventoryLocation inventoryLocation)
-        {
-            InventoryItem[] inventoryItemList = inventoryArray[(int)inventoryLocation];
-            for (int i = 0; i < inventoryItemList.Length; i++)
-            {
-                if (inventoryItemList[i].itemId == itemId)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
+        #region Upgrade inventory logic
 
-        private int FindFirstEmptySlot(InventoryItem[] inventoryItems)
+        public void UpgradeInventoryCapacity(InventoryLocation inventoryLocation, int newCapacity)
         {
-            for (int i = 0; i < inventoryItems.Length; i++)
-            {
-                if (inventoryItems[i].isEmpty)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
+            inventoryListCapacityArray[(int)inventoryLocation] = newCapacity;
 
+            Array.Resize(ref inventoryArray[(int)inventoryLocation], newCapacity);
+
+            EventHandlers.CallOnInventoryCapacityUpdated(inventoryLocation, newCapacity);
+        }
         #endregion
 
         #region Check logic
@@ -353,27 +351,5 @@ namespace SunnyFarm.Game.Inventory.Data
         }
         #endregion
 
-        // /// <summary>
-        // /// Events that trigger when having changes in the chest list data
-        // /// </summary>
-        // private void InformAboutChestChange(string id)
-        // {
-        //     OnChestUpdated?.Invoke(id, chests[id]);
-        // }
-
-        /// <summary>
-        /// Save the data of the inventory to file
-        /// </summary>
-        void SaveData()
-        {
-        }
-
-        /// <summary>
-        /// Get the data of the inventory from the file
-        /// </summary>
-        void GetData()
-        {
-
-        }
     }
 }

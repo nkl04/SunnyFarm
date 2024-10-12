@@ -1916,7 +1916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ab258d40096a542be0cd67153ac6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 412570884795833003, guid: f3b811e1777fde6438f07f54cae61002, type: 3}
+  transparentSprite: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
   draggedItem: {fileID: 5302136044826251755}
   uiInventoryDescription: {fileID: 2420843094998766428, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
   uiInventorySlots:
@@ -1956,7 +1956,7 @@ MonoBehaviour:
   - {fileID: 4205517261084727499}
   - {fileID: 6866298889584084567}
   - {fileID: 4727374735497845721}
-  UIToolBar: {fileID: 7432603365784814170, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
+  lockedSlotSprite: {fileID: 1218549551, guid: b8c5fc3d3a5130a40b1db76f95276846, type: 3}
 --- !u!1 &7847410377762536830
 GameObject:
   m_ObjectHideFlags: 0

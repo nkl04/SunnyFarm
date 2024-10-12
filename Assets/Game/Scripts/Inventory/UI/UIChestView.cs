@@ -23,7 +23,7 @@ public class UIChestView : UILargeInventoryView
         // Unlock the slot item based on capacity
         for (int i = 0; i < capacity; i++)
         {
-            uiInventorySlots[i].UnlockSlot();
+            uiInventorySlots[i].SetUnlocked(true);
         }
     }
     /// <summary>

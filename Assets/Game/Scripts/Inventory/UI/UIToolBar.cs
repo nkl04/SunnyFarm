@@ -11,14 +11,12 @@ namespace SunnyFarm.Game.Inventory.UI
     public class UIToolBar : UIInventoryView
     {
         public bool IsToolBarBottomPosition { get => isToolBarBottomPosition; }
-        [SerializeField] private Sprite transparentSprite;
         private RectTransform rectTransform;
         private bool isToolBarBottomPosition = true;
 
         private void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-
         }
 
         private void Start()

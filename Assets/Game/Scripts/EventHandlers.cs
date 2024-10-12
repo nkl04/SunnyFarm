@@ -57,9 +57,16 @@ namespace SunnyFarm.Game
         #endregion
 
         #region Inventory Events
-        // Inventory updated event
+        /// <summary>
+        /// Event to update the inventory
+        /// </summary>
         public static event Action<InventoryLocation, InventoryItem[]> OnInventoryUpdated;
 
+        /// <summary>
+        /// Call the inventory updated event
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="inventoryItems"></param>
         public static void CallOnInventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItems)
         {
             OnInventoryUpdated?.Invoke(location, inventoryItems);
@@ -108,6 +115,21 @@ namespace SunnyFarm.Game
         public static void CallOnSwapItems(UIInventoryItemKeyData from, UIInventoryItemKeyData to)
         {
             OnSwapItems?.Invoke(from, to);
+        }
+
+        /// <summary>
+        /// Event to update the inventory capacity
+        /// </summary>
+        public static event Action<InventoryLocation, int> OnInventoryCapacityUpdated;
+
+        /// <summary>
+        /// Call the inventory capacity updated event
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="inventoryItems"></param>
+        public static void CallOnInventoryCapacityUpdated(InventoryLocation location, int capacity)
+        {
+            OnInventoryCapacityUpdated?.Invoke(location, capacity);
         }
 
         #endregion

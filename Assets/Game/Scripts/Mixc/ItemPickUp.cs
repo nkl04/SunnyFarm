@@ -4,6 +4,7 @@ namespace SunnyFarm.Game
     using System.Collections;
     using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
     using Unity.VisualScripting;
@@ -79,7 +80,7 @@ namespace SunnyFarm.Game
         {
             if (item != null)
             {
-                InventoryDataController.Instance.AddItem(InventoryLocation.Player, item, 1);
+                InventoryController.Instance.InventoryData.AddItem(InventoryLocation.Player, item, 1);
                 Destroy(item.gameObject);
             }
         }

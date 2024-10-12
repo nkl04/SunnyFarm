@@ -110,13 +110,10 @@ namespace SunnyFarm.Game.Inventory.UI
         }
 
         #endregion
-        /// <summary>
-        /// User can interact the slot when unlocking
-        /// </summary>
-        public void UnlockSlot()
+
+        public void SetUnlocked(bool unlocked)
         {
-            isUnlocked = true;
-            // backgroundSlot.sprite = unlockedBG;
+            isUnlocked = unlocked;
         }
 
         #region UI Events

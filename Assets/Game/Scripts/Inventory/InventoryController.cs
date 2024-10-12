@@ -15,6 +15,7 @@ namespace SunnyFarm.Game.Inventory
 
     public class InventoryController : Singleton<InventoryController>
     {
+        public InventoryData InventoryData => inventoryData;
         // Define map for capacity of the inventory based on inventory's level
         // key: level, value: capacity
         private Dictionary<int, int> evolveInventoryMap = new Dictionary<int, int>()
@@ -30,7 +31,7 @@ namespace SunnyFarm.Game.Inventory
 
         [SerializeField] private UIToolBar uiToolBarView;
 
-        private InventoryDataController inventoryData;
+        InventoryData inventoryData;
 
         private void OnEnable()
         {
@@ -45,8 +46,14 @@ namespace SunnyFarm.Game.Inventory
         private void Start()
         {
             // assign data controller
-            inventoryData = InventoryDataController.Instance;
+            inventoryData = new InventoryData();
+
+            EventHandlers.OnInventoryUpdated += UpdateUIInventory;
+
+            EventHandlers.OnInventoryCapacityUpdated += UpdateUIInventoryCapacity;
+
             SetupView();
+
             SetupModel();
         }
 
@@ -56,17 +63,16 @@ namespace SunnyFarm.Game.Inventory
         private void SetupModel()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
+
             inventoryData.CreateInventoryList();
-            // inventoryData.Setup();
 
-            EventHandlers.OnInventoryUpdated += UpdateUIInventory;
-            // inventoryData.OnChestUpdated += UpdateChestUIItems;
+            inventoryData.UpgradeInventoryCapacity(InventoryLocation.Player, capacity);
 
-            // foreach (InventoryItem item in initialItems)
-            // {
-            //     if (item.IsEmpty) continue;
-            //     inventoryData.AddItem(item.itemId, item.Quantity);
-            // }
+        }
+
+        private void UpdateUIInventoryCapacity(InventoryLocation location, int capacity)
+        {
+            uiBagView.UpdateUIBagCapacity(location, capacity);
         }
 
         /// <summary>

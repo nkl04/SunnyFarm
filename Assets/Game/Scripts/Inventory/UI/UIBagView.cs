@@ -10,8 +10,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
     public class UIBagView : UILargeInventoryView
     {
-        public UIToolBar UIToolBar;
-
+        [SerializeField] private Sprite lockedSlotSprite;
         public event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
 
         public override void InitializeInventoryUI(int avalableCapacity)
@@ -45,6 +44,31 @@ namespace SunnyFarm.Game.Inventory.UI
                 }
             }
         }
+
+        public void UpdateUIBagCapacity(InventoryLocation location, int capacity)
+        {
+            if (location == InventoryLocation.Player)
+            {
+                if (uiInventorySlots.Length > 0 && capacity > 0)
+                {
+                    for (int i = 0; i < uiInventorySlots.Length; i++)
+                    {
+                        if (i < capacity)
+                        {
+                            uiInventorySlots[i].SetUnlocked(true);
+                            uiInventorySlots[i].inventorySlotItemImage.sprite = transparentSprite;
+                        }
+                        else
+                        {
+                            uiInventorySlots[i].SetUnlocked(false);
+                            uiInventorySlots[i].inventorySlotItemImage.sprite = lockedSlotSprite;
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// Handle logic of swap data in bag view

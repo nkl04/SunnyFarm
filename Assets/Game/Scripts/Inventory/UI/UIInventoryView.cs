@@ -11,6 +11,8 @@ namespace SunnyFarm.Game.Inventory.UI
 
     public abstract class UIInventoryView : MonoBehaviour
     {
+        [SerializeField] protected Sprite transparentSprite;
+
         [SerializeField] protected RectTransform draggedItem;
 
         [SerializeField] protected UIInventoryDescription uiInventoryDescription;

@@ -1,6 +1,8 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
     using SunnyFarm.Game;
+    using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Managers;
     using System;
     using TMPro;
     using UnityEngine;
@@ -53,17 +55,7 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             // listOfUIItems[itemIdx].SetData(sprite, quantity);
         }
-        /// <summary>
-        /// Update description for the hover's item
-        /// </summary>
-        /// <param name="itemIdx"></param>
-        /// <param name="itemName"></param>
-        /// <param name="itemType"></param>
-        /// <param name="itemDescription"></param>
-        public void UpdateItemDescription(int itemIdx, string itemName, ItemType itemType, string itemDescription)
-        {
-            uiInventoryDescription.SetDescription(itemName, itemType, itemDescription);
-        }
+
         /// <summary>
         /// Reset all slot in inventory items
         /// </summary>
@@ -123,42 +115,33 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <summary>
         /// Show the description of the item
         /// </summary>
-        /// <param name="item"></param>
-        protected void HandleItemHover(UIInventorySlot item)
+        /// <param name="uiSlot"></param>
+        protected void HandleItemHover(UIInventorySlot uiSlot)
         {
             if (isDragging) return;
-
-            UIInventoryItemKeyData itemData = new UIInventoryItemKeyData
+            if (uiSlot.itemQuantity != 0)
             {
-                Index = item.ItemIndex,
-                ItemLocation = item.ItemLocation
-            };
+                ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(uiSlot.itemID);
 
-            Vector2 position = item.transform.position;
-            ShowUpDescription(position);
+                string itemName = itemDetail.Name;
+                string itemType = itemDetail.ItemType.ToString();
+                string itemDescription = itemDetail.Description;
 
-            OnDescriptionRequested?.Invoke(itemData);
-        }
+                uiInventoryDescription.SetTextboxText(itemName, itemType, "", itemDescription, "", "");
 
-        /// <summary>
-        /// Show the description based on mouse position
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="canvas"></param>
-        private void ShowUpDescription(Vector2 position)
-        {
-            uiInventoryDescription.gameObject.SetActive(true);
+                if (uiSlot.toolBar.IsToolBarBottomPosition)
+                {
+                    uiInventoryDescription.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0f);
+                    uiInventoryDescription.transform.position = new Vector2(uiSlot.transform.position.x, uiSlot.transform.position.y + 50);
+                }
+                else
+                {
+                    uiInventoryDescription.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 1f);
+                    uiInventoryDescription.transform.position = new Vector2(uiSlot.transform.position.x, uiSlot.transform.position.y - 50);
+                }
 
-            Vector2 sizeUI = uiInventoryDescription.GetComponent<RectTransform>().sizeDelta;
-
-            Vector2 resolution = new Vector2(480, 270);
-
-            if (position.y - (sizeUI.y + 10) < 0)
-            {
-                uiInventoryDescription.ChangePivot();
+                uiInventoryDescription.gameObject.SetActive(true);
             }
-
-            uiInventoryDescription.transform.position = position;
         }
 
         /// <summary>
@@ -167,11 +150,6 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="item"></param>
         protected void HandleItemEndHover(UIInventorySlot item)
         {
-            int index = item.ItemIndex;
-            if (index == -1)
-                return;
-
-            uiInventoryDescription.ResetPivot();
             uiInventoryDescription.gameObject.SetActive(false);
         }
         /// <summary>

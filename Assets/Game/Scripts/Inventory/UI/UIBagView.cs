@@ -35,7 +35,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                             if (itemDetail != null)
                             {
-                                uiInventorySlots[i].SetData(itemDetail.ItemImage, inventoryItems[i].quantity);
+                                uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
                             }
                         }
                     }

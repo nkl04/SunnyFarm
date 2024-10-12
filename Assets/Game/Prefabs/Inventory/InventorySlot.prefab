@@ -347,10 +347,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54d401d813b5824a94a6a895497a2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectBox: {fileID: 4547577683583797964}
+  toolBar: {fileID: 7432603365784814170, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
   inventorySlotHighlightImage: {fileID: 7563808317882907635}
   inventorySlotItemImage: {fileID: 2564797611747967211}
   itemQuantityText: {fileID: 8040234447367574360}
+  inventorySlotDescription: {fileID: 5523990725915401777, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
+  itemID: 
+  itemQuantity: 0
 --- !u!225 &5389863561156692762
 CanvasGroup:
   m_ObjectHideFlags: 0

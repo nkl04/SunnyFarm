@@ -10,6 +10,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
     public class UIToolBar : UIInventoryView
     {
+        public bool IsToolBarBottomPosition { get => isToolBarBottomPosition; }
         [SerializeField] private Sprite transparentSprite;
         private RectTransform rectTransform;
         private bool isToolBarBottomPosition = true;
@@ -44,7 +45,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                             if (itemDetail != null)
                             {
-                                uiInventorySlots[i].SetData(itemDetail.ItemImage, inventoryItems[i].quantity);
+                                uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
                             }
                         }
                     }

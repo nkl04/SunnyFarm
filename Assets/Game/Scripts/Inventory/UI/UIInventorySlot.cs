@@ -1,6 +1,5 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
-    using System;
     using SunnyFarm.Game.Entities.Item.Data;
     using TMPro;
     using UnityEngine;
@@ -11,19 +10,31 @@ namespace SunnyFarm.Game.Inventory.UI
     public class UIInventorySlot : MonoBehaviour,
         IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
+
+        public UIToolBar toolBar;
+
         [Header("Slot")]
         public Image inventorySlotHighlightImage;
         public Image inventorySlotItemImage;
         public TextMeshProUGUI itemQuantityText;
 
+        [Header("Inventory Slot Description")]
+        [SerializeField] private GameObject inventorySlotDescription;
+
+        [HideInInspector] public string itemID;
+        [HideInInspector] public int itemQuantity;
+
         public int ItemIndex { get; set; }
         public InventoryLocation ItemLocation { get; private set; }
+
+        private Canvas parentCanvas;
         private bool isEmpty = false;
         private bool isUnlocked = false;
 
         private void Awake()
         {
             Deselect();
+            parentCanvas = GetComponentInParent<Canvas>();
         }
 
         /// <summary>
@@ -39,11 +50,13 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         /// <param name="image"></param>
         /// <param name="quantity"></param>
-        public void SetData(Sprite image, int quantity)
+        public void SetData(string itemId, Sprite image, int quantity)
         {
+            itemID = itemId;
+            itemQuantity = quantity;
             inventorySlotItemImage.gameObject.SetActive(image != null);
             inventorySlotItemImage.sprite = image;
-            itemQuantityText.text = quantity > 1 ? quantity.ToString() : "";
+            itemQuantityText.text = itemQuantity > 1 ? itemQuantity.ToString() : "";
             isEmpty = image == null;
 
         }
@@ -126,6 +139,8 @@ namespace SunnyFarm.Game.Inventory.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            Debug.Log("Hovering");
+
             if (isEmpty) return;
             EventHandlers.CallOnItemHover(this);
         }

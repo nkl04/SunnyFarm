@@ -76,7 +76,9 @@ namespace SunnyFarm.Game
 
         public static event Action<UIInventorySlot> OnItemHover,
                                                     OnItemEndHover,
-                                                    OnPointerClick;
+                                                    OnLeftPointerClick,
+                                                    OnRightPointerClick;
+
         public static void CallOnItemHover(UIInventorySlot item)
         {
             OnItemHover?.Invoke(item);
@@ -87,10 +89,16 @@ namespace SunnyFarm.Game
             OnItemEndHover?.Invoke(item);
         }
 
-        public static void CallOnPointerClick(UIInventorySlot item)
+        public static void CallOnLeftPointerClick(UIInventorySlot item)
         {
-            OnPointerClick?.Invoke(item);
+            OnLeftPointerClick?.Invoke(item);
         }
+
+        public static void CallOnRightPointerClick(UIInventorySlot item)
+        {
+            OnRightPointerClick?.Invoke(item);
+        }
+
         /// <summary>
         /// Event to add an item to the inventory
         /// </summary>
@@ -120,6 +128,20 @@ namespace SunnyFarm.Game
         public static void CallOnInventoryCapacityUpdated(InventoryLocation location, int capacity)
         {
             OnInventoryCapacityUpdated?.Invoke(location, capacity);
+        }
+
+        /// <summary>
+        /// Event to select an inventory slot with input from the keyboard
+        /// </summary>
+        /// <param name="slotIndex"></param>
+        public static event Action<int> OnQuickSelectSlot;
+
+        /// <summary>
+        /// Call the input select inventory slot event
+        /// </summary>
+        public static void CallOnQuickSelectSlot(int slotIndex)
+        {
+            OnQuickSelectSlot?.Invoke(slotIndex);
         }
 
         #endregion

@@ -22,6 +22,8 @@ namespace SunnyFarm.Game.Inventory.Data
 
         // private Dictionary<string, InventorySlot[]> chests;
 
+        private string[] selectedInventoryItem;
+
         public void CreateInventoryList()
         {
             inventoryArray = new InventoryItem[(int)InventoryLocation.Count][];
@@ -35,9 +37,16 @@ namespace SunnyFarm.Game.Inventory.Data
                 inventoryArray[i] = new InventoryItem[inventoryListCapacityArray[i]];
             }
 
+            selectedInventoryItem = new string[(int)InventoryLocation.Count];
+
+            for (int i = 0; i < selectedInventoryItem.Length; i++)
+            {
+                selectedInventoryItem[i] = "";
+            }
+
         }
 
-        #region Get item logic
+        #region Get logic
         /// <summary>
         /// Get item data in player's bag based on index
         /// </summary>
@@ -88,6 +97,20 @@ namespace SunnyFarm.Game.Inventory.Data
         // {
         //     return chests[chestID][index];
         // }
+        #endregion
+
+        #region Select logic
+
+        public void SetSelectedInventoryItem(InventoryLocation inventoryLocation, string itemId)
+        {
+            selectedInventoryItem[(int)inventoryLocation] = itemId;
+        }
+
+        public void ResetSelectedInventoryItem(InventoryLocation inventoryLocation)
+        {
+            selectedInventoryItem[(int)inventoryLocation] = "";
+        }
+
         #endregion
 
         #region Add item logic
@@ -211,8 +234,6 @@ namespace SunnyFarm.Game.Inventory.Data
             itemCursor.inventoryItem = inventoryItem;
             inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItemCursor;
 
-            Debug.Log("Item cursor: " + itemCursor.inventoryItem.itemID + " - " + itemCursor.inventoryItem.quantity);
-            Debug.Log("Item slot: " + inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex].itemID + " - " + inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex].quantity);
             // update the inventory data
             EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }

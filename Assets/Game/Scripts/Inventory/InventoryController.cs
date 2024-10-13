@@ -37,7 +37,13 @@ namespace SunnyFarm.Game.Inventory
         {
             EventHandlers.OnInventoryUpdated += UpdateUIInventory;
             EventHandlers.OnToggleInventory += ToggleInventoryView;
+            EventHandlers.OnQuickSelectSlot += QuickSelectSlot;
+            EventHandlers.OnLeftPointerClick += OnPointerClickInventorySlot;
+
+
         }
+
+
 
         private void OnDisable()
         {
@@ -111,6 +117,41 @@ namespace SunnyFarm.Game.Inventory
         {
             uiBagView.UpdateUIBagCapacity(location, capacity);
         }
+
+        private void OnPointerClickInventorySlot(UIInventorySlot slot)
+        {
+            SetSelectInventorySlot(slot);
+        }
+
+        private void QuickSelectSlot(int slotIndex)
+        {
+            UIInventorySlot slot = uiToolBarView.GetInventorySlot(slotIndex);
+            SetSelectInventorySlot(slot);
+        }
+
+
+        private void SetSelectInventorySlot(UIInventorySlot slot)
+        {
+            if (slot.isSelected)
+            {
+                // if slot is already selected
+                uiToolBarView.DeselectAllInventorySlot();
+                inventoryData.ResetSelectedInventoryItem(slot.inventoryLocation);
+            }
+            else
+            {
+                //if slot is not selected
+
+                uiToolBarView.DeselectAllInventorySlot();
+                inventoryData.ResetSelectedInventoryItem(slot.inventoryLocation);
+                //select the slot
+                slot.Select();
+                // set the selected item data
+                inventoryData.SetSelectedInventoryItem(slot.inventoryLocation, slot.itemID);
+            }
+        }
+
+
         /// <summary>
         /// 
         /// </summary>

@@ -59,12 +59,12 @@ namespace SunnyFarm.Game.Inventory.UI
                     {
                         if (i < capacity)
                         {
-                            uiInventorySlots[i].SetUnlocked(true);
+                            uiInventorySlots[i].IsUnlocked = true;
                             uiInventorySlots[i].inventorySlotItemImage.sprite = transparentSprite;
                         }
                         else
                         {
-                            uiInventorySlots[i].SetUnlocked(false);
+                            uiInventorySlots[i].IsUnlocked = false;
                             uiInventorySlots[i].inventorySlotItemImage.sprite = lockedSlotSprite;
                         }
                     }

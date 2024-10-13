@@ -65,6 +65,7 @@ namespace SunnyFarm.Game.Inventory.UI
                 uiInventorySlots[i].inventoryLocation = InventoryLocation.Player;
                 uiInventorySlots[i].slotLocation = InventorySlotLocation.ToolBar;
                 uiInventorySlots[i].slotIndex = i;
+                uiInventorySlots[i].IsUnlocked = true;
             }
         }
 
@@ -80,12 +81,30 @@ namespace SunnyFarm.Game.Inventory.UI
             }
         }
 
+        public void DeselectAllInventorySlot()
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                for (int i = 0; i < uiInventorySlots.Length; i++)
+                {
+                    uiInventorySlots[i].Deselect();
+                }
+            }
+        }
+
+        public UIInventorySlot GetInventorySlot(int slotIndex)
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                return uiInventorySlots[slotIndex];
+            }
+            else return null;
+        }
+
         private void Update()
         {
             SwitchUIToolBarPosition();
         }
-
-
 
         private void SwitchUIToolBarPosition()
         {

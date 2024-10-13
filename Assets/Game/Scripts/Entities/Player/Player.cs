@@ -106,6 +106,8 @@ namespace SunnyFarm.Game.Entities.Player
             var bindings = inputActions.Player.QuickSelectSlot.bindings;
 
             int bindingIndex = inputActions.Player.QuickSelectSlot.GetBindingIndexForControl(context.control);
+
+            EventHandlers.CallOnQuickSelectSlot(bindingIndex);
         }
 
         private void OnToggleInventory(InputAction.CallbackContext context)

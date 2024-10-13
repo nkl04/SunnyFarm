@@ -26,15 +26,14 @@ namespace SunnyFarm.Game.Inventory.UI
 
         [HideInInspector] public string itemID;
         [HideInInspector] public int itemQuantity;
+        [HideInInspector] public bool isSelected = false;
 
         public bool IsEmpty => string.IsNullOrEmpty(itemID);
-        private Canvas parentCanvas;
-        private bool isUnlocked = false;
+        public bool IsUnlocked { get; set; }
 
         private void Awake()
         {
             Deselect();
-            parentCanvas = GetComponentInParent<Canvas>();
         }
 
         /// <summary>
@@ -59,26 +58,11 @@ namespace SunnyFarm.Game.Inventory.UI
         }
 
         /// <summary>
-        /// Show the data again when not dropping dragged item into slot
-        /// </summary>
-        public void ShowData()
-        {
-            inventorySlotItemImage.gameObject.SetActive(inventorySlotItemImage.sprite != null);
-        }
-        /// <summary>
-        /// Hide the data when begining to drag the item
-        /// </summary>
-        public void HideData()
-        {
-            inventorySlotItemImage.gameObject.SetActive(false);
-        }
-
-        #region Select & Deselect
-        /// <summary>
         /// Select item ui then show the select box
         /// </summary>
         public void Select()
         {
+            isSelected = true;
             inventorySlotHighlightImage.gameObject.SetActive(true);
         }
 
@@ -87,17 +71,12 @@ namespace SunnyFarm.Game.Inventory.UI
         /// </summary>
         public void Deselect()
         {
+            isSelected = false;
             inventorySlotHighlightImage.gameObject.SetActive(false);
         }
 
-        #endregion
 
-        public void SetUnlocked(bool unlocked)
-        {
-            isUnlocked = unlocked;
-        }
-
-        #region UI Events
+        #region Events
         public void OnPointerEnter(PointerEventData eventData)
         {
             EventHandlers.CallOnItemHover(this);
@@ -108,8 +87,18 @@ namespace SunnyFarm.Game.Inventory.UI
         }
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (!isUnlocked) return;
-            EventHandlers.CallOnPointerClick(this);
+            if (!IsUnlocked) return;
+
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                //Click right mouse button
+                EventHandlers.CallOnRightPointerClick(this);
+            }
+            else if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                //Click left mouse button
+                EventHandlers.CallOnLeftPointerClick(this);
+            }
         }
         #endregion
     }

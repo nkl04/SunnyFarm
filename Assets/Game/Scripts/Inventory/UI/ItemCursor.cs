@@ -25,11 +25,11 @@ namespace SunnyFarm.Game.Inventory.UI
             rectTransform = GetComponent<RectTransform>();
             canvas = GetComponentInParent<Canvas>();
 
-            EventHandlers.OnPointerClick += HandlePointerClick;
+            EventHandlers.OnLeftPointerClick += HandleLeftPointerClick;
             EventHandlers.OnToggleInventory += ClearDraggedItem;
         }
 
-        private void HandlePointerClick(UIInventorySlot slot)
+        private void HandleLeftPointerClick(UIInventorySlot slot)
         {
             if (slot == null) return;
             if (slot.slotLocation == InventorySlotLocation.ToolBar)
@@ -79,7 +79,6 @@ namespace SunnyFarm.Game.Inventory.UI
 
                 quantityItemText.text = inventoryItem.quantity > 1 ? inventoryItem.quantity.ToString() : "";
 
-                Debug.Log($"SetItemCursor: {inventoryItem.itemID}");
             }
             else
             {

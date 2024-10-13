@@ -142,7 +142,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: a2ad018c615eee6469e2b9f85ab9ed63, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.65
 --- !u!1 &5925963580147556344
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +355,7 @@ MonoBehaviour:
   inventorySlotDescription: {fileID: 5523990725915401777, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
   itemID: 
   itemQuantity: 0
+  isSelected: 0
 --- !u!225 &5389863561156692762
 CanvasGroup:
   m_ObjectHideFlags: 0

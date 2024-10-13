@@ -82,10 +82,6 @@ namespace SunnyFarm.Game.Inventory
             uiToolBarView.SetupUIInventorySlot();
         }
 
-
-
-
-
         public void ToggleInventoryView()
         {
             if (uiBagView.gameObject.activeSelf)

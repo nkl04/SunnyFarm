@@ -82,6 +82,7 @@ namespace SunnyFarm.Game.Inventory.UI
         public void Hide()
         {
             gameObject.SetActive(false);
+            uiInventoryDescription.gameObject.SetActive(false);
         }
     }
 

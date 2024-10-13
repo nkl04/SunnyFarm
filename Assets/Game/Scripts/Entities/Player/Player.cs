@@ -106,8 +106,6 @@ namespace SunnyFarm.Game.Entities.Player
             var bindings = inputActions.Player.QuickSelectSlot.bindings;
 
             int bindingIndex = inputActions.Player.QuickSelectSlot.GetBindingIndexForControl(context.control);
-
-            Debug.Log(bindingIndex);
         }
 
         private void OnToggleInventory(InputAction.CallbackContext context)
@@ -141,7 +139,6 @@ namespace SunnyFarm.Game.Entities.Player
             movementInput = context.ReadValue<Vector2>().normalized;
 
             IsMovePressed = movementInput.magnitude > 0;
-
         }
 
         private void Update()
@@ -163,7 +160,6 @@ namespace SunnyFarm.Game.Entities.Player
             // Vector3 Viewport position for player (0,0) is bottom left and (1,1) is top right
             return mainCamera.WorldToViewportPoint(transform.position);
         }
-
     }
 }
 

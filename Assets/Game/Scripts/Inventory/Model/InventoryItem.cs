@@ -6,8 +6,8 @@ namespace SunnyFarm.Game.Inventory.Data
     public struct InventoryItem
     {
         public int quantity;
-        public string itemId;
-        public bool isEmpty => string.IsNullOrEmpty(itemId);
+        public string itemID;
+        public bool isEmpty => string.IsNullOrEmpty(itemID);
         public void IncrementQuantity(int value)
         {
             quantity += value;
@@ -15,19 +15,19 @@ namespace SunnyFarm.Game.Inventory.Data
 
         public InventoryItem(string itemId)
         {
-            this.itemId = itemId;
+            this.itemID = itemId;
             quantity = 0;
         }
 
         public InventoryItem(string itemId, int quantity)
         {
-            this.itemId = itemId;
+            this.itemID = itemId;
             this.quantity = quantity;
         }
 
         public void SetData(string itemId, int quantity)
         {
-            this.itemId = itemId;
+            this.itemID = itemId;
             this.quantity = quantity;
         }
     }

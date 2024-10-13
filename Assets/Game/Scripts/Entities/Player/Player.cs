@@ -32,6 +32,8 @@ namespace SunnyFarm.Game.Entities.Player
         public bool IsWaterPressed { get; set; } = false;
         public bool IsFacingRight { get; set; } = true;
 
+        public bool CanToggleInventory { get; set; } = true;
+
         public StatePlayerIdle StatePlayerIdle { get; private set; }
         public StatePlayerMove StatePlayerMove { get; private set; }
         public StatePlayerAxe StatePlayerAxe { get; private set; }
@@ -59,7 +61,6 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Camera mainCamera;
 
-        private InventoryController inventoryController;
 
         private void Start()
         {
@@ -72,8 +73,6 @@ namespace SunnyFarm.Game.Entities.Player
             rb2d = GetComponent<Rigidbody2D>();             // Get the Rigidbody2D component
 
             animator = GetComponentInChildren<Animator>();            // Get the Animator component in child Visual
-
-            inventoryController = InventoryController.Instance;
 
             inputActions.Player.Move.performed += OnMoveInput;
 
@@ -113,7 +112,8 @@ namespace SunnyFarm.Game.Entities.Player
 
         private void OnToggleInventory(InputAction.CallbackContext context)
         {
-            inventoryController.ToggleInventoryView();
+            if (!CanToggleInventory) return;
+            EventHandlers.CallOnToggleInventory();
         }
 
         private void OnWaterInput(InputAction.CallbackContext context)

@@ -21,7 +21,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
         private void Start()
         {
-            SetupItemsUI();
+            SetupUIInventorySlot();
         }
 
         public void UpdateUIToolBar(InventoryLocation location, InventoryItem[] inventoryItems)
@@ -36,7 +36,7 @@ namespace SunnyFarm.Game.Inventory.UI
                     {
                         if (i < inventoryItems.Length)
                         {
-                            string itemId = inventoryItems[i].itemId;
+                            string itemId = inventoryItems[i].itemID;
 
                             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
@@ -44,9 +44,27 @@ namespace SunnyFarm.Game.Inventory.UI
                             {
                                 uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
                             }
+                            else
+                            {
+                                uiInventorySlots[i].SetData(null, transparentSprite, 0);
+                            }
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Set up items' UI to the tool bar
+        /// </summary>
+        /// <returns></returns>
+        public void SetupUIInventorySlot()
+        {
+            for (int i = 0; i < uiInventorySlots.Length; i++)
+            {
+                uiInventorySlots[i].inventoryLocation = InventoryLocation.Player;
+                uiInventorySlots[i].slotLocation = InventorySlotLocation.ToolBar;
+                uiInventorySlots[i].slotIndex = i;
             }
         }
 
@@ -67,20 +85,7 @@ namespace SunnyFarm.Game.Inventory.UI
             SwitchUIToolBarPosition();
         }
 
-        /// <summary>
-        /// Set up items' UI to the tool bar
-        /// </summary>
-        /// <returns></returns>
-        public UIInventorySlot[] SetupItemsUI()
-        {
-            for (int i = 0; i < uiInventorySlots.Length; i++)
-            {
-                uiInventorySlots[i].SetItemLocation(InventoryLocation.Player);
-                // uiInventorySlots[i].OnItemHover += HandleItemHover;
-                // uiInventorySlots[i].OnItemEndHover += HandleItemEndHover;
-            }
-            return uiInventorySlots;
-        }
+
 
         private void SwitchUIToolBarPosition()
         {
@@ -107,10 +112,5 @@ namespace SunnyFarm.Game.Inventory.UI
             }
         }
 
-
-        public override void InitializeInventoryUI(int capacity)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

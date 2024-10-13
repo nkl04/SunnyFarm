@@ -36,6 +36,7 @@ namespace SunnyFarm.Game.Inventory
         private void OnEnable()
         {
             EventHandlers.OnInventoryUpdated += UpdateUIInventory;
+            EventHandlers.OnToggleInventory += ToggleInventoryView;
         }
 
         private void OnDisable()
@@ -67,12 +68,6 @@ namespace SunnyFarm.Game.Inventory
             inventoryData.CreateInventoryList();
 
             inventoryData.UpgradeInventoryCapacity(InventoryLocation.Player, capacity);
-
-        }
-
-        private void UpdateUIInventoryCapacity(InventoryLocation location, int capacity)
-        {
-            uiBagView.UpdateUIBagCapacity(location, capacity);
         }
 
         /// <summary>
@@ -81,17 +76,15 @@ namespace SunnyFarm.Game.Inventory
         private void SetupView()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
+
             uiBagView.InitializeInventoryUI(capacity);
 
-            // // Regist events for bag view
-            // uiBagView.OnSwapItems += HandleSwapItemsInBagView;
-            // uiBagView.OnDescriptionRequested += HandleDescriptionRequested;
-
-            // // Regist events for chest view
-            // uiChestView.InitializeInventoryUI(30); // test
-            // uiChestView.OnSwapItems += HandleSwapItemsInChestView;
-            // uiChestView.OnDescriptionRequested += HandleDescriptionRequested;
+            uiToolBarView.SetupUIInventorySlot();
         }
+
+
+
+
 
         public void ToggleInventoryView()
         {
@@ -107,58 +100,6 @@ namespace SunnyFarm.Game.Inventory
             }
         }
 
-        #region Handle events
-        // /// <summary>
-        // /// Hande logic of swap item in bag view
-        // /// </summary>
-        // /// <param name="item1"></param>
-        // /// <param name="item2"></param>
-        // private void HandleSwapItemsInBagView(UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
-        // {
-        //     if (item1.CompareLocation(item2))
-        //         inventoryData.SwapItemsInBag(item1, item2);
-        //     // else
-        //     //     inventoryData.SwapItemsInDifLocation(uiChestView.ID, item1, item2);
-        // }
-        // /// <summary>
-        // /// Hande logic of swap item in chest view
-        // /// </summary>
-        // /// <param name="chestID"></param>
-        // /// <param name="item1"></param>
-        // /// <param name="item2"></param>
-        // private void HandleSwapItemsInChestView(string chestID, UIInventoryItemKeyData item1,
-        //     UIInventoryItemKeyData item2)
-        // {
-        //     if (item1.CompareLocation(item2))
-        //         inventoryData.SwapItemsInChest(chestID, item1, item2);
-        //     else
-        //         inventoryData.SwapItemsInDifLocation(chestID, item1, item2);
-        // }
-        // /// <summary>
-        // /// Handle the requested description event
-        // /// </summary>
-        // private void HandleDescriptionRequested(UIInventoryItemKeyData itemData)
-        // {
-        //     InventorySlot item = null;
-        //     if (itemData.ItemLocation == InventoryLocation.Player)
-        //     {
-        //         item = inventoryData.GetItemInBag(itemData.Index);
-        //         if (item.IsEmpty) return;
-
-        //         uiBagView.UpdateItemDescription(itemData.Index, item.Item.Name,
-        //             item.Item.ItemType, item.Item.Description);
-        //     }
-        //     else
-        //     {
-        //         item = inventoryData.GetItemInChest(uiChestView.ID, itemData.Index);
-        //         if (item.IsEmpty) return;
-
-        //         uiChestView.UpdateItemDescription(itemData.Index, item.Item.Name,
-        //             item.Item.ItemType, item.Item.Description);
-        //     }
-        // }
-        #endregion
-
         /// <summary>
         /// Update UI inventory
         /// </summary>
@@ -168,6 +109,11 @@ namespace SunnyFarm.Game.Inventory
         {
             uiBagView.UpdateUIBag(inventoryLocation, inventoryItems);
             uiToolBarView.UpdateUIToolBar(inventoryLocation, inventoryItems);
+        }
+
+        private void UpdateUIInventoryCapacity(InventoryLocation location, int capacity)
+        {
+            uiBagView.UpdateUIBagCapacity(location, capacity);
         }
         /// <summary>
         /// 

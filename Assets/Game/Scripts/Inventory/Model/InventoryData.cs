@@ -3,6 +3,7 @@ namespace SunnyFarm.Game.Inventory.Data
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory.UI;
     using SunnyFarm.Game.Managers;
     using System;
     using System.Collections.Generic;
@@ -57,7 +58,7 @@ namespace SunnyFarm.Game.Inventory.Data
             InventoryItem[] inventoryItemList = inventoryArray[(int)inventoryLocation];
             for (int i = 0; i < inventoryItemList.Length; i++)
             {
-                if (inventoryItemList[i].itemId == itemId)
+                if (inventoryItemList[i].itemID == itemId)
                 {
                     return i;
                 }
@@ -159,7 +160,7 @@ namespace SunnyFarm.Game.Inventory.Data
                 if (inventoryItems[i].isEmpty) continue;
 
                 // Check if item already exists in inventory
-                if (inventoryItems[i].itemId == itemId)
+                if (inventoryItems[i].itemID == itemId)
                 {
                     int inventoryItemPos = i;
 
@@ -200,22 +201,22 @@ namespace SunnyFarm.Game.Inventory.Data
         #endregion
 
         #region Swap item logic
-        // /// <summary>
-        // /// Logic that swap 2 items' data in bag
-        // /// </summary>
-        // /// <param name="item1"></param>
-        // /// <param name="item2"></param>
-        // public void SwapItemsInBag(UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
-        // {
-        //     int itemIdx1 = item1.Index;
-        //     int itemIdx2 = item2.Index;
 
-        //     InventoryItem item = inventoryItemList[itemIdx1];
-        //     inventoryItemList[itemIdx1] = inventoryItemList[itemIdx2];
-        //     inventoryItemList[itemIdx2] = item;
+        public void HandleSwapItem(InventoryLocation inventoryLocation, ref ItemCursor itemCursor, UIInventorySlot inventorySlot)
+        {
+            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex];
 
-        //     InformAboutBagChange();
-        // }
+            InventoryItem inventoryItemCursor = itemCursor.inventoryItem;
+
+            itemCursor.inventoryItem = inventoryItem;
+            inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItemCursor;
+
+            Debug.Log("Item cursor: " + itemCursor.inventoryItem.itemID + " - " + itemCursor.inventoryItem.quantity);
+            Debug.Log("Item slot: " + inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex].itemID + " - " + inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex].quantity);
+            // update the inventory data
+            EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
+        }
+
 
         // /// <summary>
         // /// Logic that swap 2 items' data in chest
@@ -341,6 +342,11 @@ namespace SunnyFarm.Game.Inventory.Data
             return true;
         }
 
+        public bool IsInventoryFull(InventoryLocation inventoryLocation)
+        {
+            return IsInventoryFull(inventoryArray[(int)inventoryLocation]);
+        }
+
         private bool IsInventorySlotFullStackWithItem(string itemId, InventoryItem[] inventoryItems, int slotPosition)
         {
             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
@@ -349,6 +355,7 @@ namespace SunnyFarm.Game.Inventory.Data
 
             return inventoryItems[slotPosition].quantity == itemStackSize;
         }
+
         #endregion
 
     }

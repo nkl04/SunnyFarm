@@ -8,15 +8,18 @@ namespace SunnyFarm.Game.Inventory.UI
     using static SunnyFarm.Game.Constant.Enums;
 
     public class UIInventorySlot : MonoBehaviour,
-        IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+         IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
 
         public UIToolBar toolBar;
 
         [Header("Slot")]
+        public int slotIndex;
         public Image inventorySlotHighlightImage;
         public Image inventorySlotItemImage;
         public TextMeshProUGUI itemQuantityText;
+        public InventoryLocation inventoryLocation;
+        public InventorySlotLocation slotLocation;
 
         [Header("Inventory Slot Description")]
         [SerializeField] private GameObject inventorySlotDescription;
@@ -24,11 +27,8 @@ namespace SunnyFarm.Game.Inventory.UI
         [HideInInspector] public string itemID;
         [HideInInspector] public int itemQuantity;
 
-        public int ItemIndex { get; set; }
-        public InventoryLocation ItemLocation { get; private set; }
-
+        public bool IsEmpty => string.IsNullOrEmpty(itemID);
         private Canvas parentCanvas;
-        private bool isEmpty = false;
         private bool isUnlocked = false;
 
         private void Awake()
@@ -54,29 +54,10 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             itemID = itemId;
             itemQuantity = quantity;
-            inventorySlotItemImage.gameObject.SetActive(image != null);
             inventorySlotItemImage.sprite = image;
             itemQuantityText.text = itemQuantity > 1 ? itemQuantity.ToString() : "";
-            isEmpty = image == null;
+        }
 
-        }
-        /// <summary>
-        /// Set item's location to item
-        /// </summary>
-        /// <param name="location"></param>
-        public void SetItemLocation(InventoryLocation location)
-        {
-            ItemLocation = location;
-        }
-        /// <summary>
-        /// Reset data in item ui
-        /// </summary>
-        public void ResetData()
-        {
-            inventorySlotItemImage.gameObject.SetActive(false);
-            // itemQuantity.text = "";
-            isEmpty = true;
-        }
         /// <summary>
         /// Show the data again when not dropping dragged item into slot
         /// </summary>
@@ -117,39 +98,18 @@ namespace SunnyFarm.Game.Inventory.UI
         }
 
         #region UI Events
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            if (isEmpty) return;
-            EventHandlers.CallOnItemBeginDrag(this);
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            if (isEmpty) return;
-            EventHandlers.CallOnItemDrag(this);
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            EventHandlers.CallOnItemEndDrag(this);
-        }
-
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (isEmpty) return;
             EventHandlers.CallOnItemHover(this);
         }
-
-        public void OnDrop(PointerEventData eventData)
-        {
-            if (!isUnlocked) return;
-            EventHandlers.CallOnItemDroppedOn(this);
-        }
-
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (isEmpty) return;
             EventHandlers.CallOnItemEndHover(this);
+        }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!isUnlocked) return;
+            EventHandlers.CallOnPointerClick(this);
         }
         #endregion
     }

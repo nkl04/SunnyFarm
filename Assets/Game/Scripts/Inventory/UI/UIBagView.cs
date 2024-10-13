@@ -11,13 +11,13 @@ namespace SunnyFarm.Game.Inventory.UI
     public class UIBagView : UILargeInventoryView
     {
         [SerializeField] private Sprite lockedSlotSprite;
-        public event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
-
         public override void InitializeInventoryUI(int avalableCapacity)
         {
             for (int i = 0; i < uiInventorySlots.Length; i++)
             {
-                uiInventorySlots[i].SetItemLocation(InventoryLocation.Player);
+                uiInventorySlots[i].inventoryLocation = InventoryLocation.Player;
+                uiInventorySlots[i].slotLocation = InventorySlotLocation.Container;
+                uiInventorySlots[i].slotIndex = i;
             }
         }
 
@@ -31,13 +31,17 @@ namespace SunnyFarm.Game.Inventory.UI
                     {
                         if (i < inventoryItems.Length)
                         {
-                            string itemId = inventoryItems[i].itemId;
+                            string itemId = inventoryItems[i].itemID;
 
                             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
                             if (itemDetail != null)
                             {
                                 uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
+                            }
+                            else
+                            {
+                                uiInventorySlots[i].SetData(null, transparentSprite, 0);
                             }
                         }
                     }
@@ -66,30 +70,6 @@ namespace SunnyFarm.Game.Inventory.UI
                     }
                 }
             }
-        }
-
-
-
-        /// <summary>
-        /// Handle logic of swap data in bag view
-        /// </summary>
-        /// <param name="item"></param>
-        protected override void HandleSwap(UIInventorySlot item)
-        {
-            if (currentlyDraggedItem == null) return;
-
-            UIInventoryItemKeyData itemData1 = new UIInventoryItemKeyData
-            {
-                Index = currentlyDraggedItem.ItemIndex,
-                ItemLocation = currentlyDraggedItem.ItemLocation
-            };
-            UIInventoryItemKeyData itemData2 = new UIInventoryItemKeyData
-            {
-                Index = item.ItemIndex,
-                ItemLocation = item.ItemLocation
-            };
-
-            OnSwapItems?.Invoke(itemData1, itemData2);
         }
     }
 

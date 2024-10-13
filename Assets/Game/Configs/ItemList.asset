@@ -18,7 +18,7 @@ MonoBehaviour:
     Name: Beet
     Description: A sweet and earthy root vegetable. As a bonus, the leaves make a
       great salad.
-    ItemImage: {fileID: 1130745165, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    ItemImage: {fileID: -1027784809, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
@@ -42,6 +42,74 @@ MonoBehaviour:
     MaxStackSize: 32
     CanBePickUp: 1
     CanBeEaten: 1
+  - ID: 10004
+    ItemType: 2
+    Name: Kale
+    Description: The waxy leaves are great in soups and stir fries.
+    ItemImage: {fileID: -1619762659, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 1
+  - ID: 10005
+    ItemType: 2
+    Name: Parsnip
+    Description: A spring tuber closely related to the carrot. It has an earthy taste
+      and is full of nutrients.
+    ItemImage: {fileID: -1735765146, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 1
+  - ID: 10006
+    ItemType: 2
+    Name: Potato
+    Description: A widely cultivated tuber.
+    ItemImage: {fileID: 988784020, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 1
+  - ID: 10007
+    ItemType: 2
+    Name: Pumpkin
+    Description: A fall favorite, grown for its crunchy seeds and delicately flavored
+      flesh. As a bonus, the hollow shell can be carved into a festive decoration.
+    ItemImage: {fileID: -790745501, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 0
+  - ID: 10008
+    ItemType: 2
+    Name: Radish
+    Description: A crisp and refreshing root vegetable with hints of pepper when
+      eaten raw.
+    ItemImage: {fileID: 1130745165, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 1
+  - ID: 10009
+    ItemType: 2
+    Name: Sunflower
+    Description: A common misconception is that the flower turns so it's always facing
+      the sun.
+    ItemImage: {fileID: 1354166642, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 1
+  - ID: 10010
+    ItemType: 2
+    Name: Wheat
+    Description: One of the most widely cultivated grains. Makes a great flour for
+      breads and cakes.
+    ItemImage: {fileID: -530191314, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+    IsStackable: 1
+    MaxStackSize: 32
+    CanBePickUp: 1
+    CanBeEaten: 0
   - ID: 50001
     ItemType: 4
     Name: Wood

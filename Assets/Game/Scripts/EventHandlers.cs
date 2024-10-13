@@ -5,6 +5,7 @@ namespace SunnyFarm.Game
     using SunnyFarm.Game.Inventory.UI;
     using System;
     using System.Collections.Generic;
+    using Unity.VisualScripting;
     using static SunnyFarm.Game.Constant.Enums;
 
     public static class EventHandlers
@@ -73,33 +74,9 @@ namespace SunnyFarm.Game
 
         }
 
-        public static event Action<UIInventorySlot> OnItemDroppedOn,
-                                                    OnItemBeginDrag,
-                                                    OnItemDrag,
-                                                    OnItemEndDrag,
-                                                    OnItemHover,
-                                                    OnItemEndHover;
-
-        public static void CallOnItemDroppedOn(UIInventorySlot item)
-        {
-            OnItemDroppedOn?.Invoke(item);
-        }
-
-        public static void CallOnItemBeginDrag(UIInventorySlot item)
-        {
-            OnItemBeginDrag?.Invoke(item);
-        }
-
-        public static void CallOnItemDrag(UIInventorySlot item)
-        {
-            OnItemDrag?.Invoke(item);
-        }
-
-        public static void CallOnItemEndDrag(UIInventorySlot item)
-        {
-            OnItemEndDrag?.Invoke(item);
-        }
-
+        public static event Action<UIInventorySlot> OnItemHover,
+                                                    OnItemEndHover,
+                                                    OnPointerClick;
         public static void CallOnItemHover(UIInventorySlot item)
         {
             OnItemHover?.Invoke(item);
@@ -110,11 +87,24 @@ namespace SunnyFarm.Game
             OnItemEndHover?.Invoke(item);
         }
 
-        public static event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
-
-        public static void CallOnSwapItems(UIInventoryItemKeyData from, UIInventoryItemKeyData to)
+        public static void CallOnPointerClick(UIInventorySlot item)
         {
-            OnSwapItems?.Invoke(from, to);
+            OnPointerClick?.Invoke(item);
+        }
+        /// <summary>
+        /// Event to add an item to the inventory
+        /// </summary>
+
+        public static event Action<InventoryItem, InventoryItem> OnSwapItems;
+
+        /// <summary>
+        /// Call the swap items event
+        /// </summary>
+        /// <param name="inventoryItemCursor"></param>
+        /// <param name="inventoryItemInSlot"></param>
+        public static void CallOnSwapItems(InventoryItem inventoryItemCursor, InventoryItem inventoryItemInSlot)
+        {
+            OnSwapItems?.Invoke(inventoryItemCursor, inventoryItemInSlot);
         }
 
         /// <summary>
@@ -261,6 +251,16 @@ namespace SunnyFarm.Game
             }
         }
         #endregion
+        #endregion
+
+        #region Player Input Events
+        public static event Action OnToggleInventory;
+
+        public static void CallOnToggleInventory()
+        {
+            OnToggleInventory?.Invoke();
+        }
+
         #endregion
     }
 }

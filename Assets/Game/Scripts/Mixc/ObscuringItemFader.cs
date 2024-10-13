@@ -50,16 +50,16 @@ namespace SunnyFarm.Game
         private IEnumerator FadeOutRoutine()
         {
             float currentAlpha = spriteRenderer.color.a;
-            float distance = currentAlpha - Constant.ColorStat.TargetAlpha;
+            float distance = currentAlpha - Constant.ColorStat.Alpha_05;
 
-            while (spriteRenderer.color.a > Constant.ColorStat.TargetAlpha)
+            while (spriteRenderer.color.a > Constant.ColorStat.Alpha_05)
             {
                 currentAlpha -= distance * Time.deltaTime / Constant.ColorStat.FadeOutSeconds;
                 spriteRenderer.color = new Color(1, 1, 1, currentAlpha);
                 yield return null;
             }
 
-            spriteRenderer.color = new Color(1, 1, 1, Constant.ColorStat.TargetAlpha);
+            spriteRenderer.color = new Color(1, 1, 1, Constant.ColorStat.Alpha_05);
             activeFadeRoutine = null; // Reset the coroutine tracker
             Debug.Log("Faded out");
         }

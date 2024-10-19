@@ -1,13 +1,12 @@
 namespace SunnyFarm.Game.Entities.Player
 {
-    using SunnyFarm.Game.StateMachine;
+    using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Managers.GameInput;
-    using System;
     using SunnyFarm.Game.State.Player;
+    using SunnyFarm.Game.StateMachine;
     using UnityEngine;
     using UnityEngine.InputSystem;
-    using SunnyFarm.Game.DesignPattern;
 
     public class Player : Singleton<Player>
     {
@@ -127,6 +126,32 @@ namespace SunnyFarm.Game.Entities.Player
             transform.Rotate(0f, 180f, 0f);
         }
 
+        public Vector2Int GetPlayerDirection()
+        {
+            Vector2Int dir;
+            if (lastMovementInput.x > 0)
+            {
+                dir = new Vector2Int(1, 0);
+            }
+            else if (lastMovementInput.x < 0)
+            {
+                dir = new Vector2Int(-1, 0);
+            }
+            else if (lastMovementInput.y > 0)
+            {
+                dir = new Vector2Int(0, 1);
+            }
+            else if (lastMovementInput.y < 0)
+            {
+                dir = new Vector2Int(0, -1);
+            }
+            else
+            {
+                dir = new Vector2Int(0, 0);
+            }
+
+            return dir;
+        }
     }
 }
 

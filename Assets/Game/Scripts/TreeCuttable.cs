@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
 using SunnyFarm.Game.Entities.Player;
-public class TreeCuttable : ToolHit
+using UnityEngine;
+public class TreeCuttable : MonoBehaviour, IToolHittable
 {
     [Header("Tree Parts")]
     [SerializeField] private GameObject bodyTree;
@@ -26,7 +24,7 @@ public class TreeCuttable : ToolHit
     //TODO: Remove
     public int hp = 10;
 
-    public override void Hit(Player player)
+    public void Hit(Player player)
     {
         if (hp <= 0) return;
 

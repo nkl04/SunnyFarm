@@ -97,6 +97,21 @@ namespace SunnyFarm.Game
                 Sat,
                 Sun
             }
+
+            public enum TileType
+            {
+                Land,
+                Dug,
+                Watered
+            }
+
+            public enum ToolType
+            {
+                Axe,
+                Hoe,
+                Pickaxe,
+                WateringCan,
+            }
         }
 
         public static class Inventory

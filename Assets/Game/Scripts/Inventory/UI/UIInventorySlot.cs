@@ -33,17 +33,10 @@ namespace SunnyFarm.Game.Inventory.UI
 
         private void Awake()
         {
-            Deselect();
+            SetSelect(false);
+            SetHighLight(false);
         }
 
-        /// <summary>
-        /// Get the sprite and text in item ui
-        /// </summary>
-        /// <returns></returns>
-        public (Sprite, TextMeshProUGUI) GetData()
-        {
-            return (inventorySlotItemImage.sprite, itemQuantityText);
-        }
         /// <summary>
         /// Set data to the ui, use it when having data from the db
         /// </summary>
@@ -57,24 +50,23 @@ namespace SunnyFarm.Game.Inventory.UI
             itemQuantityText.text = itemQuantity > 1 ? itemQuantity.ToString() : "";
         }
 
-        /// <summary>
-        /// Select item ui then show the select box
-        /// </summary>
-        public void Select()
+        public void SetSelect(bool select)
         {
-            isSelected = true;
-            inventorySlotHighlightImage.gameObject.SetActive(true);
+            isSelected = select;
         }
 
-        /// <summary>
-        /// Deselect item ui then disappear the select box
-        /// </summary>
-        public void Deselect()
+        public void SetHighLight(bool isHighLight)
         {
-            isSelected = false;
-            inventorySlotHighlightImage.gameObject.SetActive(false);
+            inventorySlotHighlightImage.gameObject.SetActive(isHighLight);
         }
 
+        public void ClearInventoryItem()
+        {
+            itemID = string.Empty;
+            itemQuantity = 0;
+            inventorySlotItemImage.sprite = null;
+            itemQuantityText.text = string.Empty;
+        }
 
         #region Events
         public void OnPointerEnter(PointerEventData eventData)

@@ -8,20 +8,15 @@ namespace SunnyFarm.Game.Inventory.Data
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
     public class InventoryData
     {
-        public event Action<InventoryItem[]> OnBagUpdated;
-        public event Action<string, InventoryItem[]> OnChestUpdated;
-
         public int InventoryLevel { get; private set; } = 1;
         [HideInInspector] public InventoryItem[][] inventoryArray; // array of inventory list
         [HideInInspector] public int[] inventoryListCapacityArray; // capacity of each inventory list
-
-        // private Dictionary<string, InventorySlot[]> chests;
-
         private string[] selectedInventoryItem;
 
         public void CreateInventoryList()
@@ -32,11 +27,13 @@ namespace SunnyFarm.Game.Inventory.Data
 
             inventoryListCapacityArray[(int)InventoryLocation.Player] = Constant.Inventory.PlayerInventoryMinCapacity;
 
+            // Initialize the inventory list
             for (int i = 0; i < (int)InventoryLocation.Count; i++)
             {
                 inventoryArray[i] = new InventoryItem[inventoryListCapacityArray[i]];
             }
 
+            // Initialize the selected inventory item
             selectedInventoryItem = new string[(int)InventoryLocation.Count];
 
             for (int i = 0; i < selectedInventoryItem.Length; i++)
@@ -75,6 +72,12 @@ namespace SunnyFarm.Game.Inventory.Data
             return -1;
         }
 
+        private int FindFirstEmptySlot(InventoryLocation inventoryLocation)
+        {
+            InventoryItem[] inventoryItems = inventoryArray[(int)inventoryLocation];
+            return FindFirstEmptySlot(inventoryItems);
+        }
+
         private int FindFirstEmptySlot(InventoryItem[] inventoryItems)
         {
             for (int i = 0; i < inventoryItems.Length; i++)
@@ -86,29 +89,22 @@ namespace SunnyFarm.Game.Inventory.Data
             }
             return -1;
         }
-
-        // /// <summary>
-        // /// Get item data in player's chest based on index and chest Id
-        // /// </summary>
-        // /// <param name="chestID"></param>
-        // /// <param name="index"></param>
-        // /// <returns></returns>
-        // public InventorySlot GetItemInChest(string chestID, int index)
-        // {
-        //     return chests[chestID][index];
-        // }
         #endregion
 
-        #region Select logic
-
+        #region Select inventory item logic
         public void SetSelectedInventoryItem(InventoryLocation inventoryLocation, string itemId)
         {
             selectedInventoryItem[(int)inventoryLocation] = itemId;
         }
 
-        public void ResetSelectedInventoryItem(InventoryLocation inventoryLocation)
+        public void ClearSelectedInventoryItem(InventoryLocation inventoryLocation)
         {
             selectedInventoryItem[(int)inventoryLocation] = "";
+        }
+
+        public string GetSelectedInventoryItem(InventoryLocation inventoryLocation)
+        {
+            return selectedInventoryItem[(int)inventoryLocation];
         }
 
         #endregion
@@ -121,22 +117,21 @@ namespace SunnyFarm.Game.Inventory.Data
         /// <param name="quantity"></param>
         public void AddItem(InventoryLocation inventoryLocation, Item item, int quantity)
         {
-            InventoryItem[] inventoryItemList = inventoryArray[(int)inventoryLocation];
             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(item.ItemID);
 
             if (itemDetail.IsStackable)
             {
                 // item can be stacked
-                AddStackableItem(inventoryItemList, itemDetail, quantity);
+                AddStackableItem(inventoryLocation, itemDetail, quantity);
             }
             else
             {
                 // item cannot be stacked
                 // find the first empty slot in the inventory
-                while (quantity > 0 && !IsInventoryFull(inventoryItemList))
+                while (quantity > 0 && !IsInventoryFull(inventoryLocation))
                 {
-                    int firstEmptySlot = FindFirstEmptySlot(inventoryItemList);
-                    AddItemAtPosition(inventoryItemList, item.ItemID, firstEmptySlot, 1);
+                    int firstEmptySlot = FindFirstEmptySlot(inventoryLocation);
+                    AddItemAtPosition(inventoryLocation, item.ItemID, firstEmptySlot, 1);
                     quantity--;
                 }
 
@@ -152,20 +147,23 @@ namespace SunnyFarm.Game.Inventory.Data
         /// <param name="itemId"></param>
         /// <param name="itemPosition"></param>
         /// <param name="quantity"></param>
-        private void AddItemAtPosition(InventoryItem[] inventoryItemList, string itemId, int itemPosition, int quantity)
+        public void AddItemAtPosition(InventoryLocation inventoryLocation, string itemId, int itemPosition, int quantity)
         {
+            InventoryItem[] inventoryItems = inventoryArray[(int)inventoryLocation];
 
-            InventoryItem inventoryItemInSlot = GetItemInInventory(itemPosition, inventoryItemList);
+            InventoryItem inventoryItemInSlot = GetItemInInventory(itemPosition, inventoryItems);
             if (inventoryItemInSlot.isEmpty)
             {
                 InventoryItem inventoryItem = new(itemId);
                 inventoryItem.IncrementQuantity(quantity);
-                inventoryItemList[itemPosition].SetData(itemId, inventoryItem.quantity);
+                inventoryItems[itemPosition].SetData(itemId, inventoryItem.quantity);
             }
             else
             {
                 inventoryItemInSlot.IncrementQuantity(quantity);
             }
+
+            EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }
 
         /// <summary>
@@ -173,8 +171,10 @@ namespace SunnyFarm.Game.Inventory.Data
         /// </summary>
         /// <param name="item"></param>    
         /// <param name="quantity"></param>
-        public void AddStackableItem(InventoryItem[] inventoryItems, ItemDetail item, int quantity)
+        public void AddStackableItem(InventoryLocation inventoryLocation, ItemDetail item, int quantity)
         {
+            InventoryItem[] inventoryItems = inventoryArray[(int)inventoryLocation];
+
             string itemId = item.ID;
 
             // Check if the item is already in the inventory
@@ -214,128 +214,41 @@ namespace SunnyFarm.Game.Inventory.Data
                 int firstEmptySlot = FindFirstEmptySlot(inventoryItems);
                 // Add a new stack of the item
                 int amountToAdd = Mathf.Min(quantity, item.MaxStackSize);
-                AddItemAtPosition(inventoryItems, itemId, firstEmptySlot, amountToAdd);
+                AddItemAtPosition(inventoryLocation, itemId, firstEmptySlot, amountToAdd);
 
                 // Decrease the quantity to be added
                 quantity -= amountToAdd;
             }
         }
 
+
         #endregion
 
         #region Swap item logic
 
-        public void HandleSwapItem(InventoryLocation inventoryLocation, ref ItemCursor itemCursor, UIInventorySlot inventorySlot)
+        public void HandleSwapItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, UIInventorySlot inventorySlot)
         {
             InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex];
 
-            InventoryItem inventoryItemCursor = itemCursor.inventoryItem;
+            InventoryItem inventoryItemCursor = dragItem.InventoryItem;
 
-            itemCursor.inventoryItem = inventoryItem;
+            dragItem.InventoryItem = inventoryItem;
             inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItemCursor;
 
             // update the inventory data
             EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }
-
-
-        // /// <summary>
-        // /// Logic that swap 2 items' data in chest
-        // /// </summary>
-        // /// <param name="id"></param>
-        // /// <param name="item1"></param>
-        // /// <param name="item2"></param>
-        // public void SwapItemsInChest(string id, UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
-        // {
-        //     var items = chests[id];
-
-        //     int itemIdx1 = item1.Index;
-        //     int itemIdx2 = item2.Index;
-
-        //     InventorySlot item = items[itemIdx1];
-        //     items[itemIdx1] = items[itemIdx2];
-        //     items[itemIdx2] = item;
-
-        //     InformAboutChestChange(id);
-        // }
-
-        // /// <summary>
-        // /// Logic that swap item's data from chest to bag or vice versa
-        // /// </summary>
-        // /// <param name="id"></param>
-        // /// <param name="item1"></param>
-        // /// <param name="item2"></param>
-        // public void SwapItemsInDifLocation(string id, UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
-        // {
-        //     var chestItems = chests[id];
-
-        //     int itemIdx1 = item1.Index;
-        //     int itemIdx2 = item2.Index;
-
-        //     InventorySlot item = null;
-
-        //     if (item1.ItemLocation == InventoryLocation.Chest)
-        //     {
-        //         item = chestItems[itemIdx1];
-        //         chestItems[itemIdx1] = inventoryItemList[itemIdx2];
-        //         inventoryItemList[itemIdx2] = item;
-        //     }
-        //     else if (item1.ItemLocation == InventoryLocation.Player)
-        //     {
-        //         item = inventoryItemList[itemIdx1];
-        //         inventoryItemList[itemIdx1] = chestItems[itemIdx2];
-        //         chestItems[itemIdx2] = item;
-        //     }
-
-        //     InformAboutBagChange();
-        //     InformAboutChestChange(id);
-        // }
         #endregion
 
         #region Remove item logic
-        // /// <summary>
-        // /// Remove quantity's item in the player's bag
-        // /// </summary>
-        // /// <param name="itemIdx"></param>
-        // /// <param name="quantity"></param>
-        // public void RemoveBagItem(int itemIdx, int quantity)
-        // {
-        //     if (inventoryItemList[itemIdx].IsEmpty) return;
 
-        //     int remainder = inventoryItemList[itemIdx].Quantity - quantity;
-        //     if (remainder <= 0)
-        //     {
-        //         inventoryItemList[itemIdx].ChangeItem(null, 0);
-        //     }
-        //     else
-        //     {
-        //         inventoryItemList[itemIdx].ChangeQuantity(remainder);
-        //     }
-        //     InformAboutBagChange();
-        // }
+        public void RemoveItem(InventoryLocation inventoryLocation, string itemId, int quantity)
+        {
+            InventoryItem[] inventoryItemList = inventoryArray[(int)inventoryLocation];
 
-        // /// <summary>
-        // /// Remove quantity's item in the player's chest
-        // /// </summary>
-        // /// <param name="id"></param>
-        // /// <param name="itemIdx"></param>
-        // /// <param name="quantity"></param>
-        // public void RemoveChestItem(string id, int itemIdx, int quantity)
-        // {
-        //     var items = chests[id];
-        //     if (items[itemIdx].IsEmpty) return;
+            EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
+        }
 
-        //     int remainder = items[itemIdx].Quantity - quantity;
-        //     if (remainder <= 0)
-        //     {
-        //         items[itemIdx].ChangeItem(null, 0);
-        //     }
-        //     else
-        //     {
-        //         items[itemIdx].ChangeQuantity(remainder);
-        //     }
-        //     InformAboutChestChange(id);
-        // }
         #endregion
 
         #region Upgrade inventory logic

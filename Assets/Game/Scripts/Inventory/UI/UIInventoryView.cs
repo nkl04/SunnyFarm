@@ -9,8 +9,6 @@ namespace SunnyFarm.Game.Inventory.UI
     {
         [SerializeField] protected Sprite transparentSprite;
 
-        [SerializeField] protected RectTransform draggedItem;
-
         [SerializeField] protected UIInventoryDescription uiInventoryDescription;
 
         protected UIInventorySlot currentlyDraggedItem = null;
@@ -30,7 +28,8 @@ namespace SunnyFarm.Game.Inventory.UI
             EventHandlers.OnItemEndHover -= HandleItemEndHover;
         }
 
-        #region Handle events' logic
+        public virtual void SetupUIInventorySlot() { }
+
 
         /// <summary>
         /// Show the description of the item
@@ -72,7 +71,6 @@ namespace SunnyFarm.Game.Inventory.UI
             uiInventoryDescription.gameObject.SetActive(false);
         }
 
-        #endregion
 
         public void Show()
         {
@@ -84,27 +82,5 @@ namespace SunnyFarm.Game.Inventory.UI
             gameObject.SetActive(false);
             uiInventoryDescription.gameObject.SetActive(false);
         }
-    }
-
-    public abstract class UILargeInventoryView : UIInventoryView
-    {
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-
-        }
-
-        /// <summary>
-        /// Init item slot ui for the whole inventory 
-        /// </summary>
-        /// <param name="capacity"></param>
-        public abstract void InitializeInventoryUI(int capacity);
-
     }
 }

@@ -16,6 +16,8 @@ namespace SunnyFarm.Game.Inventory
     public class InventoryController : Singleton<InventoryController>
     {
         public InventoryData InventoryData => inventoryData;
+        public SelectedItemCursor SelectedItemCursor => selectedItemCursor;
+        public DraggedItemCursor DraggedItemCursor => draggedItemCursor;
         // Define map for capacity of the inventory based on inventory's level
         // key: level, value: capacity
         private Dictionary<int, int> evolveInventoryMap = new Dictionary<int, int>()
@@ -31,28 +33,25 @@ namespace SunnyFarm.Game.Inventory
 
         [SerializeField] private UIToolBar uiToolBarView;
 
+        [SerializeField] private SelectedItemCursor selectedItemCursor;
+
+        [SerializeField] private DraggedItemCursor draggedItemCursor;
+
         InventoryData inventoryData;
 
-        private void OnEnable()
+        protected override void Awake()
         {
+            base.Awake();
+
             EventHandlers.OnInventoryUpdated += UpdateUIInventory;
             EventHandlers.OnToggleInventory += ToggleInventoryView;
             EventHandlers.OnQuickSelectSlot += QuickSelectSlot;
-            EventHandlers.OnLeftPointerClick += OnPointerClickInventorySlot;
-
-
-        }
-
-
-
-        private void OnDisable()
-        {
-            EventHandlers.OnInventoryUpdated -= UpdateUIInventory;
+            EventHandlers.OnLeftPointerClick += OnLeftPointerClickInventorySlot;
+            EventHandlers.OnRightPointerClick += OnRightPointerClickInventorySlot;
         }
 
         private void Start()
         {
-            // assign data controller
             inventoryData = new InventoryData();
 
             EventHandlers.OnInventoryUpdated += UpdateUIInventory;
@@ -64,9 +63,7 @@ namespace SunnyFarm.Game.Inventory
             SetupModel();
         }
 
-        /// <summary>
-        /// Set up for the model
-        /// </summary>
+        #region Setup 
         private void SetupModel()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
@@ -75,41 +72,43 @@ namespace SunnyFarm.Game.Inventory
 
             inventoryData.UpgradeInventoryCapacity(InventoryLocation.Player, capacity);
         }
-
-        /// <summary>
-        /// Set up for the view
-        /// </summary>
         private void SetupView()
         {
-            int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-
-            uiBagView.InitializeInventoryUI(capacity);
+            uiBagView.SetupUIInventorySlot();
 
             uiToolBarView.SetupUIInventorySlot();
         }
+
+        #endregion
 
         public void ToggleInventoryView()
         {
             if (uiBagView.gameObject.activeSelf)
             {
                 uiBagView.Hide();
+
+                draggedItemCursor.Hide();
+
                 uiToolBarView.Show();
+
+                selectedItemCursor.Show();
             }
             else
             {
                 uiBagView.Show();
+
+                draggedItemCursor.Show();
+
                 uiToolBarView.Hide();
+
+                selectedItemCursor.Hide();
             }
         }
 
-        /// <summary>
-        /// Update UI inventory
-        /// </summary>
-        /// <param name="inventoryLocation"></param>
-        /// <param name="inventoryItems"></param>
         private void UpdateUIInventory(InventoryLocation inventoryLocation, InventoryItem[] inventoryItems)
         {
             uiBagView.UpdateUIBag(inventoryLocation, inventoryItems);
+
             uiToolBarView.UpdateUIToolBar(inventoryLocation, inventoryItems);
         }
 
@@ -118,53 +117,62 @@ namespace SunnyFarm.Game.Inventory
             uiBagView.UpdateUIBagCapacity(location, capacity);
         }
 
-        private void OnPointerClickInventorySlot(UIInventorySlot slot)
+        private void OnLeftPointerClickInventorySlot(UIInventorySlot slot)
         {
-            SetSelectInventorySlot(slot);
+
+            if (slot.slotLocation == InventorySlotLocation.ToolBar)
+            {
+                uiToolBarView.ClearHighlightOnInventorySlots();
+
+                uiBagView.ClearHighlightOnInventorySlots();
+
+                uiToolBarView.SetHighlightSelectInventorySlot(slot.slotIndex);
+
+                uiBagView.SetHighlightSelectInventorySlot(slot.slotIndex);
+
+                selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
+            }
+            else if (slot.slotLocation == InventorySlotLocation.Container)
+            {
+                if (draggedItemCursor.InventoryItem.itemID == slot.itemID)
+                {
+                    ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(slot.itemID);
+
+                    if (itemDetail.IsStackable)
+                    {
+                        int remainingSpace = itemDetail.MaxStackSize - slot.itemQuantity;
+
+                        int quantityToAdd = Mathf.Min(remainingSpace, draggedItemCursor.InventoryItem.quantity);
+
+                        InventoryData.AddItemAtPosition(slot.inventoryLocation, slot.itemID, slot.slotIndex, quantityToAdd);
+                    }
+                    else
+                    {
+                        InventoryData.HandleSwapItem(slot.inventoryLocation, ref draggedItemCursor, slot);
+                    }
+                }
+                else
+                {
+                    InventoryData.HandleSwapItem(slot.inventoryLocation, ref draggedItemCursor, slot);
+                }
+            }
         }
+
+        private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
+        {
+            throw new NotImplementedException();
+        }
+
 
         private void QuickSelectSlot(int slotIndex)
         {
             UIInventorySlot slot = uiToolBarView.GetInventorySlot(slotIndex);
-            SetSelectInventorySlot(slot);
         }
 
-
-        private void SetSelectInventorySlot(UIInventorySlot slot)
+        private void SetSelectedInventorySlot(UIInventorySlot slot)
         {
-            if (slot.isSelected)
-            {
-                // if slot is already selected
-                uiToolBarView.DeselectAllInventorySlot();
-                inventoryData.ResetSelectedInventoryItem(slot.inventoryLocation);
-            }
-            else
-            {
-                //if slot is not selected
 
-                uiToolBarView.DeselectAllInventorySlot();
-                inventoryData.ResetSelectedInventoryItem(slot.inventoryLocation);
-                //select the slot
-                slot.Select();
-                // set the selected item data
-                inventoryData.SetSelectedInventoryItem(slot.inventoryLocation, slot.itemID);
-            }
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="inventoryItems"></param>
-        private void UpdateChestUIItems(string id, InventoryItem[] inventoryItems)
-        {
-            // uiChestView.ResetAllUIItems();
-            // for (int i = 0; i < inventoryItems.Length; i++)
-            // {
-            //     uiChestView.UpdateUIItemData(i, inventoryItems[i].itemId?.ItemImage ?? null,
-            //         inventoryItems[i].Quantity);
-            // }
-        }
     }
 }

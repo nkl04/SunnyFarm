@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 186636475229851436}
   - component: {fileID: 6856794930726827234}
   m_Layer: 5
-  m_Name: 2
+  m_Name: (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 60386972284920738}
   - component: {fileID: 3401603668151925357}
   m_Layer: 5
-  m_Name: 5
+  m_Name: (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 3461596812419705871}
   - component: {fileID: 4642677858908426089}
   m_Layer: 5
-  m_Name: '-'
+  m_Name: (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 3621661936457131929}
   - component: {fileID: 5653779502378187268}
   m_Layer: 5
-  m_Name: 7
+  m_Name: (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 6915588185146682456}
   - component: {fileID: 6759262090962185260}
   m_Layer: 5
-  m_Name: 3
+  m_Name: (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 2137483252537087060}
   - component: {fileID: 3852086562865912556}
   m_Layer: 5
-  m_Name: 1
+  m_Name: (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -972,7 +972,7 @@ GameObject:
   - component: {fileID: 570211516003078516}
   - component: {fileID: 5340399935523961793}
   m_Layer: 5
-  m_Name: 6
+  m_Name: (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 3017366152509935050}
   - component: {fileID: 7370955466304219789}
   m_Layer: 5
-  m_Name: 0
+  m_Name: (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 4316190274505311649}
   - component: {fileID: 3940376676989634290}
   m_Layer: 5
-  m_Name: 8
+  m_Name: (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1487,7 +1487,7 @@ GameObject:
   - component: {fileID: 2406368413010382072}
   - component: {fileID: 4587905987232447700}
   m_Layer: 5
-  m_Name: 4
+  m_Name: (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1706,8 +1706,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparentSprite: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
-  draggedItem: {fileID: 0}
   uiInventoryDescription: {fileID: 2420843094998766428, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
+  itemCursor: {fileID: 1042091525336794905, guid: e2438e641f40b584d825877f9611bfa6, type: 3}
   uiInventorySlots:
   - {fileID: 5296142740785320095}
   - {fileID: 1997037911310563379}
@@ -1745,6 +1745,21 @@ MonoBehaviour:
   - {fileID: 4205517261084727499}
   - {fileID: 6866298889584084567}
   - {fileID: 4727374735497845721}
+  quickSelectSlotTexts:
+  - {fileID: 3852086562865912556}
+  - {fileID: 6856794930726827234}
+  - {fileID: 6759262090962185260}
+  - {fileID: 4587905987232447700}
+  - {fileID: 3401603668151925357}
+  - {fileID: 5340399935523961793}
+  - {fileID: 5653779502378187268}
+  - {fileID: 3940376676989634290}
+  - {fileID: 5992502966735934274}
+  - {fileID: 7370955466304219789}
+  - {fileID: 4642677858908426089}
+  - {fileID: 1647488414108760485}
+  selectedInventorySlotColor: {r: 1, g: 0.0018941243, b: 0, a: 1}
+  baseInventorySlotColor: {r: 1, g: 1, b: 1, a: 1}
   lockedSlotSprite: {fileID: 1218549551, guid: b8c5fc3d3a5130a40b1db76f95276846, type: 3}
 --- !u!1 &7847410377762536830
 GameObject:
@@ -1905,7 +1920,7 @@ GameObject:
   - component: {fileID: 4394610097989786103}
   - component: {fileID: 1647488414108760485}
   m_Layer: 5
-  m_Name: =
+  m_Name: (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2039,7 +2054,7 @@ GameObject:
   - component: {fileID: 8963163938367809454}
   - component: {fileID: 5992502966735934274}
   m_Layer: 5
-  m_Name: 9
+  m_Name: (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

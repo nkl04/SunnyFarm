@@ -15,6 +15,7 @@ namespace SunnyFarm.Game.Entities.Item.Data
         public bool IsStackable;
         public int MaxStackSize;
         public bool CanBePickUp;
+        public bool CanBeCarried;
         public bool CanBeEaten;
     }
 }

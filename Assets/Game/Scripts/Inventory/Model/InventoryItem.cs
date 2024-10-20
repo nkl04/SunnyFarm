@@ -7,7 +7,7 @@ namespace SunnyFarm.Game.Inventory.Data
     {
         public int quantity;
         public string itemID;
-        public bool isEmpty => string.IsNullOrEmpty(itemID);
+        public bool isEmpty => string.IsNullOrEmpty(itemID) || quantity == 0;
         public void IncrementQuantity(int value)
         {
             quantity += value;

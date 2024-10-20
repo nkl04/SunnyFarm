@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparentSprite: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
-  draggedItem: {fileID: 0}
-  uiInventoryDescription: {fileID: 0}
+  uiInventoryDescription: {fileID: 2420843094998766428, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
+  itemCursor: {fileID: 1042091525336794905, guid: e2438e641f40b584d825877f9611bfa6, type: 3}
   uiInventorySlots:
   - {fileID: 575009123211364744}
   - {fileID: 4501368712912390601}

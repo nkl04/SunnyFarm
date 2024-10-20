@@ -36,11 +36,15 @@ namespace SunnyFarm.Game.Inventory.UI
                     {
                         if (i < inventoryItems.Length)
                         {
-                            string itemId = inventoryItems[i].itemID;
+                            InventoryItem inventoryItem = inventoryItems[i];
+
+                            string itemId = inventoryItem.itemID;
+
+                            int itemQuantity = inventoryItem.quantity;
 
                             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
-                            if (itemDetail != null)
+                            if (itemDetail != null && itemQuantity > 0)
                             {
                                 uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
                             }
@@ -58,13 +62,16 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Set up items' UI to the tool bar
         /// </summary>
         /// <returns></returns>
-        public void SetupUIInventorySlot()
+        public override void SetupUIInventorySlot()
         {
             for (int i = 0; i < uiInventorySlots.Length; i++)
             {
                 uiInventorySlots[i].inventoryLocation = InventoryLocation.Player;
+
                 uiInventorySlots[i].slotLocation = InventorySlotLocation.ToolBar;
+
                 uiInventorySlots[i].slotIndex = i;
+
                 uiInventorySlots[i].IsUnlocked = true;
             }
         }
@@ -76,6 +83,7 @@ namespace SunnyFarm.Game.Inventory.UI
                 for (int i = 0; i < uiInventorySlots.Length; i++)
                 {
                     uiInventorySlots[i].inventorySlotItemImage.sprite = transparentSprite;
+
                     uiInventorySlots[i].itemQuantityText.text = "";
                 }
             }
@@ -87,7 +95,7 @@ namespace SunnyFarm.Game.Inventory.UI
             {
                 for (int i = 0; i < uiInventorySlots.Length; i++)
                 {
-                    uiInventorySlots[i].Deselect();
+                    uiInventorySlots[i].SetSelect(false);
                 }
             }
         }
@@ -99,6 +107,39 @@ namespace SunnyFarm.Game.Inventory.UI
                 return uiInventorySlots[slotIndex];
             }
             else return null;
+        }
+
+        public void SetHighlightSelectInventorySlot(int slotPosition)
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                if (uiInventorySlots[slotPosition].isSelected)
+                {
+                    uiInventorySlots[slotPosition].SetHighLight(true);
+
+                    InventoryController.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotPosition].itemID);
+                }
+            }
+        }
+
+        public void ClearHighlightOnInventorySlots()
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                // loop through all uiinventory slots and clear the highlight
+                for (int i = 0; i < uiInventorySlots.Length; i++)
+                {
+                    if (uiInventorySlots[i].isSelected)
+                    {
+                        uiInventorySlots[i].SetSelect(false);
+
+                        uiInventorySlots[i].SetHighLight(false);
+
+                        // Update inventory to show item as not selected
+                        InventoryController.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
+                    }
+                }
+            }
         }
 
         private void Update()
@@ -114,8 +155,11 @@ namespace SunnyFarm.Game.Inventory.UI
             {
 
                 rectTransform.pivot = new Vector2(0.5f, 0f);
+
                 rectTransform.anchorMin = new Vector2(0.5f, 0f);
+
                 rectTransform.anchorMax = new Vector2(0.5f, 0f);
+
                 rectTransform.anchoredPosition = new Vector2(0, 8f);
 
                 isToolBarBottomPosition = true;
@@ -123,13 +167,18 @@ namespace SunnyFarm.Game.Inventory.UI
             else if (playerPos.y <= 0.3f && isToolBarBottomPosition)
             {
                 rectTransform.pivot = new Vector2(0.5f, 1f);
+
                 rectTransform.anchorMin = new Vector2(0.5f, 1f);
+
                 rectTransform.anchorMax = new Vector2(0.5f, 1f);
+
                 rectTransform.anchoredPosition = new Vector2(0, -8f);
 
                 isToolBarBottomPosition = false;
             }
         }
+
+
 
     }
 }

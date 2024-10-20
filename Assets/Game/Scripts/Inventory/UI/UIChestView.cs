@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using static SunnyFarm.Game.Constant.Enums;
 
-public class UIChestView : UILargeInventoryView
+public class UIChestView : UIInventoryView
 {
     [SerializeField] private string id; // for complie error
 
@@ -11,7 +11,7 @@ public class UIChestView : UILargeInventoryView
 
     public string ID { get; private set; }
 
-    public override void InitializeInventoryUI(int capacity)
+    public void InitializeInventoryUI(int capacity)
     {
         // Instantiate items first and set up their events
         for (int i = 0; i < uiInventorySlots.Length; i++)

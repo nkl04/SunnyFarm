@@ -1,49 +1,50 @@
 namespace SunnyFarm.Game.Managers
 {
     using SunnyFarm.Game.Entities.Item;
-    using SunnyFarm.Game.Entities.Player;
-    using SunnyFarm.Game.Tilemap;
     using UnityEngine;
-    using static SunnyFarm.Game.Constant.Enums;
 
-    public abstract class ToolController : MonoBehaviour
+    public abstract class ToolController : ItemController
     {
-        protected Player player;
-        protected Rigidbody2D rb2d;
         protected ToolDetail toolDetail;
-        protected GridCursor gridCursor;
-        //TODO: Remove
-        protected bool isUseTool = false;
 
-        public ItemType ItemType => toolDetail.ItemType;
-        protected virtual void Start()
+        protected GridPropertiesDetail TileActionCheck()
         {
-            player = GetComponentInParent<Player>();
-            rb2d = GetComponentInParent<Rigidbody2D>();
-        }
+            Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
+            Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
 
-        protected virtual void Update()
-        {
-            if (Input.GetMouseButton(1) & !isUseTool)
+            if (Mathf.Abs(cursorGridPosition.x - playerGridPosition.x) > toolDetail.OffsetDistance
+                || Mathf.Abs(cursorGridPosition.y - playerGridPosition.y) > toolDetail.OffsetDistance)
             {
-                UseTool();
-                isUseTool = true;
+                var playerDirection = player.GetPlayerDirection();
+                var position = playerGridPosition + new Vector3Int(playerDirection.x, playerDirection.y, 0);
+                return GridPropertiesController.Instance.GetGridPropertyDetail(position.x, position.y);
             }
-            else if (Input.GetMouseButton(0) & isUseTool)
+            else
             {
-                isUseTool = false;
+                return GridPropertiesController.Instance.GetGridPropertyDetail(cursorGridPosition.x, cursorGridPosition.y);
             }
         }
 
-        protected abstract void UseTool();
+        protected virtual void HitBox(Vector2 position)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, toolDetail.InteractableAreaSize);
 
-        public void SetUpCursor(GridCursor _gridCursor)
-        {
-            gridCursor = _gridCursor;
+            foreach (Collider2D collider in colliders)
+            {
+                // if object is not damagable
+                IToolHittable toolHit = collider.GetComponentInParent<IToolHittable>();
+
+                if (toolHit != null)
+                {
+                    toolHit.Hit(player);
+                    break;
+                }
+
+                // if object is damagable
+
+            }
         }
-        public void SetUpDetail(ToolDetail _toolDetail)
-        {
-            toolDetail = _toolDetail;
-        }
+
+
     }
 }

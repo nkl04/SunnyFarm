@@ -56,7 +56,10 @@ namespace SunnyFarm.Game
 
             public enum ItemType
             {
-                Tool,
+                Hoe,
+                Axe,
+                Pickaxe,
+                WateringCan,
                 Seed,
                 Crop,
                 Commodity,

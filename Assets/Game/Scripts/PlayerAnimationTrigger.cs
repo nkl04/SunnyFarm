@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerAnimationTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static event Action OnAnimationTrigger;
+    public static event Action OnAnimationFinished;
+
+    private void AnimationTrigger()
     {
-        
+        OnAnimationTrigger?.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void AnimationFinished()
     {
-        
+        OnAnimationFinished?.Invoke();
     }
 }

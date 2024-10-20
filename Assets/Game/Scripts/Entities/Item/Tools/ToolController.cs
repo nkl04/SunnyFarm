@@ -15,7 +15,7 @@ namespace SunnyFarm.Game.Managers
         //TODO: Remove
         protected bool isUseTool = false;
 
-        public ToolType ToolType;
+        public ItemType ItemType => toolDetail.ItemType;
         protected virtual void Start()
         {
             player = GetComponentInParent<Player>();

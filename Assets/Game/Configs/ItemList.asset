@@ -13,48 +13,8 @@ MonoBehaviour:
   m_Name: ItemList
   m_EditorClassIdentifier: 
   itemDetails:
-  - ID: 10000
-    ItemType: 2
-    Name: Beetroot
-    Description: 
-    ItemImage: {fileID: 21300000, guid: 21fc77b907e70f1468fc87c54341c033, type: 3}
-    IsStackable: 1
-    MaxStackSize: 32
-    CanBePickUp: 1
-    CanBeEaten: 1
-  - ID: 50001
-    ItemType: 2
-    Name: Log
-    Description: 
-    ItemImage: {fileID: -1019866753, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
-    IsStackable: 1
-    MaxStackSize: 32
-    CanBePickUp: 1
-    CanBeEaten: 0
-  - ID: 40001
-    ItemType: 5
-    Name: Grass_Spring_0
-    Description: 
-    ItemImage: {fileID: -1107011400, guid: 26183a59802519f4bb5e20c1f84ccb8f, type: 3}
-    IsStackable: 0
-    MaxStackSize: 1
-    CanBePickUp: 0
-    CanBeEaten: 0
-  - ID: 40002
-    ItemType: 5
-    Name: Grass_Spring_1
-    Description: 
-    ItemImage: {fileID: -1989909217, guid: 26183a59802519f4bb5e20c1f84ccb8f, type: 3}
-    IsStackable: 0
-    MaxStackSize: 1
-    CanBePickUp: 0
-    CanBeEaten: 0
-  - ID: 40003
-    ItemType: 5
-    Name: Grass_Spring_2
-    Description: 
-    ItemImage: {fileID: 1690579413, guid: 26183a59802519f4bb5e20c1f84ccb8f, type: 3}
-    IsStackable: 0
-    MaxStackSize: 1
-    CanBePickUp: 0
-    CanBeEaten: 0
+  - {fileID: 11400000, guid: 015e6e3540656da42904649a3a16b276, type: 2}
+  - {fileID: 11400000, guid: 925fd9d19ffc21143a1cd4821b6ada56, type: 2}
+  - {fileID: 11400000, guid: e0f6e19c93286c74fafe280fed4586ec, type: 2}
+  - {fileID: 11400000, guid: 6418267c952dbb9409fefeca48bdf655, type: 2}
+  - {fileID: 11400000, guid: 53fc973422f96b7479a17aa381d6ecac, type: 2}

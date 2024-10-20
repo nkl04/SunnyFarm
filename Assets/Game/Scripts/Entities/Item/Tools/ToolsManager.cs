@@ -25,10 +25,10 @@ public class ToolsManager : MonoBehaviour
     }
     public void ChangeTool(ToolDetail tool)
     {
-        if (toolUsing != null && toolUsing.ToolType == tool.ToolType) return;
+        if (toolUsing != null && toolUsing.ItemType == tool.ItemType) return;
         foreach (var controller in toolControllers)
         {
-            if (controller.ToolType == tool.ToolType)
+            if (controller.ItemType == tool.ItemType)
             {
                 controller.enabled = true;
                 controller.SetUpDetail(tool);

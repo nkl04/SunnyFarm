@@ -1,31 +1,32 @@
 namespace SunnyFarm.Game.Entities.Item
 {
-    using SunnyFarm.Game.Managers;
     using UnityEngine;
 
-    public class HoeController : ToolController
+    public class HoeController : ItemController
     {
-        protected override void Start()
-        {
-            base.Start();
-        }
+        private ToolDetail toolDetail;
 
         protected override void Update()
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(1) & !isUseTool)
             {
-                UseTool();
+                player.IsDigPressed = true; // test;
+                isUseTool = true;
             }
         }
-        private void OnEnable()
+        public override void ReactivateTool()
         {
-
+            base.ReactivateTool();
+            player.IsDigPressed = false; // test;
         }
-        private void OnDisable()
+
+        public override void EnableController()
         {
+            base.EnableController();
 
+            toolDetail = itemDetail as ToolDetail;
         }
-        protected override void UseTool()
+        public override void UseItem()
         {
             // use grid cursor
             GridPropertiesController.Instance.DisplayDugGround(TileActionCheck());
@@ -49,6 +50,7 @@ namespace SunnyFarm.Game.Entities.Item
 
             }
         }
+
         private GridPropertiesDetail TileActionCheck()
         {
             Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();

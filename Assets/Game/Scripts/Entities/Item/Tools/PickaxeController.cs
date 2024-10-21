@@ -1,18 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+using SunnyFarm.Game.Entities.Item;
+using SunnyFarm.Game.Managers;
 using UnityEngine;
 
-public class PickaxeController : MonoBehaviour
+public class PickaxeController : ToolController
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void Update()
     {
-        
+        if (Input.GetMouseButton(0) & !isUseTool)
+        {
+            player.IsPickaxePressed = true; // test;
+            isUseTool = true;
+        }
+    }
+    public override void ReactivateTool()
+    {
+        base.ReactivateTool();
+        player.IsPickaxePressed = false; // test;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void EnableController()
     {
-        
+        base.EnableController();
+
+        toolDetail = itemDetail as ToolDetail;
+    }
+    public override void UseItem()
+    {
+        // Get grid property detail that make action
+        GridPropertiesDetail detail = TileActionCheck();
+
+        if (!detail.HasCrop)
+        {
+            GridPropertiesController.Instance.DisplayLandGround(detail);
+        }
+
+        HitBox(detail.Position);
     }
 }

@@ -15,6 +15,10 @@ public class GridPropertiesController : Singleton<GridPropertiesController>
     [SerializeField] private ConfigGridProperties[] configGrids;
 
     [SerializeField] private RuleTile dugTile;
+    [SerializeField] private RuleTile landTile;
+    [SerializeField] private RuleTile wateredTile;
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -88,12 +92,43 @@ public class GridPropertiesController : Singleton<GridPropertiesController>
         UpdateTileType(gridPropertiesDetail, TileType.Dug);
         groundDecoration1.SetTile(new Vector3Int(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y, 0), dugTile);
     }
+    public void DisplayLandGround(GridPropertiesDetail gridPropertiesDetail)
+    {
+        if (gridPropertiesDetail.TileType > TileType.Land)
+        {
+            SetLandGround(gridPropertiesDetail);
+        }
+    }
+
+    private void SetLandGround(GridPropertiesDetail gridPropertiesDetail)
+    {
+        if (IsGroundLand(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y)) return;
+
+        UpdateTileType(gridPropertiesDetail, TileType.Land);
+        groundDecoration1.SetTile(new Vector3Int(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y, 0), landTile);
+    }
     private void UpdateTileType(GridPropertiesDetail gridPropertiesDetail, TileType type)
     {
         gridPropertiesDetail.TileType = type;
         gridPropertiesDetail.DaysSinceLastModified = 0;
     }
+    private bool IsGroundLand(int x, int y)
+    {
+        GridPropertiesDetail gridPropertiesDetail = GetGridPropertyDetail(x, y);
 
+        if (gridPropertiesDetail == null)
+        {
+            return false;
+        }
+        else if (gridPropertiesDetail.TileType == TileType.Land)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     private bool IsGroundDug(int x, int y)
     {
         GridPropertiesDetail gridPropertiesDetail = GetGridPropertyDetail(x, y);

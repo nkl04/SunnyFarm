@@ -14,7 +14,7 @@ public class FollowCursor : MonoBehaviour
         canvas = GetComponentInParent<Canvas>();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if (rectTransform == null || canvas == null) return;
 

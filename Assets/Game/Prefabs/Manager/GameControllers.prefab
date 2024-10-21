@@ -47,4 +47,5 @@ MonoBehaviour:
   uiBagView: {fileID: 5445663389367276774, guid: c51eed9fac58c83448baad4da8b09bb5, type: 3}
   uiChestView: {fileID: 4763597677058019178, guid: 3933ebb6048170d4982c17b10861eb83, type: 3}
   uiToolBarView: {fileID: 7432603365784814170, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
-  itemCursor: {fileID: 1042091525336794905, guid: e2438e641f40b584d825877f9611bfa6, type: 3}
+  selectedItemCursor: {fileID: 8049192898410837695, guid: 4ef6c58c0bc94c241b04ddcf27fd5256, type: 3}
+  draggedItemCursor: {fileID: 6935298320517024532, guid: 9a505573bfcdaac488790253efc07fa4, type: 3}

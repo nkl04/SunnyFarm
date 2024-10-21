@@ -119,48 +119,21 @@ namespace SunnyFarm.Game.Inventory
 
         private void OnLeftPointerClickInventorySlot(UIInventorySlot slot)
         {
-
             if (slot.slotLocation == InventorySlotLocation.ToolBar)
             {
+                // clear the selected slot
                 uiToolBarView.ClearHighlightOnInventorySlots();
-
-                uiBagView.ClearHighlightOnInventorySlots();
-
-                uiToolBarView.SetHighlightSelectInventorySlot(slot.slotIndex);
-
-                uiBagView.SetHighlightSelectInventorySlot(slot.slotIndex);
-
+                // select the slot
+                SetSelectedInventorySlot(slot);
+                // set the selected item
+                InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, slot.itemID);
+                // set the selected item to the cursor
                 selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
-            }
-            else if (slot.slotLocation == InventorySlotLocation.Container)
-            {
-                if (draggedItemCursor.InventoryItem.itemID == slot.itemID)
-                {
-                    ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(slot.itemID);
-
-                    if (itemDetail.IsStackable)
-                    {
-                        int remainingSpace = itemDetail.MaxStackSize - slot.itemQuantity;
-
-                        int quantityToAdd = Mathf.Min(remainingSpace, draggedItemCursor.InventoryItem.quantity);
-
-                        InventoryData.AddItemAtPosition(slot.inventoryLocation, slot.itemID, slot.slotIndex, quantityToAdd);
-                    }
-                    else
-                    {
-                        InventoryData.HandleSwapItem(slot.inventoryLocation, ref draggedItemCursor, slot);
-                    }
-                }
-                else
-                {
-                    InventoryData.HandleSwapItem(slot.inventoryLocation, ref draggedItemCursor, slot);
-                }
             }
         }
 
         private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
         {
-            throw new NotImplementedException();
         }
 
 
@@ -171,7 +144,8 @@ namespace SunnyFarm.Game.Inventory
 
         private void SetSelectedInventorySlot(UIInventorySlot slot)
         {
-
+            slot.SetSelect(true);
+            slot.SetHighLight(true);
         }
 
     }

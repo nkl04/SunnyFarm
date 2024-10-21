@@ -95,6 +95,7 @@ namespace SunnyFarm.Game.Inventory.Data
         public void SetSelectedInventoryItem(InventoryLocation inventoryLocation, string itemId)
         {
             selectedInventoryItem[(int)inventoryLocation] = itemId;
+            Debug.Log("Selected item: " + itemId);
         }
 
         public void ClearSelectedInventoryItem(InventoryLocation inventoryLocation)
@@ -162,8 +163,6 @@ namespace SunnyFarm.Game.Inventory.Data
             {
                 inventoryItemInSlot.IncrementQuantity(quantity);
             }
-
-            EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }
 
         /// <summary>

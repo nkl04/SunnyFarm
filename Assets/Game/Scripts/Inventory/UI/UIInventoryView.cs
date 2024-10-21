@@ -47,16 +47,16 @@ namespace SunnyFarm.Game.Inventory.UI
 
                 uiInventoryDescription.SetTextboxText(itemName, itemType, "", itemDescription, "", "");
 
-                if (uiSlot.toolBar.IsToolBarBottomPosition)
-                {
-                    uiInventoryDescription.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0f);
-                    uiInventoryDescription.transform.position = new Vector2(uiSlot.transform.position.x, uiSlot.transform.position.y + 50);
-                }
-                else
-                {
-                    uiInventoryDescription.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 1f);
-                    uiInventoryDescription.transform.position = new Vector2(uiSlot.transform.position.x, uiSlot.transform.position.y - 50);
-                }
+                // if (uiSlot.toolBar.IsToolBarBottomPosition)
+                // {
+                //     uiInventoryDescription.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0f);
+                //     uiInventoryDescription.transform.position = new Vector2(uiSlot.transform.position.x, uiSlot.transform.position.y + 50);
+                // }
+                // else
+                // {
+                //     uiInventoryDescription.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 1f);
+                //     uiInventoryDescription.transform.position = new Vector2(uiSlot.transform.position.x, uiSlot.transform.position.y - 50);
+                // }
 
                 uiInventoryDescription.gameObject.SetActive(true);
             }

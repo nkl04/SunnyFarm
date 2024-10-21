@@ -19,11 +19,6 @@ namespace SunnyFarm.Game.Inventory.UI
             rectTransform = GetComponent<RectTransform>();
         }
 
-        private void Start()
-        {
-            SetupUIInventorySlot();
-        }
-
         public void UpdateUIToolBar(InventoryLocation location, InventoryItem[] inventoryItems)
         {
             if (location == InventoryLocation.Player)

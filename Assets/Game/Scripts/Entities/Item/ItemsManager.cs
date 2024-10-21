@@ -1,4 +1,5 @@
 using SunnyFarm.Game.Entities.Item.Data;
+using SunnyFarm.Game.Entities.Player;
 using SunnyFarm.Game.Tilemap;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,21 @@ public class ItemsManager : MonoBehaviour
     private List<ItemController> itemControllers = new List<ItemController>();
     private ItemController itemUsing;
 
+    private Player player;
+
     // test
     [SerializeField] protected ItemDetail itemDetail;
     private void Start()
     {
+        player = GetComponentInParent<Player>();
+
         foreach (var controller in itemPrefabs)
         {
             ItemController tool = Instantiate(controller, transform);
             itemControllers.Add(tool);
         }
 
-        PlayerAnimationTrigger.OnAnimationTrigger += HandleAnimationTrigger;
-        PlayerAnimationTrigger.OnAnimationFinished += HandleAnimationFinished;
+        SetupToolAnimationEvents(player.GetComponentInChildren<AnimationEventReceiver>());
 
         ChangeItem(itemDetail);
     }
@@ -48,15 +52,18 @@ public class ItemsManager : MonoBehaviour
     {
         itemUsing = null;
     }
-    private void HandleAnimationTrigger()
+    private void SetupToolAnimationEvents(AnimationEventReceiver receiver)
     {
-        // Only the current tool's state processes the animation trigger
-        itemUsing?.UseItem();
-    }
+        AnimationEvent onUseEvent = new();
+        onUseEvent.EventName = "OnUse";
+        onUseEvent.OnAnimationEvent += () => itemUsing?.UseItem();
 
-    private void HandleAnimationFinished()
-    {
-        // test
-        itemUsing?.ReactivateTool();
+        receiver.AddAnimationEvent(onUseEvent);
+
+        AnimationEvent onFinishEvent = new();
+        onFinishEvent.EventName = "OnFinish";
+        onFinishEvent.OnAnimationEvent += () => itemUsing?.ReactivateTool();
+
+        receiver.AddAnimationEvent(onFinishEvent);
     }
 }

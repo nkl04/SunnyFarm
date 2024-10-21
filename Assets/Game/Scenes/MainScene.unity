@@ -331,8 +331,9 @@ MonoBehaviour:
   itemPrefabs:
   - {fileID: 4845271191542803981, guid: 95c3af861ce35a449aa069e6f4a22331, type: 3}
   - {fileID: -7503228034068778167, guid: 8459633f1ca10854a91fe33fd70fcb01, type: 3}
+  - {fileID: 1579657319535916347, guid: b50aa874ebbef6742b886d9700b15c00, type: 3}
   gridCursor: {fileID: 611171816}
-  itemDetail: {fileID: 11400000, guid: 21bb5f182c1e94f41b926bf9e26a2dfe, type: 2}
+  itemDetail: {fileID: 11400000, guid: d4334e30985a06448a19e499c1f41f9c, type: 2}
 --- !u!1 &430683313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,7 +2023,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4138010197606934416, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
   m_PrefabInstance: {fileID: 5279037813642689081}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1742706626
+--- !u!114 &1742706631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2031,9 +2032,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1742706621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aa98f5e3c8bb3b49a6d31fd6f4b459d, type: 3}
+  m_Script: {fileID: 11500000, guid: f30401d0fe0dfe347b57f3096a60245f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationEvents: []
 --- !u!1 &1833145921
 GameObject:
   m_ObjectHideFlags: 0
@@ -2641,7 +2643,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4138010197606934416, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1742706626}
+      addedObject: {fileID: 1742706631}
   m_SourcePrefab: {fileID: 100100000, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
 --- !u!1 &6008550381296955719
 GameObject:

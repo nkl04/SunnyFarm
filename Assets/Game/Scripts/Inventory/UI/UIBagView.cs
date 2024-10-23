@@ -55,6 +55,11 @@ namespace SunnyFarm.Game.Inventory.UI
                             {
                                 uiInventorySlots[i].SetData(null, transparentSprite, 0);
                             }
+
+                            if (uiInventorySlots[i].isSelected)
+                            {
+                                InventoryController.Instance.InventoryData.SetSelectedInventoryItem(location, uiInventorySlots[i].itemID);
+                            }
                         }
                     }
                 }

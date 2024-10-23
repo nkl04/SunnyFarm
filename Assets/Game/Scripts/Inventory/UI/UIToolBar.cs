@@ -108,12 +108,11 @@ namespace SunnyFarm.Game.Inventory.UI
         {
             if (uiInventorySlots.Length > 0)
             {
-                if (uiInventorySlots[slotPosition].isSelected)
-                {
-                    uiInventorySlots[slotPosition].SetHighLight(true);
+                uiInventorySlots[slotPosition].SetSelect(true);
 
-                    InventoryController.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotPosition].itemID);
-                }
+                uiInventorySlots[slotPosition].SetHighLight(true);
+
+                InventoryController.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotPosition].itemID);
             }
         }
 

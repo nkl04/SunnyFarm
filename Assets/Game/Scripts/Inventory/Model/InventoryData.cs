@@ -232,8 +232,8 @@ namespace SunnyFarm.Game.Inventory.Data
             InventoryItem inventoryItemCursor = dragItem.InventoryItem;
 
             dragItem.InventoryItem = inventoryItem;
-            inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItemCursor;
 
+            inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItemCursor;
             // update the inventory data
             EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }

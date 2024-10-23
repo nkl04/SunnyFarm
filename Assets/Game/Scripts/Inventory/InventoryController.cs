@@ -121,15 +121,25 @@ namespace SunnyFarm.Game.Inventory
         {
             if (slot.slotLocation == InventorySlotLocation.ToolBar)
             {
-                // clear the selected slot
+                // clear the selected slot in the toolbar
                 uiToolBarView.ClearHighlightOnInventorySlots();
-                // select the slot
-                SetSelectedInventorySlot(slot);
+                // clear the selected slot in the bag
+                uiBagView.ClearHighlightOnInventorySlots();
+                // select the slot in the toolbar
+                uiToolBarView.SetHighlightSelectInventorySlot(slot.slotIndex);
+                // select the slot in the bag
+                uiBagView.SetHighlightSelectInventorySlot(slot.slotIndex);
                 // set the selected item
                 InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, slot.itemID);
                 // set the selected item to the cursor
                 selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
             }
+            else if (slot.slotLocation == InventorySlotLocation.Container)
+            {
+                InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+
+            }
+
         }
 
         private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
@@ -142,10 +152,9 @@ namespace SunnyFarm.Game.Inventory
             UIInventorySlot slot = uiToolBarView.GetInventorySlot(slotIndex);
         }
 
-        private void SetSelectedInventorySlot(UIInventorySlot slot)
+        private void UpdateSelectedInventoryItem()
         {
-            slot.SetSelect(true);
-            slot.SetHighLight(true);
+
         }
 
     }

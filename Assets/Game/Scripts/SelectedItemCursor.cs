@@ -23,28 +23,27 @@ public class SelectedItemCursor : MonoBehaviour
         quantityItemText.text = string.Empty;
 
         selectedItemImage.color = new Color(1, 1, 1, Constant.ColorStat.Alpha_08);
-
-        EventHandlers.OnInventoryUpdated += UpdateUIInventory;
-    }
-
-    private void UpdateUIInventory(InventoryLocation location, InventoryItem[] inventoryItems)
-    {
-        if (location == InventoryLocation.Player)
-        {
-
-        }
     }
 
     public void SetData(string itemId, int quantity)
     {
+        ClearData();
+
         ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
-        if (itemDetail != null && quantity > 0)
+        if (!string.IsNullOrEmpty(itemId) && quantity > 0)
         {
             selectedItemImage.sprite = itemDetail.ItemImage;
 
             quantityItemText.text = quantity > 1 ? quantity.ToString() : "";
         }
+    }
+
+    public void ClearData()
+    {
+        selectedItemImage.sprite = transparentSprite;
+
+        quantityItemText.text = string.Empty;
     }
 
     public void Show()

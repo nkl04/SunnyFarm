@@ -164,25 +164,19 @@ namespace SunnyFarm.Game.Inventory
                 {
                     if (scrollInput > 0)
                     {
-                        int nextSlotIndex = slot.slotIndex + 1;
-                        if (nextSlotIndex == Constant.Inventory.PlayerInventoryMinCapacity)
-                        {
-                            nextSlotIndex = 0;
-                        }
-                        UIInventorySlot nextSlot = uiToolBarView.GetInventorySlotByIndex(nextSlotIndex);
+                        int currentSlotIndex = slot.slotIndex;
+
+                        UIInventorySlot nextSlot = uiToolBarView.GetTheNextInventorySlotHasItem(currentSlotIndex);
 
                         SelectSlot(nextSlot);
                     }
                     else
                     {
-                        int previousSlotIndex = slot.slotIndex - 1;
-                        if (previousSlotIndex < 0)
-                        {
-                            previousSlotIndex = Constant.Inventory.PlayerInventoryMinCapacity - 1;
-                        }
-                        UIInventorySlot previousSlot = uiToolBarView.GetInventorySlotByIndex(previousSlotIndex);
+                        int currentSlotIndex = slot.slotIndex;
 
-                        SelectSlot(previousSlot);
+                        UIInventorySlot prevSlot = uiToolBarView.GetThePreviousInventorySlotHasItem(currentSlotIndex);
+
+                        SelectSlot(prevSlot);
                     }
                 }
                 else

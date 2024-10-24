@@ -92,7 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transparentSprite: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
   uiInventoryDescription: {fileID: 2420843094998766428, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
-  itemCursor: {fileID: 1042091525336794905, guid: e2438e641f40b584d825877f9611bfa6, type: 3}
   uiInventorySlots:
   - {fileID: 575009123211364744}
   - {fileID: 4501368712912390601}
@@ -2997,6 +2996,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7751348118049342391}
     m_Modifications:
+    - target: {fileID: 2564797611747967211, guid: a375ba69e887ea24780a1abd1c21891d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
     - target: {fileID: 5298097690965508150, guid: a375ba69e887ea24780a1abd1c21891d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3087,6 +3090,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7643239366468826261, guid: a375ba69e887ea24780a1abd1c21891d, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818758961758850761, guid: a375ba69e887ea24780a1abd1c21891d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8543974172551522428, guid: a375ba69e887ea24780a1abd1c21891d, type: 3}

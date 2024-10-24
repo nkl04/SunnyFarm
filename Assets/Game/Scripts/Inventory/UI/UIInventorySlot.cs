@@ -21,9 +21,6 @@ namespace SunnyFarm.Game.Inventory.UI
         public InventoryLocation inventoryLocation;
         public InventorySlotLocation slotLocation;
 
-        [Header("Inventory Slot Description")]
-        [SerializeField] private GameObject inventorySlotDescription;
-
         [HideInInspector] public string itemID;
         [HideInInspector] public int itemQuantity;
         [HideInInspector] public bool isSelected = false;
@@ -58,6 +55,7 @@ namespace SunnyFarm.Game.Inventory.UI
         public void SetHighLight(bool isHighLight)
         {
             inventorySlotHighlightImage.gameObject.SetActive(isHighLight);
+            ZoomItemImage(isSelected);
         }
 
         public void ClearInventoryItem()
@@ -66,6 +64,30 @@ namespace SunnyFarm.Game.Inventory.UI
             itemQuantity = 0;
             inventorySlotItemImage.sprite = null;
             itemQuantityText.text = string.Empty;
+        }
+
+        /// <summary>
+        /// Zoom in/out the item image
+        /// <para>flag = true: zoom in</para>
+        /// <para>flag = false: zoom out</para>
+        /// </summary>
+        /// <param name="flag"></param>
+        /// 
+        public void ZoomItemImage(bool flag)
+        {
+            if (!IsEmpty)
+            {
+                RectTransform imageRectTransform = inventorySlotItemImage.GetComponent<RectTransform>();
+
+                if (flag)
+                {
+                    imageRectTransform.localScale = new Vector3(1.1f, 1.1f, 1f);
+                }
+                else
+                {
+                    imageRectTransform.localScale = new Vector3(1f, 1f, 1f);
+                }
+            }
         }
 
         #region Events

@@ -160,6 +160,58 @@ namespace SunnyFarm.Game.Inventory.UI
             else return null;
 
         }
+        /// <summary>
+        /// Return the next inventory slot that has an item
+        /// </summary>
+        /// <param name="currentindex">Index of the current selected slot</param>
+        /// <returns></returns>
+        public UIInventorySlot GetTheNextInventorySlotHasItem(int currentindex)
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                for (int i = currentindex + 1; i < uiInventorySlots.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty(uiInventorySlots[i].itemID))
+                    {
+                        return uiInventorySlots[i];
+                    }
+                }
+
+                for (int i = 0; i < uiInventorySlots.Length; ++i)
+                {
+                    if (!string.IsNullOrEmpty(uiInventorySlots[i].itemID))
+                    {
+                        return uiInventorySlots[i];
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Return the previous inventory slot that has an item
+        /// </summary>
+        /// <param name="currentindex">Index of the current selected slot</param>
+        /// <returns></returns>
+        public UIInventorySlot GetThePreviousInventorySlotHasItem(int currentindex)
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                if (currentindex == 0)
+                {
+                    currentindex = uiInventorySlots.Length;
+                }
+
+                for (int i = currentindex - 1; i >= 0; i--)
+                {
+                    if (!string.IsNullOrEmpty(uiInventorySlots[i].itemID))
+                    {
+                        return uiInventorySlots[i];
+                    }
+                }
+            }
+            return null;
+        }
 
         private void Update()
         {

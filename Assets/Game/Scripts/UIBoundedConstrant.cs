@@ -1,41 +1,54 @@
 using UnityEngine;
 
-public class UIBoundedConstrant : MonoBehaviour
+public class UIBoundedConstraint : MonoBehaviour
 {
+    private RectTransform parentRectTransform;
     private RectTransform rectTransform;
-    private RectTransform canvasRectTransform;
 
-    private void Start()
+    void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-
-        canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        parentRectTransform = transform.parent.GetComponent<RectTransform>();
     }
 
-    private void Update()
+    void Update()
     {
-        KeepWithinBounds();
+        ConstrainPosition();
+
+
     }
 
-    private void KeepWithinBounds()
+    void ConstrainPosition()
     {
-        Vector3[] worldCorners = new Vector3[4];
+        Vector3[] corners = GetWorldCorners(rectTransform);
 
-        rectTransform.GetWorldCorners(worldCorners);
+        Vector3[] screenCorners = GetScreenCorners();
 
-        Vector3[] canvasCorners = new Vector3[4];
+        Debug.Log(screenCorners[0].y + " " + corners[0].y);
+    }
 
-        canvasRectTransform.GetWorldCorners(canvasCorners);
+    Vector3[] GetWorldCorners(RectTransform rectTransform)
+    {
+        Vector3[] corners = new Vector3[4];
 
-        Vector3 newPosition = rectTransform.position;
+        rectTransform.GetWorldCorners(corners);
 
-        if (worldCorners[0].x < canvasCorners[0].x)
-        {
-            float offset = canvasCorners[0].x - worldCorners[0].x;
+        return corners;
+    }
 
-            newPosition.x += offset;
+    Vector3[] GetScreenCorners()
+    {
+        Vector3[] corners = new Vector3[4];
 
-            rectTransform.position = newPosition;
-        }
+        // Get the camera (assuming the main camera)
+        Camera mainCamera = Camera.main;
+
+        // Get screen corners in world space
+        corners[0] = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane)); // Bottom Left
+        corners[1] = mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, mainCamera.nearClipPlane)); // Top Left
+        corners[2] = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.nearClipPlane)); // Top Right
+        corners[3] = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, mainCamera.nearClipPlane)); // Bottom Right
+
+        return corners;
     }
 }

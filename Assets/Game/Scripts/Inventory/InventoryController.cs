@@ -137,9 +137,8 @@ namespace SunnyFarm.Game.Inventory
             else if (slot.slotLocation == InventorySlotLocation.Container)
             {
                 InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
-
+                draggedItemCursor.UpdateDraggedItemVisual();
             }
-
         }
 
         private void OnRightPointerClickInventorySlot(UIInventorySlot slot)

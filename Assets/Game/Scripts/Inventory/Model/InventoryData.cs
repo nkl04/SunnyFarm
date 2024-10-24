@@ -289,6 +289,25 @@ namespace SunnyFarm.Game.Inventory.Data
             return inventoryItems[slotPosition].quantity == itemStackSize;
         }
 
+        public bool IsInventoryFullWithItem(string itemId, InventoryLocation inventoryLocation)
+        {
+            InventoryItem[] inventoryItems = inventoryArray[(int)inventoryLocation];
+
+            for (int i = 0; i < inventoryItems.Length; i++)
+            {
+                if (inventoryItems[i].isEmpty) continue;
+
+                if (inventoryItems[i].itemID == itemId)
+                {
+                    if (IsInventorySlotFullStackWithItem(itemId, inventoryItems, i)) continue;
+
+                    return false;
+                }
+            }
+
+            return IsInventoryFull(inventoryItems);
+        }
+
         #endregion
 
     }

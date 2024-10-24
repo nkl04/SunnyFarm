@@ -55,8 +55,4 @@ public class SelectedItemCursor : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
-
-
-
 }

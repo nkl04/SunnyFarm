@@ -91,6 +91,15 @@ namespace SunnyFarm.Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseSroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""63463fb2-11d9-42d3-99b1-02d1625928bb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -410,6 +419,17 @@ namespace SunnyFarm.Game.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""QuickSelectSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d4292dd-e1b6-4cfc-b6d6-281d2bd9bec2"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MouseSroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1004,6 +1024,7 @@ namespace SunnyFarm.Game.Input
             m_Player_Water = m_Player.FindAction("Water", throwIfNotFound: true);
             m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
             m_Player_QuickSelectSlot = m_Player.FindAction("QuickSelectSlot", throwIfNotFound: true);
+            m_Player_MouseSroll = m_Player.FindAction("MouseSroll", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1084,6 +1105,7 @@ namespace SunnyFarm.Game.Input
         private readonly InputAction m_Player_Water;
         private readonly InputAction m_Player_ToggleInventory;
         private readonly InputAction m_Player_QuickSelectSlot;
+        private readonly InputAction m_Player_MouseSroll;
         public struct PlayerActions
         {
             private @PlayerInputAction m_Wrapper;
@@ -1095,6 +1117,7 @@ namespace SunnyFarm.Game.Input
             public InputAction @Water => m_Wrapper.m_Player_Water;
             public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
             public InputAction @QuickSelectSlot => m_Wrapper.m_Player_QuickSelectSlot;
+            public InputAction @MouseSroll => m_Wrapper.m_Player_MouseSroll;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1125,6 +1148,9 @@ namespace SunnyFarm.Game.Input
                 @QuickSelectSlot.started += instance.OnQuickSelectSlot;
                 @QuickSelectSlot.performed += instance.OnQuickSelectSlot;
                 @QuickSelectSlot.canceled += instance.OnQuickSelectSlot;
+                @MouseSroll.started += instance.OnMouseSroll;
+                @MouseSroll.performed += instance.OnMouseSroll;
+                @MouseSroll.canceled += instance.OnMouseSroll;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1150,6 +1176,9 @@ namespace SunnyFarm.Game.Input
                 @QuickSelectSlot.started -= instance.OnQuickSelectSlot;
                 @QuickSelectSlot.performed -= instance.OnQuickSelectSlot;
                 @QuickSelectSlot.canceled -= instance.OnQuickSelectSlot;
+                @MouseSroll.started -= instance.OnMouseSroll;
+                @MouseSroll.performed -= instance.OnMouseSroll;
+                @MouseSroll.canceled -= instance.OnMouseSroll;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1339,6 +1368,7 @@ namespace SunnyFarm.Game.Input
             void OnWater(InputAction.CallbackContext context);
             void OnToggleInventory(InputAction.CallbackContext context);
             void OnQuickSelectSlot(InputAction.CallbackContext context);
+            void OnMouseSroll(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

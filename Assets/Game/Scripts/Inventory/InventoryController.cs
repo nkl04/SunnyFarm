@@ -2,6 +2,7 @@ namespace SunnyFarm.Game.Inventory
 {
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Entities.Player;
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Inventory.UI;
@@ -39,16 +40,24 @@ namespace SunnyFarm.Game.Inventory
 
         InventoryData inventoryData;
 
+        private bool IsInventoryOpen => uiBagView.gameObject.activeSelf;
+
         protected override void Awake()
         {
             base.Awake();
 
             EventHandlers.OnInventoryUpdated += UpdateUIInventory;
             EventHandlers.OnToggleInventory += ToggleInventoryView;
-            EventHandlers.OnQuickSelectSlot += QuickSelectSlot;
+
             EventHandlers.OnLeftPointerClick += OnLeftPointerClickInventorySlot;
             EventHandlers.OnRightPointerClick += OnRightPointerClickInventorySlot;
+
+            EventHandlers.OnQuickSelectSlot += QuickSelectSlot;
+            EventHandlers.OnMouseScroll += OnMouseScrollSelectSlotInput;
+
         }
+
+
 
         private void Start()
         {
@@ -121,6 +130,79 @@ namespace SunnyFarm.Game.Inventory
         {
             if (slot.slotLocation == InventorySlotLocation.ToolBar)
             {
+                SelectSlot(slot);
+            }
+            else if (slot.slotLocation == InventorySlotLocation.Container)
+            {
+                InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                draggedItemCursor.UpdateDraggedItemVisual();
+
+                // check can not turn off the inventory if in dragging item 
+                Player.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+            }
+        }
+
+        private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
+        {
+        }
+
+
+        private void QuickSelectSlot(int slotIndex)
+        {
+            UIInventorySlot slot = uiToolBarView.GetInventorySlot(slotIndex);
+
+            SelectSlot(slot);
+        }
+
+        private void OnMouseScrollSelectSlotInput(float scrollInput)
+        {
+            if (!IsInventoryOpen)
+            {
+                UIInventorySlot slot = uiToolBarView.GetSelectedInventorySlot();
+
+                if (slot != null)
+                {
+                    if (scrollInput > 0)
+                    {
+                        int nextSlotIndex = slot.slotIndex + 1;
+                        if (nextSlotIndex == Constant.Inventory.PlayerInventoryMinCapacity)
+                        {
+                            nextSlotIndex = 0;
+                        }
+                        UIInventorySlot nextSlot = uiToolBarView.GetInventorySlotByIndex(nextSlotIndex);
+
+                        SelectSlot(nextSlot);
+                    }
+                    else
+                    {
+                        int previousSlotIndex = slot.slotIndex - 1;
+                        if (previousSlotIndex < 0)
+                        {
+                            previousSlotIndex = Constant.Inventory.PlayerInventoryMinCapacity - 1;
+                        }
+                        UIInventorySlot previousSlot = uiToolBarView.GetInventorySlotByIndex(previousSlotIndex);
+
+                        SelectSlot(previousSlot);
+                    }
+                }
+                else
+                {
+                    if (scrollInput > 0)
+                    {
+                        SelectSlot(uiToolBarView.GetInventorySlotByIndex(0));
+                    }
+                    else
+                    {
+                        SelectSlot(uiToolBarView.GetInventorySlotByIndex(Constant.Inventory.PlayerInventoryMinCapacity - 1));
+                    }
+                }
+            }
+        }
+
+        public void SelectSlot(UIInventorySlot slot)
+        {
+            if (slot != null)
+            {
                 // clear the selected slot in the toolbar
                 uiToolBarView.ClearHighlightOnInventorySlots();
                 // clear the selected slot in the bag
@@ -134,21 +216,6 @@ namespace SunnyFarm.Game.Inventory
                 // set the selected item to the cursor
                 selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
             }
-            else if (slot.slotLocation == InventorySlotLocation.Container)
-            {
-                InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
-                draggedItemCursor.UpdateDraggedItemVisual();
-            }
-        }
-
-        private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
-        {
-        }
-
-
-        private void QuickSelectSlot(int slotIndex)
-        {
-            UIInventorySlot slot = uiToolBarView.GetInventorySlot(slotIndex);
         }
 
         private void UpdateSelectedInventoryItem()

@@ -283,6 +283,13 @@ namespace SunnyFarm.Game
             OnToggleInventory?.Invoke();
         }
 
+        public static event Action<float> OnMouseScroll;
+
+        public static void CallOnMouseScroll(float scrollInput)
+        {
+            OnMouseScroll?.Invoke(scrollInput);
+        }
+
         #endregion
     }
 }

@@ -22,6 +22,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10002
     ItemType: 2
@@ -31,6 +32,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10003
     ItemType: 2
@@ -41,6 +43,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10004
     ItemType: 2
@@ -50,6 +53,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10005
     ItemType: 2
@@ -60,6 +64,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10006
     ItemType: 2
@@ -69,6 +74,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10007
     ItemType: 2
@@ -79,6 +85,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 0
   - ID: 10008
     ItemType: 2
@@ -89,6 +96,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10009
     ItemType: 2
@@ -97,8 +105,9 @@ MonoBehaviour:
       the sun.
     ItemImage: {fileID: 1354166642, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
     IsStackable: 1
-    MaxStackSize: 32
+    MaxStackSize: 2
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 1
   - ID: 10010
     ItemType: 2
@@ -109,6 +118,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 0
   - ID: 50001
     ItemType: 4
@@ -118,6 +128,7 @@ MonoBehaviour:
     IsStackable: 1
     MaxStackSize: 32
     CanBePickUp: 1
+    CanBeCarried: 0
     CanBeEaten: 0
   - ID: 40001
     ItemType: 5
@@ -127,6 +138,7 @@ MonoBehaviour:
     IsStackable: 0
     MaxStackSize: 1
     CanBePickUp: 0
+    CanBeCarried: 0
     CanBeEaten: 0
   - ID: 40002
     ItemType: 5
@@ -136,6 +148,7 @@ MonoBehaviour:
     IsStackable: 0
     MaxStackSize: 1
     CanBePickUp: 0
+    CanBeCarried: 0
     CanBeEaten: 0
   - ID: 40003
     ItemType: 5
@@ -145,4 +158,5 @@ MonoBehaviour:
     IsStackable: 0
     MaxStackSize: 1
     CanBePickUp: 0
+    CanBeCarried: 0
     CanBeEaten: 0

@@ -1,6 +1,7 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
     using System.Collections.Generic;
+    using System.Linq;
     using SunnyFarm.Game.Entities.Item.Data;
     using SunnyFarm.Game.Entities.Player;
     using SunnyFarm.Game.Inventory.Data;
@@ -46,6 +47,11 @@ namespace SunnyFarm.Game.Inventory.UI
                             else
                             {
                                 uiInventorySlots[i].SetData(null, transparentSprite, 0);
+                            }
+
+                            if (uiInventorySlots[i].isSelected)
+                            {
+                                InventoryController.Instance.SelectedItemCursor.SetData(uiInventorySlots[i].itemID, uiInventorySlots[i].itemQuantity);
                             }
                         }
                     }
@@ -134,6 +140,25 @@ namespace SunnyFarm.Game.Inventory.UI
                     }
                 }
             }
+        }
+
+        public UIInventorySlot GetSelectedInventorySlot()
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                return uiInventorySlots.FirstOrDefault(x => x.isSelected);
+            }
+            return null;
+        }
+
+        public UIInventorySlot GetInventorySlotByIndex(int index)
+        {
+            if (uiInventorySlots.Length > 0)
+            {
+                return uiInventorySlots.FirstOrDefault(x => x.slotIndex == index);
+            }
+            else return null;
+
         }
 
         private void Update()

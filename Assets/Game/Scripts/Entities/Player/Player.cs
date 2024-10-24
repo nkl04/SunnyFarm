@@ -33,6 +33,7 @@ namespace SunnyFarm.Game.Entities.Player
         public bool IsFacingRight { get; set; } = true;
 
         public bool CanToggleInventory { get; set; } = true;
+        public bool CanMouseScroll { get; set; } = true;
 
         public StatePlayerIdle StatePlayerIdle { get; private set; }
         public StatePlayerMove StatePlayerMove { get; private set; }
@@ -98,8 +99,11 @@ namespace SunnyFarm.Game.Entities.Player
 
             inputActions.Player.QuickSelectSlot.started += SelectInventorySlot;
 
+            inputActions.Player.MouseSroll.performed += OnMouseScroll;
+
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
         }
+
 
         private void SelectInventorySlot(InputAction.CallbackContext context)
         {
@@ -142,6 +146,16 @@ namespace SunnyFarm.Game.Entities.Player
 
             IsMovePressed = movementInput.magnitude > 0;
         }
+
+        private void OnMouseScroll(InputAction.CallbackContext context)
+        {
+            if (!CanMouseScroll) return;
+
+            Vector2 scrollValue = context.ReadValue<Vector2>();
+
+            EventHandlers.CallOnMouseScroll(scrollValue.y);
+        }
+
 
         private void Update()
         {

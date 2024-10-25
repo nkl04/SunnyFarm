@@ -3,7 +3,6 @@ namespace SunnyFarm.Game.Managers
     using SunnyFarm.Game;
     using SunnyFarm.Game.DesignPattern;
     using UnityEngine;
-    using UnityEngine.Rendering.Universal;
     using static SunnyFarm.Game.Constant.Enums;
 
     public class TimeManager : Singleton<TimeManager>

@@ -1,11 +1,15 @@
 namespace SunnyFarm.Game.Managers
 {
     using SunnyFarm.Game.Entities.Item;
+    using System.Collections.Generic;
     using UnityEngine;
+    using static SunnyFarm.Game.Constant.Enums;
 
     public abstract class ToolController : ItemController
     {
         protected ToolDetail toolDetail;
+
+        [SerializeField] private List<ResourceType> resourceCanHit = new List<ResourceType>();
 
         protected GridPropertiesDetail TileActionCheck()
         {
@@ -36,10 +40,11 @@ namespace SunnyFarm.Game.Managers
 
                 if (toolHit != null)
                 {
-                    toolHit.Hit(player);
-                    break;
+                    if (toolHit.CanBeHit(resourceCanHit))
+                    {
+                        toolHit.Hit(player);
+                    }
                 }
-
                 // if object is damagable
 
             }

@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static SunnyFarm.Game.Constant.Enums;
 
-public class GridPropertiesController : Singleton<GridPropertiesController>
+[RequireComponent(typeof(GenerateGUID))]
+public class GridPropertiesController : Singleton<GridPropertiesController>, ISavable
 {
     [SerializeField] public Tilemap groundDecoration1;
     public Tilemap groundDecoration2;
@@ -14,35 +15,53 @@ public class GridPropertiesController : Singleton<GridPropertiesController>
     private Dictionary<string, GridPropertiesDetail> gridPropertiesDetails;
     [SerializeField] private ConfigGridProperties[] configGrids;
 
+    private string iSavableUniqueID;
+    public string ISavableUniqueID { get => iSavableUniqueID; set => iSavableUniqueID = value; }
+    private GameObjectSave gameObjectSave;
+    public GameObjectSave GameObjectSave { get => gameObjectSave; set => gameObjectSave = value; }
+
     [SerializeField] private RuleTile dugTile;
     [SerializeField] private RuleTile landTile;
     [SerializeField] private RuleTile wateredTile;
 
-
     protected override void Awake()
     {
         base.Awake();
+
+        ISavableUniqueID = GetComponent<GenerateGUID>().GUID;
+        GameObjectSave = new GameObjectSave();
     }
 
     private void OnEnable()
     {
+        ISavableRegister();
         EventHandler.OnAfterSceneLoad += AfterSceneLoad;
+
+        EventHandler.OnAdvanceGameDay += UpdateTileDetailEachDay;
     }
 
     private void OnDisable()
     {
+        ISavableUnregister();
         EventHandler.OnAfterSceneLoad -= AfterSceneLoad;
+
+        EventHandler.OnAdvanceGameDay -= UpdateTileDetailEachDay;
     }
     void Start()
     {
         Initialize();
-        groundDecoration1 = GameObject.FindGameObjectWithTag("GroundDecoration1").GetComponent<Tilemap>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ClearDisplayGroundDecoration()
     {
+        // remove ground decorations
+        groundDecoration1.ClearAllTiles();
+        groundDecoration2.ClearAllTiles();
+    }
 
+    private void ClearDisplayGridPropertiesDetails()
+    {
+        ClearDisplayGroundDecoration();
     }
 
     void Initialize()
@@ -65,90 +84,76 @@ public class GridPropertiesController : Singleton<GridPropertiesController>
             }
 
             // save the grid property dictionary to the scene save system
+            SceneSave sceneSave = new SceneSave();
 
+            // add grid properties dictionary to the scene save data
+            sceneSave.gridPropertiesDetailDictionary = gridPropertiesDictionary;
 
             // If starting scene is set
-            if (config.sceneName.ToString() == "")
+            if (config.sceneName.ToString() == SceneController.Instance.sceneName.ToString())
             {
+                this.gridPropertiesDetails = gridPropertiesDictionary;
             }
 
-            // test
-            this.gridPropertiesDetails = gridPropertiesDictionary;
-
+            GameObjectSave.sceneData.Add(config.sceneName.ToString(), sceneSave);
         }
     }
-    public void DisplayDugGround(GridPropertiesDetail gridPropertiesDetail)
+    private void DisplayGridPropertyDetails()
+    {
+        foreach (var detail in gridPropertiesDetails)
+        {
+            GridPropertiesDetail gridPropertiesDetail = detail.Value;
+
+            if (gridPropertiesDetail.TileType == TileType.Dug)
+                DisplayTileGround(gridPropertiesDetail, dugTile);
+        }
+    }
+
+    public void SetDugGround(GridPropertiesDetail gridPropertiesDetail)
     {
         if (gridPropertiesDetail.TileType == TileType.Land)
         {
-            SetDugGround(gridPropertiesDetail);
+            UpdateTileType(gridPropertiesDetail, TileType.Dug);
+
+            DisplayTileGround(gridPropertiesDetail, dugTile);
         }
     }
 
-    private void SetDugGround(GridPropertiesDetail gridPropertiesDetail)
+    public void SetWaterGround(GridPropertiesDetail gridPropertiesDetail)
     {
-        if (IsGroundDug(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y)) return;
+        if (gridPropertiesDetail.TileType == TileType.Dug)
+        {
+            UpdateTileType(gridPropertiesDetail, TileType.Watered);
 
-        UpdateTileType(gridPropertiesDetail, TileType.Dug);
-        groundDecoration1.SetTile(new Vector3Int(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y, 0), dugTile);
+            DisplayTileGround(gridPropertiesDetail, wateredTile);
+        }
     }
-    public void DisplayLandGround(GridPropertiesDetail gridPropertiesDetail)
+    public void SetLandGround(GridPropertiesDetail gridPropertiesDetail)
     {
         if (gridPropertiesDetail.TileType > TileType.Land)
         {
-            SetLandGround(gridPropertiesDetail);
+            UpdateTileType(gridPropertiesDetail, TileType.Land);
+
+            DisplayTileGround(gridPropertiesDetail, landTile);
         }
     }
 
-    private void SetLandGround(GridPropertiesDetail gridPropertiesDetail)
+    public void DisplayTileGround(GridPropertiesDetail gridPropertiesDetail, RuleTile ruleTile)
     {
-        if (IsGroundLand(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y)) return;
-
-        UpdateTileType(gridPropertiesDetail, TileType.Land);
-        groundDecoration1.SetTile(new Vector3Int(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y, 0), landTile);
+        groundDecoration1.SetTile(new Vector3Int(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y, 0), ruleTile);
     }
+
     private void UpdateTileType(GridPropertiesDetail gridPropertiesDetail, TileType type)
     {
         gridPropertiesDetail.TileType = type;
         gridPropertiesDetail.DaysSinceLastModified = 0;
     }
-    private bool IsGroundLand(int x, int y)
-    {
-        GridPropertiesDetail gridPropertiesDetail = GetGridPropertyDetail(x, y);
-
-        if (gridPropertiesDetail == null)
-        {
-            return false;
-        }
-        else if (gridPropertiesDetail.TileType == TileType.Land)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    private bool IsGroundDug(int x, int y)
-    {
-        GridPropertiesDetail gridPropertiesDetail = GetGridPropertyDetail(x, y);
-
-        if (gridPropertiesDetail == null)
-        {
-            return false;
-        }
-        else if (gridPropertiesDetail.TileType > TileType.Land)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
     private void AfterSceneLoad()
     {
         grid = GameObject.FindObjectOfType<Grid>();
+
+        groundDecoration1 = GameObject.FindGameObjectWithTag("GroundDecoration1").GetComponent<Tilemap>();
+        groundDecoration2 = GameObject.FindGameObjectWithTag("GroundDecoration2").GetComponent<Tilemap>();
     }
     private void SetGridPropertyDetail(int x, int y, GridPropertiesDetail gridPropertiesDetail, Dictionary<string,
         GridPropertiesDetail> gridPropertyDictionary)
@@ -175,5 +180,92 @@ public class GridPropertiesController : Singleton<GridPropertiesController>
         {
             return gridPropertiesDetail;
         }
+    }
+
+    public void ISavableRegister()
+    {
+        SaveLoadManager.Instance.ISavableObjectList.Add(this);
+    }
+
+    public void ISavableUnregister()
+    {
+        SaveLoadManager.Instance.ISavableObjectList.Remove(this);
+    }
+
+    public void StoreScene(string sceneName)
+    {
+        // Remove sceneSave for scene
+        GameObjectSave.sceneData.Remove(sceneName);
+
+        // Create sceneSave for scene
+        SceneSave sceneSave = new SceneSave();
+
+        // Create & add dict grid property details dictionary
+        sceneSave.gridPropertiesDetailDictionary = gridPropertiesDetails;
+
+        // Add scene save to game object scene data
+        GameObjectSave.sceneData.Add(sceneName, sceneSave);
+    }
+
+    public void RestoreScene(string sceneName)
+    {
+        // get sceneSave for scene = it exists since we created it in initailize
+        if (GameObjectSave.sceneData.TryGetValue(sceneName, out SceneSave sceneSave))
+        {
+            // get grid properties dictionary
+            if (sceneSave.gridPropertiesDetailDictionary != null)
+            {
+                gridPropertiesDetails = sceneSave.gridPropertiesDetailDictionary;
+            }
+
+            if (gridPropertiesDetails.Count > 0)
+            {
+                ClearDisplayGridPropertiesDetails();
+
+                DisplayGridPropertyDetails();
+            }
+        }
+    }
+
+    private void UpdateTileDetailEachDay(int year, WeekDay dayOfWeek, int day, Season season, int hour, int minute, int second)
+    {
+        // Clear display all grid property details
+        ClearDisplayGridPropertiesDetails();
+
+
+        foreach (var config in configGrids)
+        {
+            if (GameObjectSave.sceneData.TryGetValue(config.sceneName.ToString(), out SceneSave sceneSave))
+            {
+                if (sceneSave.gridPropertiesDetailDictionary != null)
+                {
+                    foreach (var item in gridPropertiesDetails)
+                    {
+                        if (item.Value.TileType != TileType.Land)
+                        {
+                            GridPropertiesDetail detail = item.Value;
+                            detail.DaysSinceLastModified++;
+
+                            // Logic for Watered Tile: After 1 day, revert to Dug
+                            if (detail.TileType == TileType.Watered && detail.DaysSinceLastModified >= 1)
+                            {
+                                detail.TileType = TileType.Dug;
+                                detail.DaysSinceLastModified = 0; // Reset day counter for dug state
+                            }
+
+                            // Logic for Dug Tile: After X days, revert to Land
+                            if (detail.TileType == TileType.Dug && detail.DaysSinceLastModified >= 3) // Example: 3 days
+                            {
+                                detail.TileType = TileType.Land;
+                                detail.DaysSinceLastModified = 0; // Reset day counter for land state
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Display grid property details to reflect changes
+        DisplayGridPropertyDetails();
     }
 }

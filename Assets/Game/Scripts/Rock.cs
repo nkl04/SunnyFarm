@@ -1,6 +1,8 @@
 using DG.Tweening;
 using SunnyFarm.Game.Entities.Player;
+using System.Collections.Generic;
 using UnityEngine;
+using static SunnyFarm.Game.Constant.Enums;
 
 public class Rock : MonoBehaviour, IToolHittable
 {
@@ -13,6 +15,8 @@ public class Rock : MonoBehaviour, IToolHittable
     [SerializeField] public float strength = 1f;      // Strength of the shake
     [SerializeField] public int vibrato = 10;         // Number of shakes
     [SerializeField] public float randomness = 90f;   // Randomness of the shake
+
+    [SerializeField] private ResourceType resourceType;
 
     //TODO: Remove
     public int hp = 1;
@@ -77,4 +81,8 @@ public class Rock : MonoBehaviour, IToolHittable
         }
     }
 
+    public bool CanBeHit(List<ResourceType> canBeHit)
+    {
+        return canBeHit.Contains(resourceType);
+    }
 }

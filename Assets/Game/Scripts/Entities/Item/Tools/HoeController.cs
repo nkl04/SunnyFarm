@@ -29,7 +29,7 @@ namespace SunnyFarm.Game.Entities.Item
         {
             // Get grid property detail that make action
             GridPropertiesDetail detail = TileActionCheck();
-            GridPropertiesController.Instance.DisplayDugGround(detail);
+            GridPropertiesController.Instance.SetDugGround(detail);
 
             HitBox(detail.Position);
         }

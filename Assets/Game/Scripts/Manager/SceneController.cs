@@ -1,9 +1,9 @@
 namespace SunnyFarm.Game
 {
-    using System;
-    using System.Collections;
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Entities.Player;
+    using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using UnityEngine.UI;
@@ -17,17 +17,37 @@ namespace SunnyFarm.Game
         [SerializeField] private CanvasGroup fadeCanvasGroup = null;
         private bool isFading;
 
+        // add
+        [SerializeField] private List<SceneName> listNonStartingSceneNames = new List<SceneName>();
 
         private IEnumerator Start()
         {
             fadeImage.color = new Color(0f, 0f, 0f, 1f);
             fadeCanvasGroup.alpha = 1f;
 
+            // preload all other non-starting scenes to ensure all starting crops in other scenes are saved to the grid properties
+            foreach (var sceneName in listNonStartingSceneNames)
+            {
+                // Start the scene loading and wait for it to finish
+                yield return StartCoroutine(LoadAndActiveScene(sceneName));
+
+                // If this event has any subscribe, call it.
+                EventHandler.CallOnAfterSceneLoad();
+
+                SaveLoadManager.Instance.RestoreCurrentSceneData();
+
+                SaveLoadManager.Instance.StoreCurrentSceneData();
+
+                yield return SceneManager.UnloadSceneAsync(sceneName.ToString());
+            }
+
             // Start the first scene and wait until it's finished loading
             yield return StartCoroutine(LoadAndActiveScene(sceneName));
 
             // If this event has any subscribers, call it
             EventHandler.CallOnAfterSceneLoad();
+
+            SaveLoadManager.Instance.RestoreCurrentSceneData();
 
             // Start fading back in and wait until fade is finished
             yield return StartCoroutine(Fade(0f));
@@ -52,6 +72,9 @@ namespace SunnyFarm.Game
             // Start fading to black and wait until fade is finished
             yield return StartCoroutine(Fade(1f));
 
+            // store scene data
+            SaveLoadManager.Instance.StoreCurrentSceneData();
+
             // Set player position
             Player.Instance.transform.position = spawnPosition;
 
@@ -66,6 +89,9 @@ namespace SunnyFarm.Game
 
             // Call after scene load event
             EventHandler.CallOnAfterSceneLoad();
+
+            // Restore new scene data
+            SaveLoadManager.Instance.RestoreCurrentSceneData();
 
             // Start fading back in and wait until fade is finished
             yield return StartCoroutine(Fade(0f));

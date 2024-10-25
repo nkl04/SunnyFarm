@@ -14,6 +14,7 @@ public class ToolsManager : MonoBehaviour
 
     // test
     [SerializeField] protected ToolDetail toolDetail;
+
     private void Start()
     {
         foreach (var controller in toolPrefabs)
@@ -23,6 +24,7 @@ public class ToolsManager : MonoBehaviour
         }
         ChangeTool(toolDetail);
     }
+
     public void ChangeTool(ToolDetail tool)
     {
         if (toolUsing != null && toolUsing.ItemType == tool.ItemType) return;

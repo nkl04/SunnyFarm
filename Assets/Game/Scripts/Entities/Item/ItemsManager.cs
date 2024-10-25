@@ -16,6 +16,9 @@ public class ItemsManager : MonoBehaviour
 
     // test
     [SerializeField] protected ItemDetail itemDetail;
+
+    [SerializeField] protected ItemDetail itemChange;
+
     private void Start()
     {
         player = GetComponentInParent<Player>();
@@ -29,6 +32,13 @@ public class ItemsManager : MonoBehaviour
         SetupToolAnimationEvents(player.GetComponentInChildren<AnimationEventReceiver>());
 
         ChangeItem(itemDetail);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangeItem(itemChange);
+        }
     }
     public void ChangeItem(ItemDetail tool)
     {

@@ -31,7 +31,7 @@ public class PickaxeController : ToolController
 
         if (!detail.HasCrop)
         {
-            GridPropertiesController.Instance.DisplayLandGround(detail);
+            GridPropertiesController.Instance.SetLandGround(detail);
         }
 
         HitBox(detail.Position);

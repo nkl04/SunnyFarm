@@ -1,6 +1,8 @@
 using DG.Tweening;
 using SunnyFarm.Game.Entities.Player;
+using System.Collections.Generic;
 using UnityEngine;
+using static SunnyFarm.Game.Constant.Enums;
 public class TreeCuttable : MonoBehaviour, IToolHittable
 {
     [Header("Tree Parts")]
@@ -14,6 +16,8 @@ public class TreeCuttable : MonoBehaviour, IToolHittable
     [SerializeField] private int bodyDropAmount = 5;
     [SerializeField] private float stoolDropAmount = 5f;
     [SerializeField] private float spread = 3f;
+
+    [SerializeField] private ResourceType resourceType;
 
     // Fall animation
     private float fallDegreeZ = 80f;
@@ -143,5 +147,10 @@ public class TreeCuttable : MonoBehaviour, IToolHittable
                 );
             });
         }
+    }
+
+    public bool CanBeHit(List<ResourceType> canBeHit)
+    {
+        return canBeHit.Contains(resourceType);
     }
 }

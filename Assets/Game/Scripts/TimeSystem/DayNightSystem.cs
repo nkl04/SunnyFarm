@@ -13,7 +13,7 @@ namespace SunnyFarm.Game
 
         private void Start()
         {
-            EventHandler.OnAdvanceGameHour += UpdateLight;
+            EventHandlers.OnAdvanceGameHour += UpdateLight;
         }
 
         private void UpdateLight(int year, Constant.Enums.Season season, int day, Constant.Enums.WeekDay dayOfWeek, int hour, int minute, int second)

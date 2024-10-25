@@ -8,6 +8,8 @@ namespace SunnyFarm.Game.Entities.Player
     using UnityEngine;
     using UnityEngine.InputSystem;
     using SunnyFarm.Game.DesignPattern;
+    using SunnyFarm.Game.Inventory;
+    using TMPro;
 
     public class Player : Singleton<Player>
     {
@@ -28,8 +30,11 @@ namespace SunnyFarm.Game.Entities.Player
         public bool IsDigPressed { get; set; } = false;
         public bool IsPickaxePressed { get; set; } = false;
         public bool IsWaterPressed { get; set; } = false;
-
         public bool IsFacingRight { get; set; } = true;
+
+        public bool CanToggleInventory { get; set; } = true;
+        public bool CanMouseScroll { get; set; } = true;
+        public bool CanActionInput { get; set; } = true;
 
         public StatePlayerIdle StatePlayerIdle { get; private set; }
         public StatePlayerMove StatePlayerMove { get; private set; }
@@ -56,8 +61,13 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Animator animator;
 
+        private Camera mainCamera;
+
+
         private void Start()
         {
+            mainCamera = Camera.main;
+
             inputActions = GameInputManager.Instance.InputActions;
 
             stateMachine = new StateMachine<StatePlayer>();  // Create a new state machine
@@ -86,36 +96,72 @@ namespace SunnyFarm.Game.Entities.Player
 
             inputActions.Player.Water.canceled += OnWaterInput;
 
+            inputActions.Player.ToggleInventory.started += OnToggleInventory;
+
+            inputActions.Player.QuickSelectSlot.started += SelectInventorySlot;
+
+            inputActions.Player.MouseSroll.performed += OnMouseScroll;
+
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
+        }
+
+
+        private void SelectInventorySlot(InputAction.CallbackContext context)
+        {
+            var bindings = inputActions.Player.QuickSelectSlot.bindings;
+
+            int bindingIndex = inputActions.Player.QuickSelectSlot.GetBindingIndexForControl(context.control);
+
+            EventHandlers.CallOnQuickSelectSlot(bindingIndex);
+        }
+
+        private void OnToggleInventory(InputAction.CallbackContext context)
+        {
+            if (!CanToggleInventory) return;
+            EventHandlers.CallOnToggleInventory();
         }
 
         private void OnWaterInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsWaterPressed = context.ReadValueAsButton();
         }
 
         private void OnPickaxeInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsPickaxePressed = context.ReadValueAsButton();
         }
 
         private void OnDigInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsDigPressed = context.ReadValueAsButton();
         }
 
         private void OnAxeInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsAxePressed = context.ReadValueAsButton();
         }
 
         private void OnMoveInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             movementInput = context.ReadValue<Vector2>().normalized;
 
             IsMovePressed = movementInput.magnitude > 0;
-
         }
+
+        private void OnMouseScroll(InputAction.CallbackContext context)
+        {
+            if (!CanMouseScroll) return;
+
+            Vector2 scrollValue = context.ReadValue<Vector2>();
+
+            EventHandlers.CallOnMouseScroll(scrollValue.y);
+        }
+
 
         private void Update()
         {
@@ -127,6 +173,15 @@ namespace SunnyFarm.Game.Entities.Player
             transform.Rotate(0f, 180f, 0f);
         }
 
+        /// <summary>
+        /// Get the viewport position of the player
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 GetViewportPosition()
+        {
+            // Vector3 Viewport position for player (0,0) is bottom left and (1,1) is top right
+            return mainCamera.WorldToViewportPoint(transform.position);
+        }
     }
 }
 

@@ -4,9 +4,12 @@ namespace SunnyFarm.Game
     using System.Collections;
     using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory;
+    using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
     using Unity.VisualScripting;
     using UnityEngine;
+    using static SunnyFarm.Game.Constant.Enums;
 
     public class ItemPickUp : MonoBehaviour
     {
@@ -41,7 +44,11 @@ namespace SunnyFarm.Game
                 ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(item.ItemID);
                 if (itemDetail.CanBePickUp)
                 {
-                    StartCoroutine(MoveItemToPlayer(item));
+                    if (!InventoryController.Instance.InventoryData.IsInventoryFullWithItem(itemDetail.ID, InventoryLocation.Player)
+                        || !InventoryController.Instance.InventoryData.IsInventoryFull(InventoryLocation.Player))
+                    {
+                        StartCoroutine(MoveItemToPlayer(item));
+                    }
                 }
             }
         }
@@ -77,6 +84,7 @@ namespace SunnyFarm.Game
         {
             if (item != null)
             {
+                InventoryController.Instance.InventoryData.AddItem(InventoryLocation.Player, item, 1);
                 Destroy(item.gameObject);
             }
         }

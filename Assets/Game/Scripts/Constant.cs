@@ -32,11 +32,16 @@ namespace SunnyFarm.Game
 
         public static class ColorStat
         {
-            public const float TargetAlpha = 0.5f;
+            public const float Alpha_05 = 0.5f;
+
+            public const float Alpha_08 = 0.8f;
+
+            public const float Alpha_1 = 1f;
 
             public const float FadeOutSeconds = 0.1f;
 
             public const float FadeInSeconds = 0.1f;
+
         }
 
         public static class Enums
@@ -69,6 +74,7 @@ namespace SunnyFarm.Game
             {
                 Player,
                 Chest,
+                Count,
                 None
             }
 
@@ -97,12 +103,18 @@ namespace SunnyFarm.Game
                 Sat,
                 Sun
             }
+
+            public enum InventorySlotLocation
+            {
+                ToolBar,
+                Container,
+            }
         }
 
         public static class Inventory
         {
-            public const int HotbarCapacity = 10;
-            public const int MaxCapacity = 30;
+            public const int PlayerInventoryMinCapacity = 12;
+            public const int PlayerInventoryMaxCapacity = 36;
         }
 
         public static class Time

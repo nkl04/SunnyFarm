@@ -1,169 +1,252 @@
 namespace SunnyFarm.Game.Inventory
 {
+    using SunnyFarm.Game.DesignPattern;
+    using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Entities.Player;
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Inventory.UI;
+    using SunnyFarm.Game.Managers;
     using SunnyFarm.Game.Managers.GameInput;
+    using System;
     using System.Collections.Generic;
+    using UnityEditor.UIElements;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class InventoryController : MonoBehaviour
+    public class InventoryController : Singleton<InventoryController>
     {
+        public InventoryData InventoryData => inventoryData;
+        public SelectedItemCursor SelectedItemCursor => selectedItemCursor;
+        public DraggedItemCursor DraggedItemCursor => draggedItemCursor;
         // Define map for capacity of the inventory based on inventory's level
         // key: level, value: capacity
         private Dictionary<int, int> evolveInventoryMap = new Dictionary<int, int>()
         {
-            {1, 10},
-            {2, 20},
-            {3, 30},
+            {1, 12},
+            {2, 24},
+            {3, 36},
         };
 
-        [SerializeField]
-        private UIBagView uiBagView;
-        [SerializeField]
-        private UIChestView uiChestView;
-        private InventoryDataController inventoryData;
+        [SerializeField] private UIBagView uiBagView;
 
-        [SerializeField] private List<InventoryItem> initialItems = new List<InventoryItem>();
+        [SerializeField] private UIChestView uiChestView;
 
-        private PlayerInputAction inputActions;
+        [SerializeField] private UIToolBar uiToolBarView;
+
+        [SerializeField] private SelectedItemCursor selectedItemCursor;
+
+        [SerializeField] private DraggedItemCursor draggedItemCursor;
+
+        InventoryData inventoryData;
+
+        private bool IsInventoryOpen => uiBagView.gameObject.activeSelf;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            EventHandlers.OnInventoryUpdated += UpdateUIInventory;
+            EventHandlers.OnToggleInventory += ToggleInventoryView;
+
+            EventHandlers.OnLeftPointerClick += OnLeftPointerClickInventorySlot;
+            EventHandlers.OnRightPointerClick += OnRightPointerClickInventorySlot;
+
+            EventHandlers.OnQuickSelectSlot += QuickSelectSlot;
+            EventHandlers.OnMouseScroll += OnMouseScrollSelectSlotInput;
+
+        }
+
+
 
         private void Start()
         {
+            inventoryData = new InventoryData();
 
-            // register event
-            GameInputManager.Instance.InputActions.Player.Inventory.started += uiBagView.OnOpenOrCloseBag;
+            EventHandlers.OnInventoryUpdated += UpdateUIInventory;
 
-            // assign data controller
-            inventoryData = InventoryDataController.Instance;
+            EventHandlers.OnInventoryCapacityUpdated += UpdateUIInventoryCapacity;
 
             SetupView();
+
             SetupModel();
         }
 
-        /// <summary>
-        /// Set up for the model
-        /// </summary>
+        #region Setup 
         private void SetupModel()
         {
             int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-            inventoryData.Setup();
 
-            inventoryData.OnBagUpdated += UpdateBagUIItems;
-            inventoryData.OnChestUpdated += UpdateChestUIItems;
+            inventoryData.CreateInventoryList();
 
-            foreach (InventoryItem item in initialItems)
-            {
-                if (item.IsEmpty) continue;
-                inventoryData.AddItem(item.Item, item.Quantity);
-            }
+            inventoryData.UpgradeInventoryCapacity(InventoryLocation.Player, capacity);
         }
-
-        /// <summary>
-        /// Set up for the view
-        /// </summary>
         private void SetupView()
         {
-            int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-            uiBagView.InitializeInventoryUI(capacity);
+            uiBagView.SetupUIInventorySlot();
 
-            // Regist events for bag view
-            uiBagView.OnSwapItems += HandleSwapItemsInBagView;
-            uiBagView.OnDescriptionRequested += HandleDescriptionRequested;
-
-            // Regist events for chest view
-            uiChestView.InitializeInventoryUI(30); // test
-            uiChestView.OnSwapItems += HandleSwapItemsInChestView;
-            uiChestView.OnDescriptionRequested += HandleDescriptionRequested;
+            uiToolBarView.SetupUIInventorySlot();
         }
 
-
-
-        #region Handle events
-        /// <summary>
-        /// Hande logic of swap item in bag view
-        /// </summary>
-        /// <param name="item1"></param>
-        /// <param name="item2"></param>
-        private void HandleSwapItemsInBagView(UIInventoryItemKeyData item1, UIInventoryItemKeyData item2)
-        {
-            if (item1.CompareLocation(item2))
-                inventoryData.SwapItemsInBag(item1, item2);
-            else
-                inventoryData.SwapItemsInDifLocation(uiChestView.ID, item1, item2);
-        }
-        /// <summary>
-        /// Hande logic of swap item in chest view
-        /// </summary>
-        /// <param name="chestID"></param>
-        /// <param name="item1"></param>
-        /// <param name="item2"></param>
-        private void HandleSwapItemsInChestView(string chestID, UIInventoryItemKeyData item1,
-            UIInventoryItemKeyData item2)
-        {
-            if (item1.CompareLocation(item2))
-                inventoryData.SwapItemsInChest(chestID, item1, item2);
-            else
-                inventoryData.SwapItemsInDifLocation(chestID, item1, item2);
-        }
-        /// <summary>
-        /// Handle the requested description event
-        /// </summary>
-        private void HandleDescriptionRequested(UIInventoryItemKeyData itemData)
-        {
-            InventoryItem item = null;
-            if (itemData.ItemLocation == InventoryLocation.Player)
-            {
-                item = inventoryData.GetItemInBag(itemData.Index);
-                if (item.IsEmpty) return;
-
-                uiBagView.UpdateItemDescription(itemData.Index, item.Item.Name,
-                    item.Item.ItemType, item.Item.Description);
-            }
-            else
-            {
-                item = inventoryData.GetItemInChest(uiChestView.ID, itemData.Index);
-                if (item.IsEmpty) return;
-
-                uiChestView.UpdateItemDescription(itemData.Index, item.Item.Name,
-                    item.Item.ItemType, item.Item.Description);
-            }
-        }
         #endregion
 
-        /// <summary>
-        /// Update bag view and mini bag view based on inventory list of data in model
-        /// </summary>
-        /// <param name="inventoryItems"></param>
-        private void UpdateBagUIItems(InventoryItem[] inventoryItems)
+        public void ToggleInventoryView()
         {
-            uiBagView.ResetAllUIItems();
-            for (int i = 0; i < evolveInventoryMap[inventoryData.InventoryLevel]; i++)
+            if (uiBagView.gameObject.activeSelf)
             {
-                uiBagView.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
-                    inventoryItems[i].Quantity);
+                uiBagView.Hide();
 
-                if (i < Constant.Inventory.HotbarCapacity)
+                draggedItemCursor.Hide();
+
+                uiToolBarView.Show();
+
+                selectedItemCursor.Show();
+
+                Player.Instance.CanActionInput = true;
+            }
+            else
+            {
+                uiBagView.Show();
+
+                draggedItemCursor.Show();
+
+                uiToolBarView.Hide();
+
+                selectedItemCursor.Hide();
+
+                Player.Instance.CanActionInput = false;
+            }
+        }
+
+        private void UpdateUIInventory(InventoryLocation inventoryLocation, InventoryItem[] inventoryItems)
+        {
+            uiBagView.UpdateUIBag(inventoryLocation, inventoryItems);
+
+            uiToolBarView.UpdateUIToolBar(inventoryLocation, inventoryItems);
+        }
+
+        private void UpdateUIInventoryCapacity(InventoryLocation location, int capacity)
+        {
+            uiBagView.UpdateUIBagCapacity(location, capacity);
+        }
+
+        private void OnLeftPointerClickInventorySlot(UIInventorySlot slot)
+        {
+            if (slot.slotLocation == InventorySlotLocation.ToolBar)
+            {
+                SelectSlot(slot);
+            }
+            else if (slot.slotLocation == InventorySlotLocation.Container)
+            {
+                if (draggedItemCursor.InventoryItem.itemID != slot.itemID || draggedItemCursor.IsEmpty)
                 {
-                    uiBagView.UIMiniBag.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
-                        inventoryItems[i].Quantity);
+                    InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                }
+                else if (draggedItemCursor.InventoryItem.itemID == slot.itemID && !draggedItemCursor.IsEmpty)
+                {
+                    InventoryData.HandleMergeItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                }
+
+                draggedItemCursor.UpdateDraggedItemVisual();
+
+                // check can not turn off the inventory if in dragging item 
+                Player.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+
+            }
+        }
+
+        private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
+        {
+            if (slot.slotLocation == InventorySlotLocation.Container)
+            {
+                if (draggedItemCursor.IsEmpty || draggedItemCursor.InventoryItem.itemID == slot.itemID)
+                {
+                    InventoryData.HandleSplitItem(InventoryLocation.Player, ref draggedItemCursor, slot, 1);
+                }
+                else if (slot.IsEmpty && !draggedItemCursor.IsEmpty)
+                {
+                    InventoryData.AddItemAtPosition(InventoryLocation.Player, draggedItemCursor.InventoryItem.itemID, slot.slotIndex, 1);
+
+                    draggedItemCursor.InventoryItem.IncrementQuantity(-1);
+                }
+
+                draggedItemCursor.UpdateDraggedItemVisual();
+
+                // check can not turn off the inventory if in dragging item 
+                Player.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+            }
+        }
+
+
+        private void QuickSelectSlot(int slotIndex)
+        {
+            UIInventorySlot slot = uiToolBarView.GetInventorySlot(slotIndex);
+
+            SelectSlot(slot);
+        }
+
+        private void OnMouseScrollSelectSlotInput(float scrollInput)
+        {
+            if (!IsInventoryOpen)
+            {
+                UIInventorySlot slot = uiToolBarView.GetSelectedInventorySlot();
+
+                if (slot != null)
+                {
+                    if (scrollInput > 0)
+                    {
+                        int currentSlotIndex = slot.slotIndex;
+
+                        UIInventorySlot nextSlot = uiToolBarView.GetTheNextInventorySlotHasItem(currentSlotIndex);
+
+                        SelectSlot(nextSlot);
+                    }
+                    else
+                    {
+                        int currentSlotIndex = slot.slotIndex;
+
+                        UIInventorySlot prevSlot = uiToolBarView.GetThePreviousInventorySlotHasItem(currentSlotIndex);
+
+                        SelectSlot(prevSlot);
+                    }
+                }
+                else
+                {
+                    if (scrollInput > 0)
+                    {
+                        SelectSlot(uiToolBarView.GetInventorySlotByIndex(0));
+                    }
+                    else
+                    {
+                        SelectSlot(uiToolBarView.GetInventorySlotByIndex(Constant.Inventory.PlayerInventoryMinCapacity - 1));
+                    }
                 }
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="inventoryItems"></param>
-        private void UpdateChestUIItems(string id, InventoryItem[] inventoryItems)
+
+        public void SelectSlot(UIInventorySlot slot)
         {
-            uiChestView.ResetAllUIItems();
-            for (int i = 0; i < inventoryItems.Length; i++)
+            if (slot != null)
             {
-                uiChestView.UpdateUIItemData(i, inventoryItems[i].Item?.ItemImage ?? null,
-                    inventoryItems[i].Quantity);
+                // clear the selected slot in the toolbar
+                uiToolBarView.ClearHighlightOnInventorySlots();
+                // clear the selected slot in the bag
+                uiBagView.ClearHighlightOnInventorySlots();
+                // select the slot in the toolbar
+                uiToolBarView.SetHighlightSelectInventorySlot(slot.slotIndex);
+                // select the slot in the bag
+                uiBagView.SetHighlightSelectInventorySlot(slot.slotIndex);
+                // set the selected item
+                InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, slot.itemID);
+                // set the selected item to the cursor
+                selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
             }
         }
+
+        private void UpdateSelectedInventoryItem()
+        {
+
+        }
+
     }
 }

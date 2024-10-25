@@ -20,7 +20,7 @@ namespace SunnyFarm.Game.Managers
 
         private void Start()
         {
-            EventHandler.CallAdvanceGameMinute(year, season, day, weekDay, hour, minute, second);
+            EventHandlers.CallAdvanceGameMinute(year, season, day, weekDay, hour, minute, second);
         }
 
         private void Update()
@@ -80,7 +80,7 @@ namespace SunnyFarm.Game.Managers
                 UpdateGameHour();
             }
 
-            EventHandler.CallAdvanceGameMinute(year, season, day, weekDay, hour, minute, second);
+            EventHandlers.CallAdvanceGameMinute(year, season, day, weekDay, hour, minute, second);
         }
 
         private void UpdateGameHour()
@@ -93,7 +93,7 @@ namespace SunnyFarm.Game.Managers
                 UpdateGameDay();
             }
 
-            EventHandler.CallAdvanceGameHour(year, season, day, weekDay, hour, minute, second);
+            EventHandlers.CallAdvanceGameHour(year, season, day, weekDay, hour, minute, second);
         }
 
         private void UpdateGameDay()
@@ -109,7 +109,7 @@ namespace SunnyFarm.Game.Managers
                 UpdateGameSeason();
             }
 
-            EventHandler.CallAdvanceGameDay(year, season, day, weekDay, hour, minute, second);
+            EventHandlers.CallAdvanceGameDay(year, season, day, weekDay, hour, minute, second);
         }
 
         private void UpdateGameSeason()
@@ -122,13 +122,13 @@ namespace SunnyFarm.Game.Managers
                 UpdateGameYear();
             }
 
-            EventHandler.CallAdvanceGameSeason(year, season, day, weekDay, hour, minute, second);
+            EventHandlers.CallAdvanceGameSeason(year, season, day, weekDay, hour, minute, second);
         }
 
         private void UpdateGameYear()
         {
             year++;
-            EventHandler.CallAdvanceGameYear(year, season, day, weekDay, hour, minute, second);
+            EventHandlers.CallAdvanceGameYear(year, season, day, weekDay, hour, minute, second);
         }
 
         //TODO: Remove

@@ -14,12 +14,12 @@ public class GameClock : MonoBehaviour
     [SerializeField] private Image weatherImage;
     private void OnEnable()
     {
-        EventHandler.OnAdvanceGameMinute += UpdateGameTime;
+        EventHandlers.OnAdvanceGameMinute += UpdateGameTime;
     }
 
     private void OnDisable()
     {
-        EventHandler.OnAdvanceGameMinute -= UpdateGameTime;
+        EventHandlers.OnAdvanceGameMinute -= UpdateGameTime;
     }
 
     private void UpdateGameTime(int year, Season season, int day, WeekDay dayofWeek, int hour, int minute, int second)

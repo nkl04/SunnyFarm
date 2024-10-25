@@ -7,12 +7,12 @@ namespace SunnyFarm.Game.Entities.Camera
     {
         private void OnEnable()
         {
-            EventHandler.OnAfterSceneLoad += SetBoundConfiner;
+            EventHandlers.OnAfterSceneLoad += SetBoundConfiner;
         }
 
         private void OnDisable()
         {
-            EventHandler.OnAfterSceneLoad -= SetBoundConfiner;
+            EventHandlers.OnAfterSceneLoad -= SetBoundConfiner;
         }
 
         /// <summary>

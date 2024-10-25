@@ -2,11 +2,13 @@ namespace SunnyFarm.Game
 {
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Inventory.Data;
+    using SunnyFarm.Game.Inventory.UI;
     using System;
     using System.Collections.Generic;
+    using Unity.VisualScripting;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public static class EventHandler
+    public static class EventHandlers
     {
 
         #region  Scene Load Events - in the order they are called
@@ -56,16 +58,92 @@ namespace SunnyFarm.Game
         #endregion
 
         #region Inventory Events
-        // Inventory updated event
-        public static event Action<InventoryLocation, List<InventoryItem>> OnInventoryUpdated;
+        /// <summary>
+        /// Event to update the inventory
+        /// </summary>
+        public static event Action<InventoryLocation, InventoryItem[]> OnInventoryUpdated;
 
-        public static void CallOnInventoryUpdated(InventoryLocation location, List<InventoryItem> inventoryItems)
+        /// <summary>
+        /// Call the inventory updated event
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="inventoryItems"></param>
+        public static void CallOnInventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItems)
         {
-            if (OnInventoryUpdated != null)
-            {
-                OnInventoryUpdated?.Invoke(location, inventoryItems);
-            }
+            OnInventoryUpdated?.Invoke(location, inventoryItems);
+
         }
+
+        public static event Action<UIInventorySlot> OnItemHover,
+                                                    OnItemEndHover,
+                                                    OnLeftPointerClick,
+                                                    OnRightPointerClick;
+
+        public static void CallOnItemHover(UIInventorySlot item)
+        {
+            OnItemHover?.Invoke(item);
+        }
+
+        public static void CallOnItemEndHover(UIInventorySlot item)
+        {
+            OnItemEndHover?.Invoke(item);
+        }
+
+        public static void CallOnLeftPointerClick(UIInventorySlot item)
+        {
+            OnLeftPointerClick?.Invoke(item);
+        }
+
+        public static void CallOnRightPointerClick(UIInventorySlot item)
+        {
+            OnRightPointerClick?.Invoke(item);
+        }
+
+        /// <summary>
+        /// Event to add an item to the inventory
+        /// </summary>
+
+        public static event Action<InventoryItem, InventoryItem> OnSwapItems;
+
+        /// <summary>
+        /// Call the swap items event
+        /// </summary>
+        /// <param name="inventoryItemCursor"></param>
+        /// <param name="inventoryItemInSlot"></param>
+        public static void CallOnSwapItems(InventoryItem inventoryItemCursor, InventoryItem inventoryItemInSlot)
+        {
+            OnSwapItems?.Invoke(inventoryItemCursor, inventoryItemInSlot);
+        }
+
+        /// <summary>
+        /// Event to update the inventory capacity
+        /// </summary>
+        public static event Action<InventoryLocation, int> OnInventoryCapacityUpdated;
+
+        /// <summary>
+        /// Call the inventory capacity updated event
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="inventoryItems"></param>
+        public static void CallOnInventoryCapacityUpdated(InventoryLocation location, int capacity)
+        {
+            OnInventoryCapacityUpdated?.Invoke(location, capacity);
+        }
+
+        /// <summary>
+        /// Event to select an inventory slot with input from the keyboard
+        /// </summary>
+        /// <param name="slotIndex"></param>
+        public static event Action<int> OnQuickSelectSlot;
+
+        /// <summary>
+        /// Call the input select inventory slot event
+        /// </summary>
+        public static void CallOnQuickSelectSlot(int slotIndex)
+        {
+            OnQuickSelectSlot?.Invoke(slotIndex);
+        }
+
         #endregion
 
         #region Time Events
@@ -195,6 +273,23 @@ namespace SunnyFarm.Game
             }
         }
         #endregion
+        #endregion
+
+        #region Player Input Events
+        public static event Action OnToggleInventory;
+
+        public static void CallOnToggleInventory()
+        {
+            OnToggleInventory?.Invoke();
+        }
+
+        public static event Action<float> OnMouseScroll;
+
+        public static void CallOnMouseScroll(float scrollInput)
+        {
+            OnMouseScroll?.Invoke(scrollInput);
+        }
+
         #endregion
     }
 }

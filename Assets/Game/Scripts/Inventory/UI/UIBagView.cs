@@ -1,98 +1,139 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
     using System;
+    using System.Collections.Generic;
+    using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory.Data;
+    using SunnyFarm.Game.Managers;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using static SunnyFarm.Game.Constant.Enums;
 
     public class UIBagView : UIInventoryView
     {
-        [SerializeField] private RectTransform quickAccessPanel;
-        [SerializeField] private RectTransform notQuickAccessPanel;
+        [SerializeField] private List<TextMeshProUGUI> quickSelectSlotTexts;
+        [SerializeField] private Color selectedInventorySlotColor;
+        [SerializeField] private Color baseInventorySlotColor;
+        [SerializeField] private Sprite lockedSlotSprite;
 
-        public UIMiniBag UIMiniBag;
-
-        public event Action<UIInventoryItemKeyData, UIInventoryItemKeyData> OnSwapItems;
-
-        public override void InitializeInventoryUI(int capacity)
+        public override void SetupUIInventorySlot()
         {
-            // Set up mini bag UI
-            SetupMiniBagUI();
-            // Instantiate items first and set up their events
-            for (int i = 0; i < listOfUIItems.Length; i++)
+            for (int i = 0; i < uiInventorySlots.Length; i++)
             {
-                // Instantiate item in main inventory
-                UIInventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
-                item.ItemIndex = i;
-                item.SetItemLocation(InventoryLocation.Player);
-                listOfUIItems[i] = item;
+                uiInventorySlots[i].inventoryLocation = InventoryLocation.Player;
 
-                // set up events
-                item.OnItemBeginDrag += HandleItemBeginDrag;
-                item.OnItemDrag += HandleItemDrag;
-                item.OnItemEndDrag += HandleItemEndDrag;
-                item.OnItemDroppedOn += HandleSwap;
-                item.OnItemHover += HandleItemHover;
-                item.OnItemEndHover += HandleItemEndHover;
+                uiInventorySlots[i].slotLocation = InventorySlotLocation.Container;
 
-                // set the item's parent and store in their array
-                if (i < Constant.Inventory.HotbarCapacity)
+                uiInventorySlots[i].slotIndex = i;
+            }
+        }
+
+        public void UpdateUIBag(InventoryLocation location, InventoryItem[] inventoryItems)
+        {
+            if (location == InventoryLocation.Player)
+            {
+                if (uiInventorySlots.Length > 0 && inventoryItems.Length > 0)
                 {
-                    item.transform.SetParent(quickAccessPanel);
+                    for (int i = 0; i < uiInventorySlots.Length; i++)
+                    {
+                        if (i < inventoryItems.Length)
+                        {
+                            InventoryItem inventoryItem = inventoryItems[i];
+
+                            string itemId = inventoryItem.itemID;
+
+                            int itemQuantity = inventoryItem.quantity;
+
+                            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+
+                            if (itemDetail != null && itemQuantity > 0)
+                            {
+                                uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
+                            }
+                            else
+                            {
+                                uiInventorySlots[i].SetData(null, transparentSprite, 0);
+                            }
+
+                            if (uiInventorySlots[i].isSelected)
+                            {
+                                InventoryController.Instance.InventoryData.SetSelectedInventoryItem(location, uiInventorySlots[i].itemID);
+
+                            }
+                        }
+                    }
                 }
-                else
+            }
+        }
+
+        public void UpdateUIBagCapacity(InventoryLocation location, int capacity)
+        {
+            if (location == InventoryLocation.Player)
+            {
+                if (uiInventorySlots.Length > 0 && capacity > 0)
                 {
-                    item.transform.SetParent(notQuickAccessPanel);
+                    for (int i = 0; i < uiInventorySlots.Length; i++)
+                    {
+                        if (i < capacity)
+                        {
+                            uiInventorySlots[i].IsUnlocked = true;
+
+                            uiInventorySlots[i].inventorySlotItemImage.sprite = transparentSprite;
+                        }
+                        else
+                        {
+                            uiInventorySlots[i].IsUnlocked = false;
+
+                            uiInventorySlots[i].inventorySlotItemImage.sprite = lockedSlotSprite;
+                        }
+                    }
                 }
             }
-            // Unlock the slot item based on capacity
-            for (int i = 0; i < capacity; i++)
+        }
+
+
+        public void ClearHighlightOnInventorySlots()
+        {
+            if (uiInventorySlots.Length > 0)
             {
-                listOfUIItems[i].UnlockSlot();
+                // Clear highlight quick select slot (change the color of the text)
+                for (int i = 0; i < quickSelectSlotTexts.Count; i++)
+                {
+                    quickSelectSlotTexts[i].color = baseInventorySlotColor;
+                }
+
+                // Clear all selected items
+                for (int i = 0; i < uiInventorySlots.Length; i++)
+                {
+                    uiInventorySlots[i].SetSelect(false);
+
+                    uiInventorySlots[i].SetHighLight(false);
+
+                    InventoryController.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
+                }
             }
         }
-        /// <summary>
-        /// Set up mini bag UI and event
-        /// </summary>
-        void SetupMiniBagUI()
+
+        public void SetHighlightSelectInventorySlot(int slotIndex)
         {
-            var items = UIMiniBag.SetupItemsUI();
-            for (int i = 0; i < items.Length; i++)
+            if (uiInventorySlots.Length > 0)
             {
-                items[i].OnItemHover += HandleItemHover;
-                items[i].OnItemEndHover += HandleItemEndHover;
+                // Just set hight light for the quick number of the slot
+                if (slotIndex < quickSelectSlotTexts.Count)
+                {
+                    // Set highlight quick select slot (change the color of the text)
+                    quickSelectSlotTexts[slotIndex].color = selectedInventorySlotColor;
+                }
+
+                // select the slot
+                uiInventorySlots[slotIndex].SetSelect(true);
+
+                // Update the selected item
+                InventoryController.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotIndex].itemID);
             }
-        }
-        /// <summary>
-        /// Open or close the inventory UI based on is E pressed?
-        /// </summary>
-        /// <param name="context"></param>
-        public void OnOpenOrCloseBag(InputAction.CallbackContext context)
-        {
-            UIMiniBag.gameObject.SetActive(gameObject.activeSelf);
-            gameObject.SetActive(!gameObject.activeSelf);
-        }
-        /// <summary>
-        /// Handle logic of swap data in bag view
-        /// </summary>
-        /// <param name="item"></param>
-        protected override void HandleSwap(UIInventoryItem item)
-        {
-            if (currentlyDraggedItem == null) return;
-
-            UIInventoryItemKeyData itemData1 = new UIInventoryItemKeyData
-            {
-                Index = currentlyDraggedItem.ItemIndex,
-                ItemLocation = currentlyDraggedItem.ItemLocation
-            };
-            UIInventoryItemKeyData itemData2 = new UIInventoryItemKeyData
-            {
-                Index = item.ItemIndex,
-                ItemLocation = item.ItemLocation
-            };
-
-            OnSwapItems?.Invoke(itemData1, itemData2);
         }
     }
+
 }
 

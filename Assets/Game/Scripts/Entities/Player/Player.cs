@@ -34,6 +34,7 @@ namespace SunnyFarm.Game.Entities.Player
 
         public bool CanToggleInventory { get; set; } = true;
         public bool CanMouseScroll { get; set; } = true;
+        public bool CanActionInput { get; set; } = true;
 
         public StatePlayerIdle StatePlayerIdle { get; private set; }
         public StatePlayerMove StatePlayerMove { get; private set; }
@@ -122,26 +123,31 @@ namespace SunnyFarm.Game.Entities.Player
 
         private void OnWaterInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsWaterPressed = context.ReadValueAsButton();
         }
 
         private void OnPickaxeInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsPickaxePressed = context.ReadValueAsButton();
         }
 
         private void OnDigInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsDigPressed = context.ReadValueAsButton();
         }
 
         private void OnAxeInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             IsAxePressed = context.ReadValueAsButton();
         }
 
         private void OnMoveInput(InputAction.CallbackContext context)
         {
+            if (!CanActionInput) return;
             movementInput = context.ReadValue<Vector2>().normalized;
 
             IsMovePressed = movementInput.magnitude > 0;

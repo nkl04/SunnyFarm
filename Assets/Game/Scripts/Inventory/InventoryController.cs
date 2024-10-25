@@ -101,6 +101,8 @@ namespace SunnyFarm.Game.Inventory
                 uiToolBarView.Show();
 
                 selectedItemCursor.Show();
+
+                Player.Instance.CanActionInput = true;
             }
             else
             {
@@ -111,6 +113,8 @@ namespace SunnyFarm.Game.Inventory
                 uiToolBarView.Hide();
 
                 selectedItemCursor.Hide();
+
+                Player.Instance.CanActionInput = false;
             }
         }
 
@@ -134,16 +138,43 @@ namespace SunnyFarm.Game.Inventory
             }
             else if (slot.slotLocation == InventorySlotLocation.Container)
             {
-                InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                if (draggedItemCursor.InventoryItem.itemID != slot.itemID || draggedItemCursor.IsEmpty)
+                {
+                    InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                }
+                else if (draggedItemCursor.InventoryItem.itemID == slot.itemID && !draggedItemCursor.IsEmpty)
+                {
+                    InventoryData.HandleMergeItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                }
+
                 draggedItemCursor.UpdateDraggedItemVisual();
 
                 // check can not turn off the inventory if in dragging item 
                 Player.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+
             }
         }
 
         private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
         {
+            if (slot.slotLocation == InventorySlotLocation.Container)
+            {
+                if (draggedItemCursor.IsEmpty || draggedItemCursor.InventoryItem.itemID == slot.itemID)
+                {
+                    InventoryData.HandleSplitItem(InventoryLocation.Player, ref draggedItemCursor, slot, 1);
+                }
+                else if (slot.IsEmpty && !draggedItemCursor.IsEmpty)
+                {
+                    InventoryData.AddItemAtPosition(InventoryLocation.Player, draggedItemCursor.InventoryItem.itemID, slot.slotIndex, 1);
+
+                    draggedItemCursor.InventoryItem.IncrementQuantity(-1);
+                }
+
+                draggedItemCursor.UpdateDraggedItemVisual();
+
+                // check can not turn off the inventory if in dragging item 
+                Player.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+            }
         }
 
 

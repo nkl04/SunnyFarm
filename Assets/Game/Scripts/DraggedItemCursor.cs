@@ -33,7 +33,7 @@ public class DraggedItemCursor : MonoBehaviour
     {
         ItemDetail itemDetails = ItemSystemManager.Instance.GetItemDetail(inventoryItem.itemID);
 
-        if (itemDetails != null)
+        if (itemDetails != null && !inventoryItem.isEmpty)
         {
             selectedItemImage.sprite = itemDetails.ItemImage;
 
@@ -44,6 +44,13 @@ public class DraggedItemCursor : MonoBehaviour
             selectedItemImage.sprite = transparentSprite;
             quantityItemText.text = string.Empty;
         }
+    }
+
+    public void ClearDraggedItem()
+    {
+        InventoryItem = new InventoryItem();
+        selectedItemImage.sprite = transparentSprite;
+        quantityItemText.text = string.Empty;
     }
 
     public void Show()

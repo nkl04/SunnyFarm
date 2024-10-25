@@ -1,5 +1,6 @@
 namespace SunnyFarm.Game.Inventory.Data
 {
+    using JetBrains.Annotations;
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
@@ -163,6 +164,8 @@ namespace SunnyFarm.Game.Inventory.Data
             {
                 inventoryItemInSlot.IncrementQuantity(quantity);
             }
+
+            EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }
 
         /// <summary>
@@ -223,7 +226,7 @@ namespace SunnyFarm.Game.Inventory.Data
 
         #endregion
 
-        #region Swap item logic
+        #region Swap & Merge item logic
 
         public void HandleSwapItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, UIInventorySlot inventorySlot)
         {
@@ -234,6 +237,59 @@ namespace SunnyFarm.Game.Inventory.Data
             dragItem.InventoryItem = inventoryItem;
 
             inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItemCursor;
+            // update the inventory data
+            EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
+        }
+
+        public void HandleMergeItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, UIInventorySlot inventorySlot)
+        {
+            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex];
+
+            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(inventoryItem.itemID);
+
+            if (itemDetail.IsStackable && inventoryItem.itemID == dragItem.InventoryItem.itemID)
+            {
+                int amountPossibleToTake = itemDetail.MaxStackSize - inventoryItem.quantity;
+
+                int amountToAdd = Mathf.Min(dragItem.InventoryItem.quantity, amountPossibleToTake);
+
+                inventoryItem.IncrementQuantity(amountToAdd);
+
+                dragItem.InventoryItem.SetData(dragItem.InventoryItem.itemID, dragItem.InventoryItem.quantity - amountToAdd);
+
+                if (dragItem.InventoryItem.isEmpty)
+                {
+                    dragItem.ClearDraggedItem();
+                }
+
+                inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItem;
+
+                EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
+            }
+        }
+
+
+        /// <summary>
+        /// Handle the split item from inventory slot to cursor
+        /// </summary>
+        /// <param name="inventoryLocation"></param>
+        /// <param name="dragItem"></param>
+        /// <param name="inventorySlot"></param>
+        /// <param name="quantity"></param>
+        public void HandleSplitItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, UIInventorySlot inventorySlot, int quantity)
+        {
+            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex];
+
+            if (dragItem.IsEmpty)
+            {
+                dragItem.InventoryItem.SetData(inventoryItem.itemID, quantity);
+            }
+            else if (dragItem.InventoryItem.itemID == inventoryItem.itemID)
+            {
+                dragItem.InventoryItem.IncrementQuantity(quantity);
+            }
+
+            inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex].IncrementQuantity(-quantity);
             // update the inventory data
             EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }

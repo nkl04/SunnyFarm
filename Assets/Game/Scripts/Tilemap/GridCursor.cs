@@ -30,11 +30,11 @@
 
         private void OnDisable()
         {
-            EventHandler.OnAfterSceneLoad -= SceneLoad;
+            EventHandlers.OnAfterSceneLoad -= SceneLoad;
         }
         private void OnEnable()
         {
-            EventHandler.OnAfterSceneLoad += SceneLoad;
+            EventHandlers.OnAfterSceneLoad += SceneLoad;
         }
         private void Start()
         {

@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4882071db80932648a8d72057143be07, type: 3}
-  m_Name: Log
+  m_Name: Carrot
   m_EditorClassIdentifier: 
-  ID: 50001
-  ItemType: 7
-  Name: Log
-  Description: 
-  ItemImage: {fileID: -1061383793, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+  ID: 10002
+  ItemType: 5
+  Name: Carrot
+  Description: A fast-growing, colorful tuber that makes for a great snack.
+  ItemImage: {fileID: 217176905, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
   IsStackable: 1
   MaxStackSize: 32
   CanBePickUp: 1
-  CanBeEaten: 0
+  CanBeCarried: 0
+  CanBeEaten: 1

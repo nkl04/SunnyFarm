@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4882071db80932648a8d72057143be07, type: 3}
-  m_Name: Rock
+  m_Name: Stone
   m_EditorClassIdentifier: 
-  ID: 60001
+  ID: 50002
   ItemType: 7
-  Name: Rock
-  Description: 
+  Name: Stone
+  Description: A common material with many uses in crafting and building.
   ItemImage: {fileID: -321022365, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
   IsStackable: 1
   MaxStackSize: 32
   CanBePickUp: 1
+  CanBeCarried: 0
   CanBeEaten: 0

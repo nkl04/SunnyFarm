@@ -32,7 +32,7 @@ namespace SunnyFarm.Game
                 yield return StartCoroutine(LoadAndActiveScene(sceneName));
 
                 // If this event has any subscribe, call it.
-                EventHandler.CallOnAfterSceneLoad();
+                EventHandlers.CallOnAfterSceneLoad();
 
                 SaveLoadManager.Instance.RestoreCurrentSceneData();
 

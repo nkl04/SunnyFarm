@@ -35,17 +35,17 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
     private void OnEnable()
     {
         ISavableRegister();
-        EventHandler.OnAfterSceneLoad += AfterSceneLoad;
+        EventHandlers.OnAfterSceneLoad += AfterSceneLoad;
 
-        EventHandler.OnAdvanceGameDay += UpdateTileDetailEachDay;
+        EventHandlers.OnAdvanceGameDay += UpdateTileDetailEachDay;
     }
 
     private void OnDisable()
     {
         ISavableUnregister();
-        EventHandler.OnAfterSceneLoad -= AfterSceneLoad;
+        EventHandlers.OnAfterSceneLoad -= AfterSceneLoad;
 
-        EventHandler.OnAdvanceGameDay -= UpdateTileDetailEachDay;
+        EventHandlers.OnAdvanceGameDay -= UpdateTileDetailEachDay;
     }
     void Start()
     {

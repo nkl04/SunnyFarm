@@ -113,6 +113,8 @@ namespace SunnyFarm.Game
             {
                 ToolBar,
                 Container,
+            }
+
             public enum TileType
             {
                 Land,

@@ -25,5 +25,7 @@ namespace SunnyFarm.Game.Managers.GameInput
         {
             inputActions.Disable();
         }
+
+
     }
 }

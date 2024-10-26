@@ -62,12 +62,12 @@ public class SceneItemsManager : Singleton<SceneItemsManager>, ISavable
     private void OnDisable()
     {
         ISavableUnregister();
-        EventHandler.OnAfterSceneLoad -= AfterSceneLoad;
+        EventHandlers.OnAfterSceneLoad -= AfterSceneLoad;
     }
     private void OnEnable()
     {
         ISavableRegister();
-        EventHandler.OnAfterSceneLoad += AfterSceneLoad;
+        EventHandlers.OnAfterSceneLoad += AfterSceneLoad;
     }
 
 

@@ -7,9 +7,6 @@ namespace SunnyFarm.Game.Entities.Player
     using SunnyFarm.Game.StateMachine;
     using UnityEngine;
     using UnityEngine.InputSystem;
-    using SunnyFarm.Game.DesignPattern;
-    using SunnyFarm.Game.Inventory;
-    using TMPro;
 
     public class Player : Singleton<Player>
     {

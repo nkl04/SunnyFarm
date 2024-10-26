@@ -28,6 +28,8 @@ namespace SunnyFarm.Game
             public const string BoundConfiner = "BoundConfiner";
 
             public const string Player = "Player";
+
+            public const string ItemsParentTransform = "ItemsParentTransform";
         }
 
         public static class ColorStat
@@ -61,7 +63,10 @@ namespace SunnyFarm.Game
 
             public enum ItemType
             {
-                Tool,
+                Hoe,
+                Axe,
+                Pickaxe,
+                WateringCan,
                 Seed,
                 Crop,
                 Commodity,
@@ -108,6 +113,27 @@ namespace SunnyFarm.Game
             {
                 ToolBar,
                 Container,
+            public enum TileType
+            {
+                Land,
+                Dug,
+                Watered
+            }
+
+            public enum ToolType
+            {
+                Axe,
+                Hoe,
+                Pickaxe,
+                WateringCan,
+            }
+
+            public enum ResourceType
+            {
+                Tree,
+                Rock,
+                Weeds,
+                Crops,
             }
         }
 

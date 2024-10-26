@@ -26,7 +26,7 @@ namespace SunnyFarm.Game.Entities.Item
             }
         }
 
-        private void Init(string itemID)
+        public void Init(string itemID)
         {
             if (itemID != null)
             {

@@ -1,11 +1,10 @@
 namespace SunnyFarm.Game.Entities.Item.Data
 {
     using UnityEngine;
-    using System;
     using static SunnyFarm.Game.Constant.Enums;
 
-    [Serializable]
-    public class ItemDetail
+    [CreateAssetMenu(fileName = "ToolData", menuName = "Items/Item")]
+    public class ItemDetail : ScriptableObject
     {
         public string ID;
         public ItemType ItemType;

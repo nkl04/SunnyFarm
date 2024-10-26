@@ -1,10 +1,10 @@
 namespace SunnyFarm.Game.Entities.Player
 {
-    using SunnyFarm.Game.StateMachine;
+    using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Managers.GameInput;
-    using System;
     using SunnyFarm.Game.State.Player;
+    using SunnyFarm.Game.StateMachine;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using SunnyFarm.Game.DesignPattern;
@@ -182,6 +182,34 @@ namespace SunnyFarm.Game.Entities.Player
             // Vector3 Viewport position for player (0,0) is bottom left and (1,1) is top right
             return mainCamera.WorldToViewportPoint(transform.position);
         }
+        public Vector2Int GetPlayerDirection()
+        {
+            Vector2Int dir;
+            if (lastMovementInput.x > 0)
+            {
+                dir = new Vector2Int(1, 0);
+            }
+            else if (lastMovementInput.x < 0)
+            {
+                dir = new Vector2Int(-1, 0);
+            }
+            else if (lastMovementInput.y > 0)
+            {
+                dir = new Vector2Int(0, 1);
+            }
+            else if (lastMovementInput.y < 0)
+            {
+                dir = new Vector2Int(0, -1);
+            }
+            else
+            {
+                dir = new Vector2Int(0, 0);
+            }
+
+            return dir;
+        }
+
+
     }
 }
 

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4215076475611855815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6020074559744902697}
+  - component: {fileID: 6586781063496976339}
+  - component: {fileID: 1173848581202494078}
+  m_Layer: 0
+  m_Name: GridPropertyController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6020074559744902697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215076475611855815}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6586781063496976339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215076475611855815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b52c3c0303cbf74c8309b624fc9a83c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundDecoration1: {fileID: 0}
+  groundDecoration2: {fileID: 0}
+  configGrids:
+  - {fileID: 11400000, guid: ad5fafaf3ac18674787b35d08b464b5d, type: 2}
+  dugTile: {fileID: 11400000, guid: 9c97669c7a363084d98a3e4cdba7dacd, type: 2}
+  landTile: {fileID: 11400000, guid: 9c97669c7a363084d98a3e4cdba7dacd, type: 2}
+  wateredTile: {fileID: 0}
+--- !u!114 &1173848581202494078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215076475611855815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bab85f5a7dd50549ae69796f9a68fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gUID: 42dc8603-0b5d-4f31-b106-789c27249ca3

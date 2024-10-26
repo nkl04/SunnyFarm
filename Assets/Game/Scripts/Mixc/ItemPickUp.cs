@@ -1,13 +1,11 @@
 namespace SunnyFarm.Game
 {
-    using System;
-    using System.Collections;
     using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
     using SunnyFarm.Game.Inventory;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
-    using Unity.VisualScripting;
+    using System.Collections;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 

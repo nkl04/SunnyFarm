@@ -1,6 +1,5 @@
 namespace SunnyFarm.Game.Entities.Player
 {
-    using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Managers.GameInput;
     using SunnyFarm.Game.State.Player;
@@ -8,7 +7,7 @@ namespace SunnyFarm.Game.Entities.Player
     using UnityEngine;
     using UnityEngine.InputSystem;
 
-    public class Player : Singleton<Player>
+    public class Player : MonoBehaviour
     {
         public Animator Animator => animator;
 
@@ -29,10 +28,6 @@ namespace SunnyFarm.Game.Entities.Player
         public bool IsWaterPressed { get; set; } = false;
         public bool IsFacingRight { get; set; } = true;
 
-        public bool CanToggleInventory { get; set; } = true;
-        public bool CanMouseScroll { get; set; } = true;
-        public bool CanActionInput { get; set; } = true;
-
         public StatePlayerIdle StatePlayerIdle { get; private set; }
         public StatePlayerMove StatePlayerMove { get; private set; }
         public StatePlayerAxe StatePlayerAxe { get; private set; }
@@ -45,6 +40,7 @@ namespace SunnyFarm.Game.Entities.Player
 
         [SerializeField] private float runSpeed = 10f;
 
+        private GameInputManager gameInputManager;
 
         private PlayerInputAction inputActions;
 
@@ -60,12 +56,13 @@ namespace SunnyFarm.Game.Entities.Player
 
         private Camera mainCamera;
 
-
         private void Start()
         {
             mainCamera = Camera.main;
 
-            inputActions = GameInputManager.Instance.InputActions;
+            gameInputManager = GameInputManager.Instance;
+
+            inputActions = gameInputManager.InputActions;
 
             stateMachine = new StateMachine<StatePlayer>();  // Create a new state machine
 
@@ -93,72 +90,39 @@ namespace SunnyFarm.Game.Entities.Player
 
             inputActions.Player.Water.canceled += OnWaterInput;
 
-            inputActions.Player.ToggleInventory.started += OnToggleInventory;
-
-            inputActions.Player.QuickSelectSlot.started += SelectInventorySlot;
-
-            inputActions.Player.MouseSroll.performed += OnMouseScroll;
-
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
         }
-
-
-        private void SelectInventorySlot(InputAction.CallbackContext context)
-        {
-            var bindings = inputActions.Player.QuickSelectSlot.bindings;
-
-            int bindingIndex = inputActions.Player.QuickSelectSlot.GetBindingIndexForControl(context.control);
-
-            EventHandlers.CallOnQuickSelectSlot(bindingIndex);
-        }
-
-        private void OnToggleInventory(InputAction.CallbackContext context)
-        {
-            if (!CanToggleInventory) return;
-            EventHandlers.CallOnToggleInventory();
-        }
-
         private void OnWaterInput(InputAction.CallbackContext context)
         {
-            if (!CanActionInput) return;
+            if (!gameInputManager.CanPlayerActionInput) return;
             IsWaterPressed = context.ReadValueAsButton();
         }
 
         private void OnPickaxeInput(InputAction.CallbackContext context)
         {
-            if (!CanActionInput) return;
+            if (!gameInputManager.CanPlayerActionInput) return;
             IsPickaxePressed = context.ReadValueAsButton();
         }
 
         private void OnDigInput(InputAction.CallbackContext context)
         {
-            if (!CanActionInput) return;
+            if (!gameInputManager.CanPlayerActionInput) return;
             IsDigPressed = context.ReadValueAsButton();
         }
 
         private void OnAxeInput(InputAction.CallbackContext context)
         {
-            if (!CanActionInput) return;
+            if (!gameInputManager.CanPlayerActionInput) return;
             IsAxePressed = context.ReadValueAsButton();
         }
 
         private void OnMoveInput(InputAction.CallbackContext context)
         {
-            if (!CanActionInput) return;
+            if (!gameInputManager.CanPlayerActionInput) return;
             movementInput = context.ReadValue<Vector2>().normalized;
 
             IsMovePressed = movementInput.magnitude > 0;
         }
-
-        private void OnMouseScroll(InputAction.CallbackContext context)
-        {
-            if (!CanMouseScroll) return;
-
-            Vector2 scrollValue = context.ReadValue<Vector2>();
-
-            EventHandlers.CallOnMouseScroll(scrollValue.y);
-        }
-
 
         private void Update()
         {

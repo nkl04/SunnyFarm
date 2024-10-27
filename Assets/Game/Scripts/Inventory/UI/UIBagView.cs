@@ -58,7 +58,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                             if (uiInventorySlots[i].isSelected)
                             {
-                                InventoryController.Instance.InventoryData.SetSelectedInventoryItem(location, uiInventorySlots[i].itemID);
+                                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(location, uiInventorySlots[i].itemID);
 
                             }
                         }
@@ -110,7 +110,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                     uiInventorySlots[i].SetHighLight(false);
 
-                    InventoryController.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
+                    InventoryManager.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace SunnyFarm.Game.Inventory.UI
                 uiInventorySlots[slotIndex].SetSelect(true);
 
                 // Update the selected item
-                InventoryController.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotIndex].itemID);
+                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotIndex].itemID);
             }
         }
     }

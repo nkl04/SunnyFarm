@@ -4,7 +4,7 @@ namespace SunnyFarm.Game
     using UnityEngine.Rendering.Universal;
     using UnityEngine.Experimental.Rendering.Universal;
 
-    public class DayNightSystem : MonoBehaviour
+    public class DayNightManager : MonoBehaviour
     {
         [SerializeField] private Light2D globalLight;
         [SerializeField] private Color dayLightColor = Color.white;

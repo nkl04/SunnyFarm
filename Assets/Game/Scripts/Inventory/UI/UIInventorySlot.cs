@@ -55,7 +55,7 @@ namespace SunnyFarm.Game.Inventory.UI
         public void SetHighLight(bool isHighLight)
         {
             inventorySlotHighlightImage.gameObject.SetActive(isHighLight);
-            ZoomItemImage(isSelected);
+            ZoomItemImage(isHighLight);
         }
 
         public void ClearInventoryItem()

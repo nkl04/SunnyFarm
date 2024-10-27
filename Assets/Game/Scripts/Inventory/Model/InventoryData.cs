@@ -228,22 +228,22 @@ namespace SunnyFarm.Game.Inventory.Data
 
         #region Swap & Merge item logic
 
-        public void HandleSwapItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, UIInventorySlot inventorySlot)
+        public void HandleSwapItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, int slotIndex)
         {
-            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex];
+            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][slotIndex];
 
             InventoryItem inventoryItemCursor = dragItem.InventoryItem;
 
             dragItem.InventoryItem = inventoryItem;
 
-            inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItemCursor;
+            inventoryArray[(int)inventoryLocation][slotIndex] = inventoryItemCursor;
             // update the inventory data
             EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }
 
-        public void HandleMergeItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, UIInventorySlot inventorySlot)
+        public void HandleMergeItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, int slotIndex)
         {
-            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex];
+            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][slotIndex];
 
             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(inventoryItem.itemID);
 
@@ -262,7 +262,7 @@ namespace SunnyFarm.Game.Inventory.Data
                     dragItem.ClearDraggedItem();
                 }
 
-                inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex] = inventoryItem;
+                inventoryArray[(int)inventoryLocation][slotIndex] = inventoryItem;
 
                 EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
             }
@@ -276,9 +276,9 @@ namespace SunnyFarm.Game.Inventory.Data
         /// <param name="dragItem"></param>
         /// <param name="inventorySlot"></param>
         /// <param name="quantity"></param>
-        public void HandleSplitItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, UIInventorySlot inventorySlot, int quantity)
+        public void HandleSplitItem(InventoryLocation inventoryLocation, ref DraggedItemCursor dragItem, int slotIndex, int quantity)
         {
-            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex];
+            InventoryItem inventoryItem = inventoryArray[(int)inventoryLocation][slotIndex];
 
             if (dragItem.IsEmpty)
             {
@@ -289,7 +289,7 @@ namespace SunnyFarm.Game.Inventory.Data
                 dragItem.InventoryItem.IncrementQuantity(quantity);
             }
 
-            inventoryArray[(int)inventoryLocation][inventorySlot.slotIndex].IncrementQuantity(-quantity);
+            inventoryArray[(int)inventoryLocation][slotIndex].IncrementQuantity(-quantity);
             // update the inventory data
             EventHandlers.CallOnInventoryUpdated(inventoryLocation, inventoryArray[(int)inventoryLocation]);
         }

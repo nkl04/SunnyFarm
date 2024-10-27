@@ -11,6 +11,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
     public class UIToolBar : UIInventoryView
     {
+        [SerializeField] private Player player;
         public bool IsToolBarBottomPosition { get => isToolBarBottomPosition; }
         private RectTransform rectTransform;
         private bool isToolBarBottomPosition = true;
@@ -51,7 +52,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                             if (uiInventorySlots[i].isSelected)
                             {
-                                InventoryController.Instance.SelectedItemCursor.SetData(uiInventorySlots[i].itemID, uiInventorySlots[i].itemQuantity);
+                                InventoryManager.Instance.SelectedItemCursor.SetData(uiInventorySlots[i].itemID, uiInventorySlots[i].itemQuantity);
                             }
                         }
                     }
@@ -118,7 +119,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                 uiInventorySlots[slotPosition].SetHighLight(true);
 
-                InventoryController.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotPosition].itemID);
+                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotPosition].itemID);
             }
         }
 
@@ -136,7 +137,7 @@ namespace SunnyFarm.Game.Inventory.UI
                         uiInventorySlots[i].SetHighLight(false);
 
                         // Update inventory to show item as not selected
-                        InventoryController.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
+                        InventoryManager.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
                     }
                 }
             }
@@ -220,7 +221,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
         private void SwitchUIToolBarPosition()
         {
-            Vector3 playerPos = Player.Instance.GetViewportPosition(); // Get the player's viewport position
+            Vector3 playerPos = player.GetViewportPosition(); // Get the player's viewport position
 
             if (playerPos.y > 0.3f && !isToolBarBottomPosition)
             {

@@ -12,6 +12,9 @@ namespace SunnyFarm.Game
     public class SceneController : Singleton<SceneController>
     {
         public SceneName sceneName;
+
+        [SerializeField] private Player player;
+
         [SerializeField] private Image fadeImage;
         [SerializeField] private float fadeDuration = 1f;
         [SerializeField] private CanvasGroup fadeCanvasGroup = null;
@@ -76,7 +79,7 @@ namespace SunnyFarm.Game
             SaveLoadManager.Instance.StoreCurrentSceneData();
 
             // Set player position
-            Player.Instance.transform.position = spawnPosition;
+            player.transform.position = spawnPosition;
 
             // Call before scene unload event
             EventHandlers.CallOnBeforeSceneUnload();

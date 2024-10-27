@@ -42,8 +42,8 @@ namespace SunnyFarm.Game
                 ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(item.ItemID);
                 if (itemDetail.CanBePickUp)
                 {
-                    if (!InventoryController.Instance.InventoryData.IsInventoryFullWithItem(itemDetail.ID, InventoryLocation.Player)
-                        || !InventoryController.Instance.InventoryData.IsInventoryFull(InventoryLocation.Player))
+                    if (!InventoryManager.Instance.InventoryData.IsInventoryFullWithItem(itemDetail.ID, InventoryLocation.Player)
+                        || !InventoryManager.Instance.InventoryData.IsInventoryFull(InventoryLocation.Player))
                     {
                         StartCoroutine(MoveItemToPlayer(item));
                     }
@@ -82,7 +82,7 @@ namespace SunnyFarm.Game
         {
             if (item != null)
             {
-                InventoryController.Instance.InventoryData.AddItem(InventoryLocation.Player, item, 1);
+                InventoryManager.Instance.InventoryData.AddItem(InventoryLocation.Player, item, 1);
                 Destroy(item.gameObject);
             }
         }

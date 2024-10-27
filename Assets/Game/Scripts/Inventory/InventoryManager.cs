@@ -14,7 +14,7 @@ namespace SunnyFarm.Game.Inventory
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public class InventoryController : Singleton<InventoryController>
+    public class InventoryManager : Singleton<InventoryManager>
     {
         public InventoryData InventoryData => inventoryData;
         public SelectedItemCursor SelectedItemCursor => selectedItemCursor;
@@ -54,10 +54,7 @@ namespace SunnyFarm.Game.Inventory
 
             EventHandlers.OnQuickSelectSlot += QuickSelectSlot;
             EventHandlers.OnMouseScroll += OnMouseScrollSelectSlotInput;
-
         }
-
-
 
         private void Start()
         {
@@ -102,7 +99,7 @@ namespace SunnyFarm.Game.Inventory
 
                 selectedItemCursor.Show();
 
-                Player.Instance.CanActionInput = true;
+                GameInputManager.Instance.CanPlayerActionInput = true;
             }
             else
             {
@@ -114,7 +111,7 @@ namespace SunnyFarm.Game.Inventory
 
                 selectedItemCursor.Hide();
 
-                Player.Instance.CanActionInput = false;
+                GameInputManager.Instance.CanPlayerActionInput = false;
             }
         }
 
@@ -140,17 +137,17 @@ namespace SunnyFarm.Game.Inventory
             {
                 if (draggedItemCursor.InventoryItem.itemID != slot.itemID || draggedItemCursor.IsEmpty)
                 {
-                    InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                    InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot.slotIndex);
                 }
                 else if (draggedItemCursor.InventoryItem.itemID == slot.itemID && !draggedItemCursor.IsEmpty)
                 {
-                    InventoryData.HandleMergeItem(InventoryLocation.Player, ref draggedItemCursor, slot);
+                    InventoryData.HandleMergeItem(InventoryLocation.Player, ref draggedItemCursor, slot.slotIndex);
                 }
 
                 draggedItemCursor.UpdateDraggedItemVisual();
 
                 // check can not turn off the inventory if in dragging item 
-                Player.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+                GameInputManager.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
 
             }
         }
@@ -161,7 +158,7 @@ namespace SunnyFarm.Game.Inventory
             {
                 if (draggedItemCursor.IsEmpty || draggedItemCursor.InventoryItem.itemID == slot.itemID)
                 {
-                    InventoryData.HandleSplitItem(InventoryLocation.Player, ref draggedItemCursor, slot, 1);
+                    InventoryData.HandleSplitItem(InventoryLocation.Player, ref draggedItemCursor, slot.slotIndex, 1);
                 }
                 else if (slot.IsEmpty && !draggedItemCursor.IsEmpty)
                 {
@@ -173,7 +170,7 @@ namespace SunnyFarm.Game.Inventory
                 draggedItemCursor.UpdateDraggedItemVisual();
 
                 // check can not turn off the inventory if in dragging item 
-                Player.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+                GameInputManager.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
             }
         }
 
@@ -242,11 +239,5 @@ namespace SunnyFarm.Game.Inventory
                 selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
             }
         }
-
-        private void UpdateSelectedInventoryItem()
-        {
-
-        }
-
     }
 }

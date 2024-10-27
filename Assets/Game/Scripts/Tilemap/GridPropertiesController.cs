@@ -9,19 +9,27 @@ using static SunnyFarm.Game.Constant.Enums;
 [RequireComponent(typeof(GenerateGUID))]
 public class GridPropertiesController : Singleton<GridPropertiesController>, ISavable
 {
-    [SerializeField] public Tilemap groundDecoration1;
-    public Tilemap groundDecoration2;
-    private Grid grid;
-    private Dictionary<string, GridPropertiesDetail> gridPropertiesDetails;
-    [SerializeField] private ConfigGridProperties[] configGrids;
-
-    private string iSavableUniqueID;
     public string ISavableUniqueID { get => iSavableUniqueID; set => iSavableUniqueID = value; }
-    private GameObjectSave gameObjectSave;
     public GameObjectSave GameObjectSave { get => gameObjectSave; set => gameObjectSave = value; }
 
+    [HideInInspector] public Tilemap groundDecoration1;
+
+    [HideInInspector] public Tilemap groundDecoration2;
+
+    [SerializeField] private ConfigGridProperties[] configGrids;
+
+    private Grid grid;
+
+    private Dictionary<string, GridPropertiesDetail> gridPropertiesDetails;
+
+    private string iSavableUniqueID;
+
+    private GameObjectSave gameObjectSave;
+
     [SerializeField] private RuleTile dugTile;
+
     [SerializeField] private RuleTile landTile;
+
     [SerializeField] private RuleTile wateredTile;
 
     protected override void Awake()
@@ -29,12 +37,14 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
         base.Awake();
 
         ISavableUniqueID = GetComponent<GenerateGUID>().GUID;
+
         GameObjectSave = new GameObjectSave();
     }
 
     private void OnEnable()
     {
         ISavableRegister();
+
         EventHandlers.OnAfterSceneLoad += AfterSceneLoad;
 
         EventHandlers.OnAdvanceGameDay += UpdateTileDetailEachDay;
@@ -43,6 +53,7 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
     private void OnDisable()
     {
         ISavableUnregister();
+
         EventHandlers.OnAfterSceneLoad -= AfterSceneLoad;
 
         EventHandlers.OnAdvanceGameDay -= UpdateTileDetailEachDay;
@@ -56,6 +67,7 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
     {
         // remove ground decorations
         groundDecoration1.ClearAllTiles();
+
         groundDecoration2.ClearAllTiles();
     }
 
@@ -146,6 +158,7 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
     private void UpdateTileType(GridPropertiesDetail gridPropertiesDetail, TileType type)
     {
         gridPropertiesDetail.TileType = type;
+
         gridPropertiesDetail.DaysSinceLastModified = 0;
     }
     private void AfterSceneLoad()
@@ -153,6 +166,7 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
         grid = GameObject.FindObjectOfType<Grid>();
 
         groundDecoration1 = GameObject.FindGameObjectWithTag("GroundDecoration1").GetComponent<Tilemap>();
+
         groundDecoration2 = GameObject.FindGameObjectWithTag("GroundDecoration2").GetComponent<Tilemap>();
     }
     private void SetGridPropertyDetail(int x, int y, GridPropertiesDetail gridPropertiesDetail, Dictionary<string,

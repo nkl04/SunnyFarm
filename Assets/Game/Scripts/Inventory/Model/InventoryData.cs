@@ -117,9 +117,9 @@ namespace SunnyFarm.Game.Inventory.Data
         /// </summary>
         /// <param name="item"></param>
         /// <param name="quantity"></param>
-        public void AddItem(InventoryLocation inventoryLocation, Item item, int quantity)
+        public void AddItem(InventoryLocation inventoryLocation, string itemId, int quantity)
         {
-            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(item.ItemID);
+            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
             if (itemDetail.IsStackable)
             {
@@ -133,7 +133,7 @@ namespace SunnyFarm.Game.Inventory.Data
                 while (quantity > 0 && !IsInventoryFull(inventoryLocation))
                 {
                     int firstEmptySlot = FindFirstEmptySlot(inventoryLocation);
-                    AddItemAtPosition(inventoryLocation, item.ItemID, firstEmptySlot, 1);
+                    AddItemAtPosition(inventoryLocation, itemId, firstEmptySlot, 1);
                     quantity--;
                 }
 

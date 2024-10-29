@@ -82,7 +82,7 @@ namespace SunnyFarm.Game
         {
             if (item != null)
             {
-                InventoryManager.Instance.InventoryData.AddItem(InventoryLocation.Player, item, 1);
+                InventoryManager.Instance.InventoryData.AddItem(InventoryLocation.Player, item.ItemID, 1);
                 Destroy(item.gameObject);
             }
         }

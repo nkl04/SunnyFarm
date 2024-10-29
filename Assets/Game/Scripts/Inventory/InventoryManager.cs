@@ -17,7 +17,9 @@ namespace SunnyFarm.Game.Inventory
     public class InventoryManager : Singleton<InventoryManager>
     {
         public InventoryData InventoryData => inventoryData;
+
         public SelectedItemCursor SelectedItemCursor => selectedItemCursor;
+
         public DraggedItemCursor DraggedItemCursor => draggedItemCursor;
         // Define map for capacity of the inventory based on inventory's level
         // key: level, value: capacity
@@ -27,6 +29,11 @@ namespace SunnyFarm.Game.Inventory
             {2, 24},
             {3, 36},
         };
+
+        [Header("Initial Invenory Data")]
+        [SerializeField] private ItemDetail[] initialInventoryItems;
+
+        [Header("UI Inventory")]
 
         [SerializeField] private UIBagView uiBagView;
 
@@ -67,6 +74,11 @@ namespace SunnyFarm.Game.Inventory
             SetupView();
 
             SetupModel();
+
+            foreach (ItemDetail item in initialInventoryItems)
+            {
+                InventoryData.AddItem(InventoryLocation.Player, item.ID, 1);
+            }
         }
 
         #region Setup 
@@ -235,8 +247,18 @@ namespace SunnyFarm.Game.Inventory
                 uiBagView.SetHighlightSelectInventorySlot(slot.slotIndex);
                 // set the selected item
                 InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, slot.itemID);
+
                 // set the selected item to the cursor
-                selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
+                ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(slot.itemID);
+
+                if (itemDetail.CanBeCarried)
+                {
+                    selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
+                }
+                else
+                {
+                    selectedItemCursor.ClearData();
+                }
             }
         }
     }

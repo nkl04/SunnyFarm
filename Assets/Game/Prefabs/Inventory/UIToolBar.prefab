@@ -105,6 +105,7 @@ MonoBehaviour:
   - {fileID: 3005500781121408608}
   - {fileID: 4885301636201614428}
   - {fileID: 365142319472036330}
+  player: {fileID: 0}
 --- !u!1 &2216290754976288664
 GameObject:
   m_ObjectHideFlags: 0
@@ -3000,6 +3001,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
+    - target: {fileID: 2564797611747967211, guid: a375ba69e887ea24780a1abd1c21891d, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5298097690965508150, guid: a375ba69e887ea24780a1abd1c21891d, type: 3}
       propertyPath: m_IsActive
       value: 0

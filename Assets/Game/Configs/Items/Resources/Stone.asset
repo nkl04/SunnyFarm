@@ -20,5 +20,5 @@ MonoBehaviour:
   IsStackable: 1
   MaxStackSize: 32
   CanBePickUp: 1
-  CanBeCarried: 0
+  CanBeCarried: 1
   CanBeEaten: 0

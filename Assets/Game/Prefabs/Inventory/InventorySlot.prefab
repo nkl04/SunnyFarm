@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -352,7 +352,6 @@ MonoBehaviour:
   itemQuantityText: {fileID: 8040234447367574360}
   inventoryLocation: 0
   slotLocation: 0
-  inventorySlotDescription: {fileID: 5523990725915401777, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
   itemID: 
   itemQuantity: 0
   isSelected: 0

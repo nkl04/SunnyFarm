@@ -2580,6 +2580,26 @@ PrefabInstance:
       propertyPath: selectedItemCursor
       value: 
       objectReference: {fileID: 1776867792945386177}
+    - target: {fileID: 3606628475194375919, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
+      propertyPath: initialInventoryItems.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3606628475194375919, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
+      propertyPath: initialInventoryItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 21bb5f182c1e94f41b926bf9e26a2dfe, type: 2}
+    - target: {fileID: 3606628475194375919, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
+      propertyPath: initialInventoryItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: df23898c064261549be009b25978f0e6, type: 2}
+    - target: {fileID: 3606628475194375919, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
+      propertyPath: initialInventoryItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: d4334e30985a06448a19e499c1f41f9c, type: 2}
+    - target: {fileID: 3606628475194375919, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
+      propertyPath: initialInventoryItems.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: d9b283ebb188cd54b9716709d6530de7, type: 2}
     - target: {fileID: 3853003545587294152, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 228.91342

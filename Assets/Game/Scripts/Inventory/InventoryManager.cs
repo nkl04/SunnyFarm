@@ -2,15 +2,11 @@ namespace SunnyFarm.Game.Inventory
 {
     using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Entities.Item.Data;
-    using SunnyFarm.Game.Entities.Player;
-    using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Inventory.UI;
     using SunnyFarm.Game.Managers;
     using SunnyFarm.Game.Managers.GameInput;
-    using System;
     using System.Collections.Generic;
-    using UnityEditor.UIElements;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
@@ -79,18 +75,18 @@ namespace SunnyFarm.Game.Inventory
 
         public void AddInventory(InventoryKey inventoryKey)
         {
-            inventoryData.AddInventory(inventoryKey);
-
-            foreach (ItemDetail itemDetail in initialInventoryItems)
-            {
-                inventoryData.AddItem(inventoryKey, itemDetail.ID, 1);
-            }
+            inventoryData.AddInventoryData(inventoryKey);
 
             uiBagView.SetupUIInventorySlot(inventoryKey);
 
             uiToolBarView.SetupUIInventorySlot(inventoryKey);
 
             uiBagView.UpdateUIBagCapacity(inventoryKey, evolveInventoryMap[1]);
+
+            foreach (ItemDetail itemDetail in initialInventoryItems)
+            {
+                inventoryData.AddItem(inventoryKey, itemDetail.ID, 1);
+            }
         }
 
         public void ToggleInventoryView()

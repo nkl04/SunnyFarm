@@ -27,7 +27,7 @@ namespace SunnyFarm.Game.Tilemap
                 }
             }
         }
-
+#if UNITY_EDITOR
         private void OnDisable()
         {
             // only populate in editor mode    
@@ -42,6 +42,7 @@ namespace SunnyFarm.Game.Tilemap
             }
 
         }
+#endif
 
         private void UpdateGridProperties()
         {

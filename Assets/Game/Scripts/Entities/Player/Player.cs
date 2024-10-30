@@ -39,6 +39,7 @@ namespace SunnyFarm.Game.Entities.Player
         public StatePlayerWater StatePlayerWater { get; private set; }
 
         public InventoryKey InventoryKey { get; private set; }
+
         [SerializeField] private float walkSpeed = 5f;
 
         [SerializeField] private float runSpeed = 10f;
@@ -177,8 +178,6 @@ namespace SunnyFarm.Game.Entities.Player
 
             return dir;
         }
-
-
     }
 }
 

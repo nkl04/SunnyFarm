@@ -23,7 +23,7 @@ namespace SunnyFarm.Game.Inventory.Data
             selectedInventoryItem = new Dictionary<InventoryKey, string>();
         }
 
-        public void AddInventory(InventoryKey inventoryKey)
+        public void AddInventoryData(InventoryKey inventoryKey)
         {
             inventoryListCapacityArray.Add(inventoryKey, Constant.Inventory.PlayerInventoryMinCapacity);
 

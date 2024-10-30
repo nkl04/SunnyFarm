@@ -61,17 +61,16 @@ namespace SunnyFarm.Game
         /// <summary>
         /// Event to update the inventory
         /// </summary>
-        public static event Action<InventoryLocation, InventoryItem[]> OnInventoryUpdated;
+        public static event Action<InventoryKey, InventoryItem[]> OnInventoryUpdated;
 
         /// <summary>
         /// Call the inventory updated event
         /// </summary>
         /// <param name="location"></param>
         /// <param name="inventoryItems"></param>
-        public static void CallOnInventoryUpdated(InventoryLocation location, InventoryItem[] inventoryItems)
+        public static void CallOnInventoryUpdated(InventoryKey inventoryKey, InventoryItem[] inventoryItems)
         {
-            OnInventoryUpdated?.Invoke(location, inventoryItems);
-
+            OnInventoryUpdated?.Invoke(inventoryKey, inventoryItems);
         }
 
         public static event Action<UIInventorySlot> OnItemHover,
@@ -118,16 +117,16 @@ namespace SunnyFarm.Game
         /// <summary>
         /// Event to update the inventory capacity
         /// </summary>
-        public static event Action<InventoryLocation, int> OnInventoryCapacityUpdated;
+        public static event Action<InventoryKey, int> OnInventoryCapacityUpdated;
 
         /// <summary>
         /// Call the inventory capacity updated event
         /// </summary>
         /// <param name="location"></param>
         /// <param name="inventoryItems"></param>
-        public static void CallOnInventoryCapacityUpdated(InventoryLocation location, int capacity)
+        public static void CallOnInventoryCapacityUpdated(InventoryKey inventoryKey, int capacity)
         {
-            OnInventoryCapacityUpdated?.Invoke(location, capacity);
+            OnInventoryCapacityUpdated?.Invoke(inventoryKey, capacity);
         }
 
         /// <summary>

@@ -1,11 +1,14 @@
 namespace SunnyFarm.Game.Entities.Player
 {
     using SunnyFarm.Game.Input;
+    using SunnyFarm.Game.Inventory;
+    using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers.GameInput;
     using SunnyFarm.Game.State.Player;
     using SunnyFarm.Game.StateMachine;
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using static SunnyFarm.Game.Constant.Enums;
 
     public class Player : MonoBehaviour
     {
@@ -35,7 +38,7 @@ namespace SunnyFarm.Game.Entities.Player
         public StatePlayerPickaxe StatePlayerPickaxe { get; private set; }
         public StatePlayerWater StatePlayerWater { get; private set; }
 
-
+        public InventoryKey InventoryKey { get; private set; }
         [SerializeField] private float walkSpeed = 5f;
 
         [SerializeField] private float runSpeed = 10f;
@@ -91,6 +94,11 @@ namespace SunnyFarm.Game.Entities.Player
             inputActions.Player.Water.canceled += OnWaterInput;
 
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
+
+            // create inventory data for this player
+            InventoryKey = new InventoryKey(InventoryLocation.Player, Random.Range(0, 999999));
+
+            InventoryManager.Instance.AddInventory(InventoryKey);
         }
         private void OnWaterInput(InputAction.CallbackContext context)
         {

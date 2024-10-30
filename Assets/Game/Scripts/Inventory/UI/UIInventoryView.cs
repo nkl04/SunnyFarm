@@ -2,6 +2,7 @@ namespace SunnyFarm.Game.Inventory.UI
 {
     using SunnyFarm.Game;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
     using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace SunnyFarm.Game.Inventory.UI
             EventHandlers.OnItemEndHover -= HandleItemEndHover;
         }
 
-        public virtual void SetupUIInventorySlot() { }
+        public virtual void SetupUIInventorySlot(InventoryKey inventoryKey) { }
 
 
         /// <summary>

@@ -1,6 +1,7 @@
 namespace SunnyFarm.Game.Inventory.UI
 {
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Inventory.Data;
     using TMPro;
     using UnityEngine;
     using UnityEngine.EventSystems;
@@ -18,7 +19,7 @@ namespace SunnyFarm.Game.Inventory.UI
         public Image inventorySlotHighlightImage;
         public Image inventorySlotItemImage;
         public TextMeshProUGUI itemQuantityText;
-        public InventoryLocation inventoryLocation;
+        public InventoryKey inventoryKey;
         public InventorySlotLocation slotLocation;
 
         [HideInInspector] public string itemID;

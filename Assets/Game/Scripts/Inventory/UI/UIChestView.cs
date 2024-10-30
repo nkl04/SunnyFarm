@@ -13,19 +13,19 @@ public class UIChestView : UIInventoryView
 
     public void InitializeInventoryUI(int capacity)
     {
-        // Instantiate items first and set up their events
-        for (int i = 0; i < uiInventorySlots.Length; i++)
-        {
-            // Instantiate item in main inventory
-            uiInventorySlots[i].inventoryLocation = InventoryLocation.Chest;
-            uiInventorySlots[i].slotLocation = InventorySlotLocation.Container;
-            uiInventorySlots[i].slotIndex = i;
-        }
-        // Unlock the slot item based on capacity
-        for (int i = 0; i < capacity; i++)
-        {
-            uiInventorySlots[i].IsUnlocked = true;
-        }
+        // // Instantiate items first and set up their events
+        // for (int i = 0; i < uiInventorySlots.Length; i++)
+        // {
+        //     // Instantiate item in main inventory
+        //     uiInventorySlots[i].inventoryKey = InventoryLocation.Chest;
+        //     uiInventorySlots[i].slotLocation = InventorySlotLocation.Container;
+        //     uiInventorySlots[i].slotIndex = i;
+        // }
+        // // Unlock the slot item based on capacity
+        // for (int i = 0; i < capacity; i++)
+        // {
+        //     uiInventorySlots[i].IsUnlocked = true;
+        // }
     }
 }
 

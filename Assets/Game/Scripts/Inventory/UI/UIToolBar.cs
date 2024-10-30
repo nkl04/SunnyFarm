@@ -21,9 +21,9 @@ namespace SunnyFarm.Game.Inventory.UI
             rectTransform = GetComponent<RectTransform>();
         }
 
-        public void UpdateUIToolBar(InventoryLocation location, InventoryItem[] inventoryItems)
+        public void UpdateUIToolBar(InventoryKey inventoryKey, InventoryItem[] inventoryItems)
         {
-            if (location == InventoryLocation.Player)
+            if (inventoryKey.inventoryLocation == InventoryLocation.Player)
             {
                 ClearInventorySlot();
 
@@ -64,11 +64,11 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Set up items' UI to the tool bar
         /// </summary>
         /// <returns></returns>
-        public override void SetupUIInventorySlot()
+        public override void SetupUIInventorySlot(InventoryKey inventoryKey)
         {
             for (int i = 0; i < uiInventorySlots.Length; i++)
             {
-                uiInventorySlots[i].inventoryLocation = InventoryLocation.Player;
+                uiInventorySlots[i].inventoryKey = inventoryKey;
 
                 uiInventorySlots[i].slotLocation = InventorySlotLocation.ToolBar;
 
@@ -111,7 +111,7 @@ namespace SunnyFarm.Game.Inventory.UI
             else return null;
         }
 
-        public void SetHighlightSelectInventorySlot(int slotPosition)
+        public void SetHighlightSelectInventorySlot(int slotPosition, InventoryKey inventoryKey)
         {
             if (uiInventorySlots.Length > 0)
             {
@@ -119,11 +119,11 @@ namespace SunnyFarm.Game.Inventory.UI
 
                 uiInventorySlots[slotPosition].SetHighLight(true);
 
-                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotPosition].itemID);
+                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(inventoryKey, uiInventorySlots[slotPosition].itemID);
             }
         }
 
-        public void ClearHighlightOnInventorySlots()
+        public void ClearHighlightOnInventorySlots(InventoryKey inventoryKey)
         {
             if (uiInventorySlots.Length > 0)
             {
@@ -137,7 +137,7 @@ namespace SunnyFarm.Game.Inventory.UI
                         uiInventorySlots[i].SetHighLight(false);
 
                         // Update inventory to show item as not selected
-                        InventoryManager.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
+                        InventoryManager.Instance.InventoryData.ClearSelectedInventoryItem(inventoryKey);
                     }
                 }
             }

@@ -2,6 +2,7 @@ namespace SunnyFarm.Game
 {
     using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Entities.Player;
     using SunnyFarm.Game.Inventory;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
@@ -14,6 +15,8 @@ namespace SunnyFarm.Game
         [SerializeField] private float speed = 5f;
         [SerializeField] private float pickUpDistance = 2f;
         [SerializeField] private CircleCollider2D lootingArea;
+
+        private Player player;
 
 #if UNITY_EDITOR
 
@@ -32,6 +35,7 @@ namespace SunnyFarm.Game
         private void Start()
         {
             lootingArea.radius = pickUpDistance;
+            player = GetComponentInParent<Player>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -42,8 +46,8 @@ namespace SunnyFarm.Game
                 ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(item.ItemID);
                 if (itemDetail.CanBePickUp)
                 {
-                    if (!InventoryManager.Instance.InventoryData.IsInventoryFullWithItem(itemDetail.ID, InventoryLocation.Player)
-                        || !InventoryManager.Instance.InventoryData.IsInventoryFull(InventoryLocation.Player))
+                    if (!InventoryManager.Instance.InventoryData.IsInventoryFullWithItem(itemDetail.ID, player.InventoryKey)
+                        || !InventoryManager.Instance.InventoryData.IsInventoryFull(player.InventoryKey))
                     {
                         StartCoroutine(MoveItemToPlayer(item));
                     }
@@ -82,7 +86,7 @@ namespace SunnyFarm.Game
         {
             if (item != null)
             {
-                InventoryManager.Instance.InventoryData.AddItem(InventoryLocation.Player, item.ItemID, 1);
+                InventoryManager.Instance.InventoryData.AddItem(player.InventoryKey, item.ItemID, 1);
                 Destroy(item.gameObject);
             }
         }

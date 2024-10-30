@@ -61,43 +61,37 @@ namespace SunnyFarm.Game.Inventory
 
             EventHandlers.OnQuickSelectSlot += QuickSelectSlot;
             EventHandlers.OnMouseScroll += OnMouseScrollSelectSlotInput;
-        }
-
-        private void Start()
-        {
-            inventoryData = new InventoryData();
 
             EventHandlers.OnInventoryUpdated += UpdateUIInventory;
-
             EventHandlers.OnInventoryCapacityUpdated += UpdateUIInventoryCapacity;
 
-            SetupView();
+            inventoryData = new InventoryData();
 
             SetupModel();
-
-            foreach (ItemDetail item in initialInventoryItems)
-            {
-                InventoryData.AddItem(InventoryLocation.Player, item.ID, 1);
-            }
         }
 
         #region Setup 
         private void SetupModel()
         {
-            int capacity = evolveInventoryMap[inventoryData.InventoryLevel];
-
-            inventoryData.CreateInventoryList();
-
-            inventoryData.UpgradeInventoryCapacity(InventoryLocation.Player, capacity);
+            inventoryData.SetUpInventoryList();
         }
-        private void SetupView()
-        {
-            uiBagView.SetupUIInventorySlot();
-
-            uiToolBarView.SetupUIInventorySlot();
-        }
-
         #endregion
+
+        public void AddInventory(InventoryKey inventoryKey)
+        {
+            inventoryData.AddInventory(inventoryKey);
+
+            foreach (ItemDetail itemDetail in initialInventoryItems)
+            {
+                inventoryData.AddItem(inventoryKey, itemDetail.ID, 1);
+            }
+
+            uiBagView.SetupUIInventorySlot(inventoryKey);
+
+            uiToolBarView.SetupUIInventorySlot(inventoryKey);
+
+            uiBagView.UpdateUIBagCapacity(inventoryKey, evolveInventoryMap[1]);
+        }
 
         public void ToggleInventoryView()
         {
@@ -127,16 +121,16 @@ namespace SunnyFarm.Game.Inventory
             }
         }
 
-        private void UpdateUIInventory(InventoryLocation inventoryLocation, InventoryItem[] inventoryItems)
+        private void UpdateUIInventory(InventoryKey inventoryKey, InventoryItem[] inventoryItems)
         {
-            uiBagView.UpdateUIBag(inventoryLocation, inventoryItems);
+            uiBagView.UpdateUIBag(inventoryKey, inventoryItems);
 
-            uiToolBarView.UpdateUIToolBar(inventoryLocation, inventoryItems);
+            uiToolBarView.UpdateUIToolBar(inventoryKey, inventoryItems);
         }
 
-        private void UpdateUIInventoryCapacity(InventoryLocation location, int capacity)
+        private void UpdateUIInventoryCapacity(InventoryKey inventoryKey, int capacity)
         {
-            uiBagView.UpdateUIBagCapacity(location, capacity);
+            uiBagView.UpdateUIBagCapacity(inventoryKey, capacity);
         }
 
         private void OnLeftPointerClickInventorySlot(UIInventorySlot slot)
@@ -149,11 +143,11 @@ namespace SunnyFarm.Game.Inventory
             {
                 if (draggedItemCursor.InventoryItem.itemID != slot.itemID || draggedItemCursor.IsEmpty)
                 {
-                    InventoryData.HandleSwapItem(InventoryLocation.Player, ref draggedItemCursor, slot.slotIndex);
+                    InventoryData.HandleSwapItem(slot.inventoryKey, ref draggedItemCursor, slot.slotIndex);
                 }
                 else if (draggedItemCursor.InventoryItem.itemID == slot.itemID && !draggedItemCursor.IsEmpty)
                 {
-                    InventoryData.HandleMergeItem(InventoryLocation.Player, ref draggedItemCursor, slot.slotIndex);
+                    InventoryData.HandleMergeItem(slot.inventoryKey, ref draggedItemCursor, slot.slotIndex);
                 }
 
                 draggedItemCursor.UpdateDraggedItemVisual();
@@ -170,11 +164,11 @@ namespace SunnyFarm.Game.Inventory
             {
                 if (draggedItemCursor.IsEmpty || draggedItemCursor.InventoryItem.itemID == slot.itemID)
                 {
-                    InventoryData.HandleSplitItem(InventoryLocation.Player, ref draggedItemCursor, slot.slotIndex, 1);
+                    InventoryData.HandleSplitItem(slot.inventoryKey, ref draggedItemCursor, slot.slotIndex, 1);
                 }
                 else if (slot.IsEmpty && !draggedItemCursor.IsEmpty)
                 {
-                    InventoryData.AddItemAtPosition(InventoryLocation.Player, draggedItemCursor.InventoryItem.itemID, slot.slotIndex, 1);
+                    InventoryData.AddItemAtPosition(slot.inventoryKey, draggedItemCursor.InventoryItem.itemID, slot.slotIndex, 1);
 
                     draggedItemCursor.InventoryItem.IncrementQuantity(-1);
                 }
@@ -238,20 +232,20 @@ namespace SunnyFarm.Game.Inventory
             if (slot != null)
             {
                 // clear the selected slot in the toolbar
-                uiToolBarView.ClearHighlightOnInventorySlots();
+                uiToolBarView.ClearHighlightOnInventorySlots(slot.inventoryKey);
                 // clear the selected slot in the bag
-                uiBagView.ClearHighlightOnInventorySlots();
+                uiBagView.ClearHighlightOnInventorySlots(slot.inventoryKey);
                 // select the slot in the toolbar
-                uiToolBarView.SetHighlightSelectInventorySlot(slot.slotIndex);
+                uiToolBarView.SetHighlightSelectInventorySlot(slot.slotIndex, slot.inventoryKey);
                 // select the slot in the bag
-                uiBagView.SetHighlightSelectInventorySlot(slot.slotIndex);
+                uiBagView.SetHighlightSelectInventorySlot(slot.slotIndex, slot.inventoryKey);
                 // set the selected item
-                InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, slot.itemID);
+                InventoryData.SetSelectedInventoryItem(slot.inventoryKey, slot.itemID);
 
                 // set the selected item to the cursor
                 ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(slot.itemID);
 
-                if (itemDetail.CanBeCarried)
+                if (itemDetail != null && itemDetail.CanBeCarried)
                 {
                     selectedItemCursor.SetData(slot.itemID, slot.itemQuantity);
                 }

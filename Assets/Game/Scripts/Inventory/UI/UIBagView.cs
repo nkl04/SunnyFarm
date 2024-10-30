@@ -17,11 +17,11 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField] private Color baseInventorySlotColor;
         [SerializeField] private Sprite lockedSlotSprite;
 
-        public override void SetupUIInventorySlot()
+        public override void SetupUIInventorySlot(InventoryKey inventoryKey)
         {
             for (int i = 0; i < uiInventorySlots.Length; i++)
             {
-                uiInventorySlots[i].inventoryLocation = InventoryLocation.Player;
+                uiInventorySlots[i].inventoryKey = inventoryKey;
 
                 uiInventorySlots[i].slotLocation = InventorySlotLocation.Container;
 
@@ -29,9 +29,9 @@ namespace SunnyFarm.Game.Inventory.UI
             }
         }
 
-        public void UpdateUIBag(InventoryLocation location, InventoryItem[] inventoryItems)
+        public void UpdateUIBag(InventoryKey inventoryKey, InventoryItem[] inventoryItems)
         {
-            if (location == InventoryLocation.Player)
+            if (inventoryKey.inventoryLocation == InventoryLocation.Player)
             {
                 if (uiInventorySlots.Length > 0 && inventoryItems.Length > 0)
                 {
@@ -58,7 +58,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                             if (uiInventorySlots[i].isSelected)
                             {
-                                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(location, uiInventorySlots[i].itemID);
+                                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(inventoryKey, uiInventorySlots[i].itemID);
 
                             }
                         }
@@ -67,9 +67,9 @@ namespace SunnyFarm.Game.Inventory.UI
             }
         }
 
-        public void UpdateUIBagCapacity(InventoryLocation location, int capacity)
+        public void UpdateUIBagCapacity(InventoryKey inventoryKey, int capacity)
         {
-            if (location == InventoryLocation.Player)
+            if (inventoryKey.inventoryLocation == InventoryLocation.Player)
             {
                 if (uiInventorySlots.Length > 0 && capacity > 0)
                 {
@@ -93,7 +93,7 @@ namespace SunnyFarm.Game.Inventory.UI
         }
 
 
-        public void ClearHighlightOnInventorySlots()
+        public void ClearHighlightOnInventorySlots(InventoryKey inventoryKey)
         {
             if (uiInventorySlots.Length > 0)
             {
@@ -110,12 +110,12 @@ namespace SunnyFarm.Game.Inventory.UI
 
                     uiInventorySlots[i].SetHighLight(false);
 
-                    InventoryManager.Instance.InventoryData.ClearSelectedInventoryItem(InventoryLocation.Player);
+                    InventoryManager.Instance.InventoryData.ClearSelectedInventoryItem(inventoryKey);
                 }
             }
         }
 
-        public void SetHighlightSelectInventorySlot(int slotIndex)
+        public void SetHighlightSelectInventorySlot(int slotIndex, InventoryKey inventoryKey)
         {
             if (uiInventorySlots.Length > 0)
             {
@@ -130,7 +130,7 @@ namespace SunnyFarm.Game.Inventory.UI
                 uiInventorySlots[slotIndex].SetSelect(true);
 
                 // Update the selected item
-                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(InventoryLocation.Player, uiInventorySlots[slotIndex].itemID);
+                InventoryManager.Instance.InventoryData.SetSelectedInventoryItem(inventoryKey, uiInventorySlots[slotIndex].itemID);
             }
         }
     }

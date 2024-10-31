@@ -1,6 +1,10 @@
+using SunnyFarm.Game;
 using SunnyFarm.Game.Entities.Item.Data;
 using SunnyFarm.Game.Entities.Player;
+using SunnyFarm.Game.Inventory.Data;
+using SunnyFarm.Game.Managers;
 using SunnyFarm.Game.Tilemap;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,10 +18,7 @@ public class ItemsManager : MonoBehaviour
 
     private Player player;
 
-    // test
     [SerializeField] protected ItemDetail itemDetail;
-
-    [SerializeField] protected ItemDetail itemChange;
 
     private void Start()
     {
@@ -26,23 +27,31 @@ public class ItemsManager : MonoBehaviour
         foreach (var controller in itemPrefabs)
         {
             ItemController tool = Instantiate(controller, transform);
+
             itemControllers.Add(tool);
         }
 
         SetupToolAnimationEvents(player.GetComponentInChildren<AnimationEventReceiver>());
 
-        ChangeItem(itemDetail);
+        EventHandlers.OnInventoryItemSelected += OnSelectedItem;
     }
-    private void Update()
+
+    private void OnSelectedItem(InventoryKey key, string itemId)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (key == player.InventoryKey)
         {
-            ChangeItem(itemChange);
+            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+
+            if (itemDetail == null) return;
+
+            SetItem(itemDetail);
         }
     }
-    public void ChangeItem(ItemDetail tool)
+
+    public void SetItem(ItemDetail tool)
     {
         if (itemUsing != null && itemUsing.ItemType == tool.ItemType) return;
+
         foreach (var controller in itemControllers)
         {
             if (controller.ItemType == tool.ItemType)

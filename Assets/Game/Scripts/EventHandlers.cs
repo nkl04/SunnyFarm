@@ -6,6 +6,7 @@ namespace SunnyFarm.Game
     using System;
     using System.Collections.Generic;
     using Unity.VisualScripting;
+    using UnityEngine.EventSystems;
     using static SunnyFarm.Game.Constant.Enums;
 
     public static class EventHandlers
@@ -143,6 +144,15 @@ namespace SunnyFarm.Game
             OnQuickSelectSlot?.Invoke(slotIndex);
         }
 
+        /// <summary>
+        /// Event when an inventory item data is selected
+        /// </summary>
+        public static event Action<InventoryKey, string> OnInventoryItemSelected;
+
+        public static void CallOnInventoryItemSelected(InventoryKey inventoryKey, string itemId)
+        {
+            OnInventoryItemSelected?.Invoke(inventoryKey, itemId);
+        }
         #endregion
 
         #region Time Events
@@ -287,6 +297,16 @@ namespace SunnyFarm.Game
         public static void CallOnMouseScroll(float scrollInput)
         {
             OnMouseScroll?.Invoke(scrollInput);
+        }
+
+        public static event Action OnLeftPointerClickToWorld;
+
+        public static void CallOnLeftPointerClickToWorld()
+        {
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                OnLeftPointerClickToWorld?.Invoke();
+            };
         }
 
         #endregion

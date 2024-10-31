@@ -34,6 +34,6 @@ public class PickaxeController : ToolController
             GridPropertiesController.Instance.SetLandGround(detail);
         }
 
-        HitBox(detail.Position);
+        HitBox(detail.Position, out var havingObj);
     }
 }

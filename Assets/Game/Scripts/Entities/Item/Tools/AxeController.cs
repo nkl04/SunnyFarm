@@ -29,6 +29,6 @@ public class AxeController : ToolController
         // Get grid property detail that make action
         GridPropertiesDetail detail = TileActionCheck();
 
-        HitBox(detail.Position);
+        HitBox(detail.Position, out var havingObj);
     }
 }

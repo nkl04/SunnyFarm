@@ -7,8 +7,10 @@ namespace SunnyFarm.Game.Entities.Item
     {
         protected override void Update()
         {
-            if (Input.GetMouseButton(0) & !isUseTool)
+            if (Input.GetMouseButton(0) && !isUseTool)
             {
+                tileDetail = TileActionCheck();
+
                 player.IsDigPressed = true; // test;
                 isUseTool = true;
             }
@@ -27,11 +29,13 @@ namespace SunnyFarm.Game.Entities.Item
         }
         public override void UseItem()
         {
-            // Get grid property detail that make action
-            GridPropertiesDetail detail = TileActionCheck();
-            GridPropertiesController.Instance.SetDugGround(detail);
+            HitBox(tileDetail.Position, out var havingObj);
 
-            HitBox(detail.Position);
+            if (havingObj) return;
+            // Get grid property detail that make action
+            GridPropertiesController.Instance.SetDugGround(tileDetail);
+
+
         }
     }
 }

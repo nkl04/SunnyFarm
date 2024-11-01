@@ -2922,6 +2922,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6586781063496976339, guid: d3372db8770aa814abc3f1541a443f54, type: 3}
+      propertyPath: dugTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ae98f56ea31da84580f7b3d01835141, type: 2}
+    - target: {fileID: 6586781063496976339, guid: d3372db8770aa814abc3f1541a443f54, type: 3}
+      propertyPath: wateredTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e316bb65bbe2724e9c5d494b23f6da3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

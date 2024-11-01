@@ -31,13 +31,6 @@ namespace SunnyFarm.Game.Entities.Player
         public bool IsWaterPressed { get; set; } = false;
         public bool IsFacingRight { get; set; } = true;
 
-        public StatePlayerIdle StatePlayerIdle { get; private set; }
-        public StatePlayerMove StatePlayerMove { get; private set; }
-        public StatePlayerAxe StatePlayerAxe { get; private set; }
-        public StatePlayerDig StatePlayerDig { get; private set; }
-        public StatePlayerPickaxe StatePlayerPickaxe { get; private set; }
-        public StatePlayerWater StatePlayerWater { get; private set; }
-
         public InventoryKey InventoryKey { get; private set; }
 
         [SerializeField] private float walkSpeed = 5f;
@@ -74,8 +67,6 @@ namespace SunnyFarm.Game.Entities.Player
 
             animator = GetComponentInChildren<Animator>();            // Get the Animator component in child Visual
 
-            StatePlayerIdle = new StatePlayerIdle(this, stateMachine);
-            StatePlayerDig = new StatePlayerDig(this, stateMachine);
             inputActions.Player.Move.performed += OnMoveInput;
 
             inputActions.Player.Move.canceled += OnMoveInput;

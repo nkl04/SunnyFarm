@@ -22,7 +22,8 @@ MonoBehaviour:
   CanBePickUp: 0
   CanBeCarried: 0
   CanBeEaten: 0
-  toolType: 2
+  ToolType: 0
+  ResourceCanBeHit: 0100000003000000
   ChargeCapacity: 0
   ChargeConsume: 0
   OffsetDistance: 1

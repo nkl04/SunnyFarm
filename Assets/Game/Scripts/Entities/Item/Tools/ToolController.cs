@@ -4,7 +4,6 @@ namespace SunnyFarm.Game.Managers
     using SunnyFarm.Game.Entities.Item.Data;
     using System.Collections.Generic;
     using UnityEngine;
-    using static SunnyFarm.Game.Constant.Enums;
 
     public class ToolController : ItemController
     {
@@ -12,8 +11,6 @@ namespace SunnyFarm.Game.Managers
         protected GridPropertiesDetail tileDetail;
 
         private IToolBehaviour toolBehaviour;
-
-        [SerializeField] private List<ResourceType> resourceCanHit = new List<ResourceType>();
 
         protected override void Start()
         {
@@ -40,7 +37,7 @@ namespace SunnyFarm.Game.Managers
         {
             base.SetUpDetail(_itemDetail);
             toolDetail = _itemDetail as ToolDetail;
-            toolBehaviour = new HoeBehaviour(toolDetail, player);
+            toolBehaviour = new AxeBehaviour(toolDetail, player);
         }
 
         public GridPropertiesDetail TileActionCheck()
@@ -93,7 +90,7 @@ namespace SunnyFarm.Game.Managers
                 {
                     havingObj = true;
 
-                    if (toolHit.CanBeHit(resourceCanHit))
+                    if (toolHit.CanBeHit(toolDetail.ResourceCanBeHit))
                     {
                         toolHit.Hit(player);
                     }
@@ -109,7 +106,7 @@ namespace SunnyFarm.Game.Managers
 
             if (havingObj) return;
 
-            toolBehaviour.Use(new List<GridPropertiesDetail>() { tileDetail });
+            toolBehaviour.Use(new List<GridPropertiesDetail>() { tileDetail }); // need to modify
         }
 
         public override void ReactivateTool()

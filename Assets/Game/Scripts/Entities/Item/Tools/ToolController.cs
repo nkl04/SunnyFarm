@@ -13,9 +13,9 @@ namespace SunnyFarm.Game.Managers
         private IToolBehaviour toolBehaviour;
         private ToolBehaviourMap toolBehaviourMap;
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
 
             toolBehaviourMap = new ToolBehaviourMap();
         }

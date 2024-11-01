@@ -40,9 +40,9 @@ public class ItemsManager : MonoBehaviour
             if (controller.ItemType == tool.ItemType)
             {
                 controller.enabled = true;
+                controller.EnableController();
                 controller.SetUpDetail(tool);
                 controller.SetUpCursor(gridCursor);
-                controller.EnableController();
                 itemUsing?.DisableController();
                 itemUsing = controller;
             }

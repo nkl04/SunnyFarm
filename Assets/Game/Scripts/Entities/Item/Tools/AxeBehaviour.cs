@@ -20,7 +20,6 @@ public class AxeBehaviour : IToolBehaviour
         }
     }
 
-
     public void OnPress()
     {
     }

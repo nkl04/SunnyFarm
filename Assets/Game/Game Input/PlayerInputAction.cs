@@ -39,42 +39,6 @@ namespace SunnyFarm.Game.Input
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Axe"",
-                    ""type"": ""Button"",
-                    ""id"": ""2189b1ba-86b2-4ab8-81fd-d5b9e38e70dd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Dig"",
-                    ""type"": ""Button"",
-                    ""id"": ""48ac28c8-9838-45ae-8b2a-04e02df821ea"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pickaxe"",
-                    ""type"": ""Button"",
-                    ""id"": ""f70feb7e-f0e4-41d6-bfbb-7e96c7b934dc"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Water"",
-                    ""type"": ""Button"",
-                    ""id"": ""921859da-ddc6-4d51-b78f-225a40ed420d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""ToggleInventory"",
                     ""type"": ""Button"",
                     ""id"": ""f46fa855-01d2-4ca5-a69a-9170de27d4d7"",
@@ -232,50 +196,6 @@ namespace SunnyFarm.Game.Input
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3dd905f2-0ad4-4795-ab40-d5d989fc475f"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Axe"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9dda662e-c0be-4105-8de8-2c6fd9d9ce76"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dig"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""87e5656a-2108-494f-86ae-451af3e4908b"",
-                    ""path"": ""<Keyboard>/h"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pickaxe"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dd8ab7da-5fde-4086-a567-0d76a996eacd"",
-                    ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Water"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1018,10 +938,6 @@ namespace SunnyFarm.Game.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Axe = m_Player.FindAction("Axe", throwIfNotFound: true);
-            m_Player_Dig = m_Player.FindAction("Dig", throwIfNotFound: true);
-            m_Player_Pickaxe = m_Player.FindAction("Pickaxe", throwIfNotFound: true);
-            m_Player_Water = m_Player.FindAction("Water", throwIfNotFound: true);
             m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
             m_Player_QuickSelectSlot = m_Player.FindAction("QuickSelectSlot", throwIfNotFound: true);
             m_Player_MouseSroll = m_Player.FindAction("MouseSroll", throwIfNotFound: true);
@@ -1099,10 +1015,6 @@ namespace SunnyFarm.Game.Input
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Axe;
-        private readonly InputAction m_Player_Dig;
-        private readonly InputAction m_Player_Pickaxe;
-        private readonly InputAction m_Player_Water;
         private readonly InputAction m_Player_ToggleInventory;
         private readonly InputAction m_Player_QuickSelectSlot;
         private readonly InputAction m_Player_MouseSroll;
@@ -1111,10 +1023,6 @@ namespace SunnyFarm.Game.Input
             private @PlayerInputAction m_Wrapper;
             public PlayerActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
-            public InputAction @Axe => m_Wrapper.m_Player_Axe;
-            public InputAction @Dig => m_Wrapper.m_Player_Dig;
-            public InputAction @Pickaxe => m_Wrapper.m_Player_Pickaxe;
-            public InputAction @Water => m_Wrapper.m_Player_Water;
             public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
             public InputAction @QuickSelectSlot => m_Wrapper.m_Player_QuickSelectSlot;
             public InputAction @MouseSroll => m_Wrapper.m_Player_MouseSroll;
@@ -1130,18 +1038,6 @@ namespace SunnyFarm.Game.Input
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Axe.started += instance.OnAxe;
-                @Axe.performed += instance.OnAxe;
-                @Axe.canceled += instance.OnAxe;
-                @Dig.started += instance.OnDig;
-                @Dig.performed += instance.OnDig;
-                @Dig.canceled += instance.OnDig;
-                @Pickaxe.started += instance.OnPickaxe;
-                @Pickaxe.performed += instance.OnPickaxe;
-                @Pickaxe.canceled += instance.OnPickaxe;
-                @Water.started += instance.OnWater;
-                @Water.performed += instance.OnWater;
-                @Water.canceled += instance.OnWater;
                 @ToggleInventory.started += instance.OnToggleInventory;
                 @ToggleInventory.performed += instance.OnToggleInventory;
                 @ToggleInventory.canceled += instance.OnToggleInventory;
@@ -1158,18 +1054,6 @@ namespace SunnyFarm.Game.Input
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
-                @Axe.started -= instance.OnAxe;
-                @Axe.performed -= instance.OnAxe;
-                @Axe.canceled -= instance.OnAxe;
-                @Dig.started -= instance.OnDig;
-                @Dig.performed -= instance.OnDig;
-                @Dig.canceled -= instance.OnDig;
-                @Pickaxe.started -= instance.OnPickaxe;
-                @Pickaxe.performed -= instance.OnPickaxe;
-                @Pickaxe.canceled -= instance.OnPickaxe;
-                @Water.started -= instance.OnWater;
-                @Water.performed -= instance.OnWater;
-                @Water.canceled -= instance.OnWater;
                 @ToggleInventory.started -= instance.OnToggleInventory;
                 @ToggleInventory.performed -= instance.OnToggleInventory;
                 @ToggleInventory.canceled -= instance.OnToggleInventory;
@@ -1362,10 +1246,6 @@ namespace SunnyFarm.Game.Input
         public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
-            void OnAxe(InputAction.CallbackContext context);
-            void OnDig(InputAction.CallbackContext context);
-            void OnPickaxe(InputAction.CallbackContext context);
-            void OnWater(InputAction.CallbackContext context);
             void OnToggleInventory(InputAction.CallbackContext context);
             void OnQuickSelectSlot(InputAction.CallbackContext context);
             void OnMouseSroll(InputAction.CallbackContext context);

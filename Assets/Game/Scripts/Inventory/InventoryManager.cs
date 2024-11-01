@@ -17,6 +17,8 @@ namespace SunnyFarm.Game.Inventory
         public SelectedItemCursor SelectedItemCursor => selectedItemCursor;
 
         public DraggedItemCursor DraggedItemCursor => draggedItemCursor;
+
+        public bool CanChangeSelectedInventorySlot { get; set; } = true;
         // Define map for capacity of the inventory based on inventory's level
         // key: level, value: capacity
         private Dictionary<int, int> evolveInventoryMap = new Dictionary<int, int>()
@@ -101,7 +103,7 @@ namespace SunnyFarm.Game.Inventory
 
                 selectedItemCursor.Show();
 
-                GameInputManager.Instance.CanPlayerActionInput = true;
+                GameInputManager.Instance.CanPlayerKeyBoardInput = true;
             }
             else
             {
@@ -113,7 +115,7 @@ namespace SunnyFarm.Game.Inventory
 
                 selectedItemCursor.Hide();
 
-                GameInputManager.Instance.CanPlayerActionInput = false;
+                GameInputManager.Instance.CanPlayerKeyBoardInput = false;
             }
         }
 
@@ -133,6 +135,8 @@ namespace SunnyFarm.Game.Inventory
         {
             if (slot.slotLocation == InventorySlotLocation.ToolBar)
             {
+                if (CanChangeSelectedInventorySlot) return;
+
                 SelectSlot(slot);
             }
             else if (slot.slotLocation == InventorySlotLocation.Container)
@@ -179,6 +183,8 @@ namespace SunnyFarm.Game.Inventory
 
         private void QuickSelectSlot(int slotIndex)
         {
+            if (!CanChangeSelectedInventorySlot) return;
+
             UIInventorySlot slot = uiToolBarView.GetInventorySlot(slotIndex);
 
             SelectSlot(slot);
@@ -186,6 +192,8 @@ namespace SunnyFarm.Game.Inventory
 
         private void OnMouseScrollSelectSlotInput(float scrollInput)
         {
+            if (!CanChangeSelectedInventorySlot) return;
+
             if (!IsInventoryOpen)
             {
                 UIInventorySlot slot = uiToolBarView.GetSelectedInventorySlot();

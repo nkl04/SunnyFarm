@@ -41,19 +41,22 @@ namespace SunnyFarm.Game.Inventory.UI
 
                             ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
-                            if (itemDetail != null && itemQuantity > 0)
+                            if (itemDetail != null)
                             {
-                                uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
+                                if (itemQuantity > 0)
+                                {
+                                    uiInventorySlots[i].SetData(itemId, itemDetail.ItemImage, inventoryItems[i].quantity);
+                                }
+                                if (uiInventorySlots[i].isSelected && itemDetail.CanBeCarried)
+                                {
+                                    InventoryManager.Instance.SelectedItemCursor.SetData(uiInventorySlots[i].itemID, uiInventorySlots[i].itemQuantity);
+                                }
                             }
                             else
                             {
                                 uiInventorySlots[i].SetData(null, transparentSprite, 0);
                             }
 
-                            if (uiInventorySlots[i].isSelected)
-                            {
-                                InventoryManager.Instance.SelectedItemCursor.SetData(uiInventorySlots[i].itemID, uiInventorySlots[i].itemQuantity);
-                            }
                         }
                     }
                 }

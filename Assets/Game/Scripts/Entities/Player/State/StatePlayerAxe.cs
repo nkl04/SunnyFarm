@@ -2,6 +2,8 @@ namespace SunnyFarm.Game.State.Player
 {
     using Entities.Player;
     using StateMachine;
+    using SunnyFarm.Game.Inventory;
+    using SunnyFarm.Game.Managers.GameInput;
 
     public class StatePlayerAxe : StatePlayer
     {
@@ -20,6 +22,10 @@ namespace SunnyFarm.Game.State.Player
         public override void Enter()
         {
             this.player.Animator.SetBool(Constant.Player.IS_AXING, true);
+
+            GameInputManager.Instance.CanToggleInventory = false;
+
+            InventoryManager.Instance.CanChangeSelectedInventorySlot = false;
         }
 
         public override void Exit()

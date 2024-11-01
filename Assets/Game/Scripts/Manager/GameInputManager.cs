@@ -11,7 +11,7 @@ namespace SunnyFarm.Game.Managers.GameInput
         public PlayerInputAction InputActions => inputActions;
         public bool CanToggleInventory { get; set; } = true;
         public bool CanMouseScroll { get; set; } = true;
-        public bool CanPlayerActionInput { get; set; } = true;
+        public bool CanPlayerKeyBoardInput { get; set; } = true;
 
         private PlayerInputAction inputActions;
 

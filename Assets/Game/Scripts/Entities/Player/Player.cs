@@ -80,22 +80,6 @@ namespace SunnyFarm.Game.Entities.Player
 
             inputActions.Player.Move.canceled += OnMoveInput;
 
-            inputActions.Player.Axe.performed += OnAxeInput;
-
-            inputActions.Player.Axe.canceled += OnAxeInput;
-
-            inputActions.Player.Dig.performed += OnDigInput;
-
-            inputActions.Player.Dig.canceled += OnDigInput;
-
-            inputActions.Player.Pickaxe.performed += OnPickaxeInput;
-
-            inputActions.Player.Pickaxe.canceled += OnPickaxeInput;
-
-            inputActions.Player.Water.performed += OnWaterInput;
-
-            inputActions.Player.Water.canceled += OnWaterInput;
-
             stateMachine.TransitionTo(new StatePlayerIdle(this, stateMachine)); // Set the initial state
 
             // create inventory data for this player
@@ -103,33 +87,10 @@ namespace SunnyFarm.Game.Entities.Player
 
             InventoryManager.Instance.AddInventory(InventoryKey);
         }
-        private void OnWaterInput(InputAction.CallbackContext context)
-        {
-            if (!gameInputManager.CanPlayerActionInput) return;
-            IsWaterPressed = context.ReadValueAsButton();
-        }
-
-        private void OnPickaxeInput(InputAction.CallbackContext context)
-        {
-            if (!gameInputManager.CanPlayerActionInput) return;
-            IsPickaxePressed = context.ReadValueAsButton();
-        }
-
-        private void OnDigInput(InputAction.CallbackContext context)
-        {
-            if (!gameInputManager.CanPlayerActionInput) return;
-            IsDigPressed = context.ReadValueAsButton();
-        }
-
-        private void OnAxeInput(InputAction.CallbackContext context)
-        {
-            if (!gameInputManager.CanPlayerActionInput) return;
-            IsAxePressed = context.ReadValueAsButton();
-        }
 
         private void OnMoveInput(InputAction.CallbackContext context)
         {
-            if (!gameInputManager.CanPlayerActionInput) return;
+            if (!gameInputManager.CanPlayerKeyBoardInput) return;
             movementInput = context.ReadValue<Vector2>().normalized;
 
             IsMovePressed = movementInput.magnitude > 0;
@@ -137,7 +98,7 @@ namespace SunnyFarm.Game.Entities.Player
 
         private void Update()
         {
-            stateMachine.Tick();    // Update the current state
+            stateMachine.Tick();
         }
 
         public void Flip()
@@ -154,9 +115,11 @@ namespace SunnyFarm.Game.Entities.Player
             // Vector3 Viewport position for player (0,0) is bottom left and (1,1) is top right
             return mainCamera.WorldToViewportPoint(transform.position);
         }
+
         public Vector2Int GetPlayerDirection()
         {
             Vector2Int dir;
+
             if (lastMovementInput.x > 0)
             {
                 dir = new Vector2Int(1, 0);

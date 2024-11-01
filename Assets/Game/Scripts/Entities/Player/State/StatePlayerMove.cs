@@ -2,6 +2,8 @@ namespace SunnyFarm.Game.State.Player
 {
     using Entities.Player;
     using StateMachine;
+    using SunnyFarm.Game.Inventory;
+    using SunnyFarm.Game.Managers.GameInput;
     using UnityEngine;
 
     public class StatePlayerMove : StatePlayer
@@ -20,6 +22,10 @@ namespace SunnyFarm.Game.State.Player
         public override void Enter()
         {
             this.player.Animator.SetBool(Constant.Player.IS_RUNNING, true);
+
+            GameInputManager.Instance.CanToggleInventory = true;
+
+            InventoryManager.Instance.CanChangeSelectedInventorySlot = true;
         }
 
         public override void Exit()

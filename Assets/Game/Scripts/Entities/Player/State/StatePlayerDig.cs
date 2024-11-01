@@ -2,6 +2,9 @@ namespace SunnyFarm.Game.State.Player
 {
     using Entities.Player;
     using StateMachine;
+    using SunnyFarm.Game.Inventory;
+    using SunnyFarm.Game.Managers.GameInput;
+
     public class StatePlayerDig : StatePlayer
     {
         public StatePlayerDig(Player player, StateMachine<StatePlayer> stateMachine) : base(player, stateMachine)
@@ -22,6 +25,10 @@ namespace SunnyFarm.Game.State.Player
             this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_Y, this.player.LastMovementInput.y);
 
             this.player.Animator.SetBool(Constant.Player.IS_DIGGING, true);
+
+            GameInputManager.Instance.CanToggleInventory = false;
+
+            InventoryManager.Instance.CanChangeSelectedInventorySlot = false;
         }
 
         public override void Exit()

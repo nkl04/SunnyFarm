@@ -2,6 +2,8 @@ namespace SunnyFarm.Game.State.Player
 {
     using Entities.Player;
     using StateMachine;
+    using SunnyFarm.Game.Inventory;
+    using SunnyFarm.Game.Managers.GameInput;
 
     public class StatePlayerIdle : StatePlayer
     {
@@ -37,6 +39,8 @@ namespace SunnyFarm.Game.State.Player
 
         public override void Enter()
         {
+            GameInputManager.Instance.CanToggleInventory = true;
+            InventoryManager.Instance.CanChangeSelectedInventorySlot = true;
         }
 
         public override void Exit()

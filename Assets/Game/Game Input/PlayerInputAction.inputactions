@@ -15,42 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Axe",
-                    "type": "Button",
-                    "id": "2189b1ba-86b2-4ab8-81fd-d5b9e38e70dd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Dig",
-                    "type": "Button",
-                    "id": "48ac28c8-9838-45ae-8b2a-04e02df821ea",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Pickaxe",
-                    "type": "Button",
-                    "id": "f70feb7e-f0e4-41d6-bfbb-7e96c7b934dc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Water",
-                    "type": "Button",
-                    "id": "921859da-ddc6-4d51-b78f-225a40ed420d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ToggleInventory",
                     "type": "Button",
                     "id": "f46fa855-01d2-4ca5-a69a-9170de27d4d7",
@@ -208,50 +172,6 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3dd905f2-0ad4-4795-ab40-d5d989fc475f",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Axe",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9dda662e-c0be-4105-8de8-2c6fd9d9ce76",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dig",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "87e5656a-2108-494f-86ae-451af3e4908b",
-                    "path": "<Keyboard>/h",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pickaxe",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dd8ab7da-5fde-4086-a567-0d76a996eacd",
-                    "path": "<Keyboard>/j",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Water",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class AxeBehaviour : IToolBehaviour
 {
-    private float holdTime;
     private ToolDetail toolDetail;
     private Player player;
     public AxeBehaviour(ToolDetail _toolDetail, Player _player)
@@ -24,7 +23,6 @@ public class AxeBehaviour : IToolBehaviour
 
     public void OnPress()
     {
-        holdTime = 0f;  // Reset hold time when pressed
     }
 
     public void OnRelease()

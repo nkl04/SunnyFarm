@@ -136,15 +136,18 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
         }
     }
 
-    public void SetWaterGround(GridPropertiesDetail gridPropertiesDetail)
+    public void SetWaterGround(List<GridPropertiesDetail> gridPropertiesDetails)
     {
-        if (gridPropertiesDetail == null) return;
+        if (gridPropertiesDetails.Count == 0) return;
 
-        if (gridPropertiesDetail.TileType == TileType.Dug)
+        foreach (GridPropertiesDetail gridPropertiesDetail in gridPropertiesDetails)
         {
-            UpdateTileType(gridPropertiesDetail, TileType.Watered);
+            if (gridPropertiesDetail.TileType == TileType.Dug)
+            {
+                UpdateTileType(gridPropertiesDetail, TileType.Watered);
 
-            DisplayTileGround(gridPropertiesDetail, wateredTile);
+                DisplayTileGround(gridPropertiesDetail, wateredTile);
+            }
         }
     }
     public void SetLandGround(GridPropertiesDetail gridPropertiesDetail)

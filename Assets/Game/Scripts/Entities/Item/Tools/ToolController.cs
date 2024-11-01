@@ -37,7 +37,7 @@ namespace SunnyFarm.Game.Managers
         {
             base.SetUpDetail(_itemDetail);
             toolDetail = _itemDetail as ToolDetail;
-            toolBehaviour = new AxeBehaviour(toolDetail, player);
+            toolBehaviour = new PickaxeBehaviour(toolDetail, player);
         }
 
         public GridPropertiesDetail TileActionCheck()

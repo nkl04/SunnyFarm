@@ -35,7 +35,7 @@ public class WateringController : ToolController
 
         // Get grid property detail that make action
         GridPropertiesDetail detail = TileActionCheck();
-        GridPropertiesController.Instance.SetWaterGround(detail);
+        //GridPropertiesController.Instance.SetWaterGround(detail);
     }
 
     private void ConsumeCharge(int charge)

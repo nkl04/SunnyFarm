@@ -273,7 +273,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemType: 0
   toolDetail: {fileID: 0}
-  resourceCanHit: 
 --- !u!224 &242113706 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5765787120506965130, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
@@ -4764,7 +4763,7 @@ PrefabInstance:
     - target: {fileID: 6063885449571813226, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: itemDetail
       value: 
-      objectReference: {fileID: 11400000, guid: 21bb5f182c1e94f41b926bf9e26a2dfe, type: 2}
+      objectReference: {fileID: 11400000, guid: d4334e30985a06448a19e499c1f41f9c, type: 2}
     - target: {fileID: 6063885449571813226, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: itemControllers.Array.size
       value: 1

@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 191662333}
   - component: {fileID: 191662334}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ToolController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4763,7 +4763,7 @@ PrefabInstance:
     - target: {fileID: 6063885449571813226, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: itemDetail
       value: 
-      objectReference: {fileID: 11400000, guid: d4334e30985a06448a19e499c1f41f9c, type: 2}
+      objectReference: {fileID: 11400000, guid: d9b283ebb188cd54b9716709d6530de7, type: 2}
     - target: {fileID: 6063885449571813226, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: itemControllers.Array.size
       value: 1

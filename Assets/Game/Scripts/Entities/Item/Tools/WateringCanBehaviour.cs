@@ -26,7 +26,7 @@ public class WateringCanBehaviour : IToolBehaviour
             if (!isUsing)
             {
                 isUsing = true;
-                player.IsDigPressed = true;
+                player.IsWaterPressed = true;
             }
         }
 
@@ -36,19 +36,19 @@ public class WateringCanBehaviour : IToolBehaviour
             holdTime += Time.deltaTime;
             if (holdTime < 1f)
             {
-                Debug.Log("Upgraded Hoe - Tilling 1 tiles ahead");
+                Debug.Log("Upgraded Water - Tilling 1 tiles ahead");
             }
             else if (holdTime >= 1f && holdTime < 2f)
             {
-                Debug.Log("Upgraded Hoe - Tilling 3 tiles ahead");
+                Debug.Log("Upgraded Water - Tilling 3 tiles ahead");
             }
             else if (holdTime >= 2f && holdTime < 3f)
             {
-                Debug.Log("Upgraded Hoe - Tilling 5 tiles ahead");
+                Debug.Log("Upgraded Water - Tilling 5 tiles ahead");
             }
             else if (holdTime >= 3f && holdTime < 4f)
             {
-                Debug.Log("Upgraded Hoe - Tilling a 3x3 area");
+                Debug.Log("Upgraded Water - Tilling a 3x3 area");
             }
         }
     }
@@ -64,7 +64,7 @@ public class WateringCanBehaviour : IToolBehaviour
         if (toolDetail.CanPowerUp)
         {
             holdTime = 0f;
-            player.IsDigPressed = true;
+            player.IsWaterPressed = true;
         }
     }
 
@@ -77,7 +77,7 @@ public class WateringCanBehaviour : IToolBehaviour
 
     public void Reactivate()
     {
-        player.IsDigPressed = false;
+        player.IsWaterPressed = false;
     }
 
     private void ConsumeCharge(int charge)

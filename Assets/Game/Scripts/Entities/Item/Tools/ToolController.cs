@@ -11,11 +11,13 @@ namespace SunnyFarm.Game.Managers
         protected GridPropertiesDetail tileDetail;
 
         private IToolBehaviour toolBehaviour;
+        private ToolBehaviourMap toolBehaviourMap;
 
         protected override void Start()
         {
             base.Start();
 
+            toolBehaviourMap = new ToolBehaviourMap();
         }
         protected override void Update()
         {
@@ -37,7 +39,7 @@ namespace SunnyFarm.Game.Managers
         {
             base.SetUpDetail(_itemDetail);
             toolDetail = _itemDetail as ToolDetail;
-            toolBehaviour = new PickaxeBehaviour(toolDetail, player);
+            toolBehaviour = toolBehaviourMap.GetToolBehaviour(toolDetail, player);
         }
 
         public GridPropertiesDetail TileActionCheck()

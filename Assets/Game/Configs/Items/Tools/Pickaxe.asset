@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   ID: 30003
-  ItemType: 2
+  ItemType: 0
   Name: Pickaxe
   Description: 
   ItemImage: {fileID: -959127426, guid: de2afe3bb8ce04549982f7ce98992f8c, type: 3}
   IsStackable: 0
   MaxStackSize: 0
   CanBePickUp: 0
+  CanBeCarried: 0
   CanBeEaten: 0
+  ToolType: 2
+  ResourceCanBeHit: 0100000003000000
+  ChargeCapacity: 0
+  ChargeConsume: 0
   OffsetDistance: 1
   InteractableAreaSize: 0.5
+  CanPowerUp: 0

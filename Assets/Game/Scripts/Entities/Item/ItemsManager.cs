@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class ItemsManager : MonoBehaviour
 {
-    [SerializeField] private List<ItemController> itemPrefabs; // need to store in SO instead in component
     [SerializeField] private GridCursor gridCursor;
 
-    private List<ItemController> itemControllers = new List<ItemController>();
+    [SerializeField] private List<ItemController> itemControllers = new List<ItemController>();
     private ItemController itemUsing;
 
     private Player player;
@@ -22,12 +21,6 @@ public class ItemsManager : MonoBehaviour
     private void Start()
     {
         player = GetComponentInParent<Player>();
-
-        foreach (var controller in itemPrefabs)
-        {
-            ItemController tool = Instantiate(controller, transform);
-            itemControllers.Add(tool);
-        }
 
         SetupToolAnimationEvents(player.GetComponentInChildren<AnimationEventReceiver>());
 
@@ -42,17 +35,20 @@ public class ItemsManager : MonoBehaviour
     }
     public void ChangeItem(ItemDetail tool)
     {
-        if (itemUsing != null && itemUsing.ItemType == tool.ItemType) return;
         foreach (var controller in itemControllers)
         {
             if (controller.ItemType == tool.ItemType)
             {
-                controller.enabled = true;
+                if (itemUsing == null || itemUsing.ItemType != tool.ItemType)
+                {
+                    controller.enabled = true;
+                    controller.EnableController();
+                    controller.SetUpCursor(gridCursor);
+                    itemUsing?.DisableController();
+                    itemUsing = controller;
+                }
+
                 controller.SetUpDetail(tool);
-                controller.SetUpCursor(gridCursor);
-                controller.EnableController();
-                itemUsing?.DisableController();
-                itemUsing = controller;
             }
             else
                 controller.enabled = false;

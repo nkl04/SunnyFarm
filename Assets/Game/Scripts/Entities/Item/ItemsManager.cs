@@ -4,7 +4,6 @@ using SunnyFarm.Game.Entities.Player;
 using SunnyFarm.Game.Inventory.Data;
 using SunnyFarm.Game.Managers;
 using SunnyFarm.Game.Tilemap;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,19 +43,14 @@ public class ItemsManager : MonoBehaviour
         {
             if (controller.ItemType == tool.ItemType)
             {
-                if (itemUsing == null || itemUsing.ItemType != tool.ItemType)
-                {
-                    controller.enabled = true;
-                    controller.EnableController();
-                    controller.SetUpCursor(gridCursor);
-                    itemUsing?.DisableController();
-                    itemUsing = controller;
-                }
-
+                controller.EnableController();
+                controller.SetUpCursor(gridCursor);
+                itemUsing = controller;
                 controller.SetUpDetail(tool);
             }
             else
-                controller.enabled = false;
+                itemUsing?.DisableController();
+
         }
     }
     public void ResetTool()

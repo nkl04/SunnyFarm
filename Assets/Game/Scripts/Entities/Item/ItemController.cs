@@ -33,7 +33,7 @@ public abstract class ItemController : MonoBehaviour
         gridCursor = _gridCursor;
     }
 
-    public void SetUpDetail(ItemDetail _itemDetail)
+    public virtual void SetUpDetail(ItemDetail _itemDetail)
     {
         itemDetail = _itemDetail;
     }

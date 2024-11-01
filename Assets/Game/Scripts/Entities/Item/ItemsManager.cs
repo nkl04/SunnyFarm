@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class ItemsManager : MonoBehaviour
 {
-    [SerializeField] private List<ItemController> itemPrefabs; // need to store in SO instead in component
     [SerializeField] private GridCursor gridCursor;
 
-    private List<ItemController> itemControllers = new List<ItemController>();
+    [SerializeField] private List<ItemController> itemControllers = new List<ItemController>();
     private ItemController itemUsing;
 
     private Player player;
@@ -23,21 +22,14 @@ public class ItemsManager : MonoBehaviour
     {
         player = GetComponentInParent<Player>();
 
-        foreach (var controller in itemPrefabs)
-        {
-            ItemController tool = Instantiate(controller, transform);
-            itemControllers.Add(tool);
-        }
-
         SetupToolAnimationEvents(player.GetComponentInChildren<AnimationEventReceiver>());
 
-        ChangeItem(itemDetail);
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ChangeItem(itemChange);
+            ChangeItem(itemDetail);
         }
     }
     public void ChangeItem(ItemDetail tool)

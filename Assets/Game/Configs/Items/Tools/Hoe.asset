@@ -20,6 +20,11 @@ MonoBehaviour:
   IsStackable: 0
   MaxStackSize: 0
   CanBePickUp: 0
+  CanBeCarried: 0
   CanBeEaten: 0
+  toolType: 1
+  ChargeCapacity: 0
+  ChargeConsume: 0
   OffsetDistance: 1
   InteractableAreaSize: 0.5
+  CanPowerUp: 1

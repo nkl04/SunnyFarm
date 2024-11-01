@@ -48,7 +48,7 @@ namespace SunnyFarm.Game.Entities.Player
 
         private PlayerInputAction inputActions;
 
-        private StateMachine<StatePlayer> stateMachine;
+        public StateMachine<StatePlayer> stateMachine;
 
         private Vector2 movementInput;
 
@@ -74,6 +74,8 @@ namespace SunnyFarm.Game.Entities.Player
 
             animator = GetComponentInChildren<Animator>();            // Get the Animator component in child Visual
 
+            StatePlayerIdle = new StatePlayerIdle(this, stateMachine);
+            StatePlayerDig = new StatePlayerDig(this, stateMachine);
             inputActions.Player.Move.performed += OnMoveInput;
 
             inputActions.Player.Move.canceled += OnMoveInput;

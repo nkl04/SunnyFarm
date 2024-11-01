@@ -8,14 +8,12 @@ public class PickaxeController : ToolController
     {
         if (Input.GetMouseButton(0) & !isUseTool)
         {
-            player.IsPickaxePressed = true; // test;
             isUseTool = true;
         }
     }
     public override void ReactivateTool()
     {
         base.ReactivateTool();
-        player.IsPickaxePressed = false; // test;
     }
 
     public override void EnableController()

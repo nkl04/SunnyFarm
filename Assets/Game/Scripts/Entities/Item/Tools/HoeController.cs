@@ -10,15 +10,16 @@ namespace SunnyFarm.Game.Entities.Item
             if (Input.GetMouseButton(0) && !isUseTool)
             {
                 tileDetail = TileActionCheck();
-
-                player.IsDigPressed = true; // test;
+                player.IsDigPressed = true;
                 isUseTool = true;
             }
         }
         public override void ReactivateTool()
         {
+            Debug.Log("exit");
+
             base.ReactivateTool();
-            player.IsDigPressed = false; // test;
+            player.IsDigPressed = false;
         }
 
         public override void EnableController()
@@ -29,12 +30,12 @@ namespace SunnyFarm.Game.Entities.Item
         }
         public override void UseItem()
         {
-            HitBox(tileDetail.Position, out var havingObj);
+            //HitBox(tileDetail.Position, out var havingObj);
 
-            if (havingObj) return;
+            //if (havingObj) return;
             // Get grid property detail that make action
-            GridPropertiesController.Instance.SetDugGround(tileDetail);
-
+            //GridPropertiesController.Instance.SetDugGround(tileDetail);
+            Debug.Log("Use");
 
         }
     }

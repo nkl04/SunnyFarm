@@ -9,20 +9,18 @@ public class WateringController : ToolController
     {
         base.Start();
 
-        charges = toolDetail.chargeCapacity;
+        charges = toolDetail.ChargeCapacity;
     }
     protected override void Update()
     {
         if (Input.GetMouseButton(0) & !isUseTool)
         {
-            player.IsWaterPressed = true; // test;
             isUseTool = true;
         }
     }
     public override void ReactivateTool()
     {
         base.ReactivateTool();
-        player.IsWaterPressed = false; // test;
     }
 
     public override void EnableController()
@@ -33,7 +31,7 @@ public class WateringController : ToolController
     }
     public override void UseItem()
     {
-        ConsumeCharge(toolDetail.chargeConsume);
+        ConsumeCharge(toolDetail.ChargeConsume);
 
         // Get grid property detail that make action
         GridPropertiesDetail detail = TileActionCheck();

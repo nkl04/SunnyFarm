@@ -8,14 +8,12 @@ public class AxeController : ToolController
     {
         if (Input.GetMouseButton(0) & !isUseTool)
         {
-            player.IsAxePressed = true; // test;
             isUseTool = true;
         }
     }
     public override void ReactivateTool()
     {
         base.ReactivateTool();
-        player.IsAxePressed = false; // test;
     }
 
     public override void EnableController()

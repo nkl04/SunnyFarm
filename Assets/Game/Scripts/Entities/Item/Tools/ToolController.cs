@@ -1,18 +1,49 @@
 namespace SunnyFarm.Game.Managers
 {
     using SunnyFarm.Game.Entities.Item;
+    using SunnyFarm.Game.Entities.Item.Data;
     using System.Collections.Generic;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    public abstract class ToolController : ItemController
+    public class ToolController : ItemController
     {
-        protected ToolDetail toolDetail;
+        [SerializeField] protected ToolDetail toolDetail;
         protected GridPropertiesDetail tileDetail;
+
+        private IToolBehaviour toolBehaviour;
 
         [SerializeField] private List<ResourceType> resourceCanHit = new List<ResourceType>();
 
-        protected GridPropertiesDetail TileActionCheck()
+        protected override void Start()
+        {
+            base.Start();
+
+        }
+        protected override void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                toolBehaviour.OnPress();
+            }
+            if (Input.GetMouseButton(0) && !isUseTool)
+            {
+                toolBehaviour.OnHold(ref isUseTool);
+                tileDetail = TileActionCheck();
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                toolBehaviour.OnRelease();
+            }
+        }
+        public override void SetUpDetail(ItemDetail _itemDetail)
+        {
+            base.SetUpDetail(_itemDetail);
+            toolDetail = _itemDetail as ToolDetail;
+            toolBehaviour = new HoeBehaviour(toolDetail, player);
+        }
+
+        public GridPropertiesDetail TileActionCheck()
         {
             Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
             Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
@@ -72,6 +103,20 @@ namespace SunnyFarm.Game.Managers
             }
         }
 
+        public override void UseItem()
+        {
+            HitBox(tileDetail.Position, out var havingObj);
 
+            if (havingObj) return;
+
+            toolBehaviour.Use(new List<GridPropertiesDetail>() { tileDetail });
+        }
+
+        public override void ReactivateTool()
+        {
+            toolBehaviour.Reactivate();
+
+            base.ReactivateTool();
+        }
     }
 }

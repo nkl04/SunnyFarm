@@ -121,18 +121,25 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
         }
     }
 
-    public void SetDugGround(GridPropertiesDetail gridPropertiesDetail)
+    public void SetDugGround(List<GridPropertiesDetail> gridPropertiesDetails)
     {
-        if (gridPropertiesDetail.TileType == TileType.Land)
-        {
-            UpdateTileType(gridPropertiesDetail, TileType.Dug);
+        if (gridPropertiesDetails.Count == 0) return;
 
-            DisplayTileGround(gridPropertiesDetail, dugTile);
+        foreach (GridPropertiesDetail gridPropertiesDetail in gridPropertiesDetails)
+        {
+            if (gridPropertiesDetail.TileType == TileType.Land)
+            {
+                UpdateTileType(gridPropertiesDetail, TileType.Dug);
+
+                DisplayTileGround(gridPropertiesDetail, dugTile);
+            }
         }
     }
 
     public void SetWaterGround(GridPropertiesDetail gridPropertiesDetail)
     {
+        if (gridPropertiesDetail == null) return;
+
         if (gridPropertiesDetail.TileType == TileType.Dug)
         {
             UpdateTileType(gridPropertiesDetail, TileType.Watered);
@@ -142,6 +149,8 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
     }
     public void SetLandGround(GridPropertiesDetail gridPropertiesDetail)
     {
+        if (gridPropertiesDetail == null) return;
+
         if (gridPropertiesDetail.TileType > TileType.Land)
         {
             UpdateTileType(gridPropertiesDetail, TileType.Land);

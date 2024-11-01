@@ -4,21 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class WateringCanBehaviour : IToolBehaviour
+public class WateringCanBehaviour : ToolBehaviour
 {
     private float holdTime;
-    private ToolDetail toolDetail;
-    private Player player;
 
     private int charges;
-    public WateringCanBehaviour(ToolDetail _toolDetail, Player _player)
-    {
-        toolDetail = _toolDetail;
-        player = _player;
 
+    public WateringCanBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
+    {
         charges = toolDetail.ChargeCapacity;
     }
-    public void OnHold(ref bool isUsing)
+
+    public override void OnHold(ref bool isUsing)
     {
         // for basic
         if (!toolDetail.CanPowerUp)
@@ -53,12 +50,12 @@ public class WateringCanBehaviour : IToolBehaviour
         }
     }
 
-    public void OnPress()
+    public override void OnPress()
     {
         holdTime = 0f;  // Reset hold time when pressed
     }
 
-    public void OnRelease()
+    public override void OnRelease()
     {
         // for the upgraded
         if (toolDetail.CanPowerUp)
@@ -68,14 +65,14 @@ public class WateringCanBehaviour : IToolBehaviour
         }
     }
 
-    public void Use(List<GridPropertiesDetail> tileDetails)
+    public override void Use(List<GridPropertiesDetail> tileDetails)
     {
         ConsumeCharge(toolDetail.ChargeConsume);
 
         GridPropertiesController.Instance.SetWaterGround(tileDetails);
     }
 
-    public void Reactivate()
+    public override void Reactivate()
     {
         player.IsWaterPressed = false;
     }

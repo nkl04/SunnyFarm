@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class HoeBehaviour : IToolBehaviour
+public class HoeBehaviour : ToolBehaviour
 {
     private float holdTime;
-    private ToolDetail toolDetail;
-    private Player player;
-    public HoeBehaviour(ToolDetail _toolDetail, Player _player)
+
+    public HoeBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
     {
-        toolDetail = _toolDetail;
-        player = _player;
     }
-    public void OnHold(ref bool isUsing)
+
+    public override void OnHold(ref bool isUsing)
     {
         // for basic
         if (!toolDetail.CanPowerUp)
@@ -49,12 +47,12 @@ public class HoeBehaviour : IToolBehaviour
         }
     }
 
-    public void OnPress()
+    public override void OnPress()
     {
         holdTime = 0f;  // Reset hold time when pressed
     }
 
-    public void OnRelease()
+    public override void OnRelease()
     {
         // for the upgraded
         if (toolDetail.CanPowerUp)
@@ -64,12 +62,12 @@ public class HoeBehaviour : IToolBehaviour
         }
     }
 
-    public void Use(List<GridPropertiesDetail> tileDetails)
+    public override void Use(List<GridPropertiesDetail> tileDetails)
     {
         GridPropertiesController.Instance.SetDugGround(tileDetails);
     }
 
-    public void Reactivate()
+    public override void Reactivate()
     {
         player.IsDigPressed = false;
     }

@@ -2,16 +2,13 @@ using SunnyFarm.Game.Entities.Item;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 
-public class PickaxeBehaviour : IToolBehaviour
+public class PickaxeBehaviour : ToolBehaviour
 {
-    private ToolDetail toolDetail;
-    private Player player;
-    public PickaxeBehaviour(ToolDetail _toolDetail, Player _player)
+    public PickaxeBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
     {
-        toolDetail = _toolDetail;
-        player = _player;
     }
-    public void OnHold(ref bool isUsing)
+
+    public override void OnHold(ref bool isUsing)
     {
         if (!isUsing)
         {
@@ -21,16 +18,16 @@ public class PickaxeBehaviour : IToolBehaviour
     }
 
 
-    public void OnPress()
+    public override void OnPress()
     {
     }
 
-    public void OnRelease()
+    public override void OnRelease()
     {
 
     }
 
-    public void Use(List<GridPropertiesDetail> tileDetails)
+    public override void Use(List<GridPropertiesDetail> tileDetails)
     {
         if (!tileDetails[0].HasCrop)
         {
@@ -38,7 +35,7 @@ public class PickaxeBehaviour : IToolBehaviour
         }
     }
 
-    public void Reactivate()
+    public override void Reactivate()
     {
         player.IsPickaxePressed = false;
     }

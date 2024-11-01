@@ -2,16 +2,13 @@ using SunnyFarm.Game.Entities.Item;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 
-public class AxeBehaviour : IToolBehaviour
+public class AxeBehaviour : ToolBehaviour
 {
-    private ToolDetail toolDetail;
-    private Player player;
-    public AxeBehaviour(ToolDetail _toolDetail, Player _player)
+    public AxeBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
     {
-        toolDetail = _toolDetail;
-        player = _player;
     }
-    public void OnHold(ref bool isUsing)
+
+    public override void OnHold(ref bool isUsing)
     {
         if (!isUsing)
         {
@@ -20,21 +17,21 @@ public class AxeBehaviour : IToolBehaviour
         }
     }
 
-    public void OnPress()
+    public override void OnPress()
     {
     }
 
-    public void OnRelease()
-    {
-
-    }
-
-    public void Use(List<GridPropertiesDetail> tileDetails)
+    public override void OnRelease()
     {
 
     }
 
-    public void Reactivate()
+    public override void Use(List<GridPropertiesDetail> tileDetails)
+    {
+
+    }
+
+    public override void Reactivate()
     {
         player.IsAxePressed = false;
     }

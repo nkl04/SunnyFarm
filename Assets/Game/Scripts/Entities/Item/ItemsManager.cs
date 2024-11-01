@@ -24,27 +24,31 @@ public class ItemsManager : MonoBehaviour
 
         SetupToolAnimationEvents(player.GetComponentInChildren<AnimationEventReceiver>());
 
+        ChangeItem(itemDetail);
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ChangeItem(itemDetail);
+            ChangeItem(itemChange);
         }
     }
     public void ChangeItem(ItemDetail tool)
     {
-        if (itemUsing != null && itemUsing.ItemType == tool.ItemType) return;
         foreach (var controller in itemControllers)
         {
             if (controller.ItemType == tool.ItemType)
             {
-                controller.enabled = true;
-                controller.EnableController();
+                if (itemUsing == null || itemUsing.ItemType != tool.ItemType)
+                {
+                    controller.enabled = true;
+                    controller.EnableController();
+                    controller.SetUpCursor(gridCursor);
+                    itemUsing?.DisableController();
+                    itemUsing = controller;
+                }
+
                 controller.SetUpDetail(tool);
-                controller.SetUpCursor(gridCursor);
-                itemUsing?.DisableController();
-                itemUsing = controller;
             }
             else
                 controller.enabled = false;

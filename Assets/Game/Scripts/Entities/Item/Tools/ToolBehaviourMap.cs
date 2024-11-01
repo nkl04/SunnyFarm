@@ -5,15 +5,15 @@ using static SunnyFarm.Game.Constant.Enums;
 
 public class ToolBehaviourMap
 {
-    Dictionary<ToolType, IToolBehaviour> behaviours = new Dictionary<ToolType, IToolBehaviour>();
+    Dictionary<ToolType, ToolBehaviour> behaviours = new Dictionary<ToolType, ToolBehaviour>();
     public ToolBehaviourMap()
     {
 
     }
 
-    public IToolBehaviour GetToolBehaviour(ToolDetail toolDetail, Player player)
+    public ToolBehaviour GetToolBehaviour(ToolDetail toolDetail, Player player)
     {
-        if (behaviours.TryGetValue(toolDetail.ToolType, out IToolBehaviour behaviour))
+        if (behaviours.TryGetValue(toolDetail.ToolType, out ToolBehaviour behaviour))
         {
             return behaviour;
         }
@@ -24,7 +24,7 @@ public class ToolBehaviourMap
         }
     }
 
-    private IToolBehaviour CreateToolBehaviour(ToolDetail toolDetail, Player player)
+    private ToolBehaviour CreateToolBehaviour(ToolDetail toolDetail, Player player)
     {
         switch (toolDetail.ToolType)
         {

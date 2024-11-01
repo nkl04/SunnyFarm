@@ -10,7 +10,7 @@ namespace SunnyFarm.Game.Managers
         [SerializeField] protected ToolDetail toolDetail;
         protected GridPropertiesDetail tileDetail;
 
-        private IToolBehaviour toolBehaviour;
+        private ToolBehaviour toolBehaviour;
         private ToolBehaviourMap toolBehaviourMap;
 
         protected override void Awake()

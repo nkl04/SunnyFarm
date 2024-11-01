@@ -33,7 +33,30 @@ namespace SunnyFarm.Game.Managers.GameInput
 
             inputActions.Player.ToggleInventory.started += OnToggleInventory;
 
-            inputActions.Player.QuickSelectSlot.started += SelectInventorySlot;
+            inputActions.Player.QuickSelectInventorySlot0.started += context => EventHandlers.CallOnQuickSelectSlot(0);
+
+            inputActions.Player.QuickSelectInventorySlot1.started += context => EventHandlers.CallOnQuickSelectSlot(1);
+
+            inputActions.Player.QuickSelectInventorySlot2.started += context => EventHandlers.CallOnQuickSelectSlot(2);
+
+            inputActions.Player.QuickSelectInventorySlot3.started += context => EventHandlers.CallOnQuickSelectSlot(3);
+
+            inputActions.Player.QuickSelectInventorySlot4.started += context => EventHandlers.CallOnQuickSelectSlot(4);
+
+            inputActions.Player.QuickSelectInventorySlot5.started += context => EventHandlers.CallOnQuickSelectSlot(5);
+
+            inputActions.Player.QuickSelectInventorySlot6.started += context => EventHandlers.CallOnQuickSelectSlot(6);
+
+            inputActions.Player.QuickSelectInventorySlot7.started += context => EventHandlers.CallOnQuickSelectSlot(7);
+
+            inputActions.Player.QuickSelectInventorySlot8.started += context => EventHandlers.CallOnQuickSelectSlot(8);
+
+            inputActions.Player.QuickSelectInventorySlot9.started += context => EventHandlers.CallOnQuickSelectSlot(9);
+
+            inputActions.Player.QuickSelectInventorySlot10.started += context => EventHandlers.CallOnQuickSelectSlot(10);
+
+            inputActions.Player.QuickSelectInventorySlot11.started += context => EventHandlers.CallOnQuickSelectSlot(11);
+
 
             inputActions.Player.MouseSroll.performed += OnMouseScroll;
         }
@@ -45,15 +68,6 @@ namespace SunnyFarm.Game.Managers.GameInput
             Vector2 scrollValue = context.ReadValue<Vector2>();
 
             EventHandlers.CallOnMouseScroll(scrollValue.y);
-        }
-
-        private void SelectInventorySlot(InputAction.CallbackContext context)
-        {
-            var bindings = inputActions.Player.QuickSelectSlot.bindings;
-
-            int bindingIndex = inputActions.Player.QuickSelectSlot.GetBindingIndexForControl(context.control);
-
-            EventHandlers.CallOnQuickSelectSlot(bindingIndex);
         }
 
         private void OnToggleInventory(InputAction.CallbackContext context)

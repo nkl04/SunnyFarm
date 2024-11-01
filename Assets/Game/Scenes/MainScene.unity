@@ -4637,6 +4637,10 @@ PrefabInstance:
       propertyPath: gridCursor
       value: 
       objectReference: {fileID: 1917510415}
+    - target: {fileID: 6063885449571813226, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
+      propertyPath: itemDetail
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9157720927190986354, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: m_GravityScale
       value: 0

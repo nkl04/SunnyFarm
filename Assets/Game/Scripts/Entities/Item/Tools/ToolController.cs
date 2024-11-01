@@ -37,6 +37,9 @@ namespace SunnyFarm.Game.Managers
         }
         public override void SetUpDetail(ItemDetail _itemDetail)
         {
+            // before set up data, reactivate tool
+            toolBehaviour?.Reactivate();
+
             base.SetUpDetail(_itemDetail);
             toolDetail = _itemDetail as ToolDetail;
             toolBehaviour = toolBehaviourMap.GetToolBehaviour(toolDetail, player);

@@ -37,16 +37,19 @@ public class ItemsManager : MonoBehaviour
         SetSelectedItem(itemDetail);
     }
 
-    public void SetSelectedItem(ItemDetail tool)
+    public void SetSelectedItem(ItemDetail item)
     {
         foreach (var controller in itemControllers)
         {
-            if (controller.ItemType == tool.ItemType)
+            if (controller.ItemType == item.ItemType)
             {
-                controller.EnableController();
-                controller.SetUpCursor(gridCursor);
+                if (itemUsing == null || itemUsing.ItemType != item.ItemType)
+                {
+                    controller.EnableController();
+                    controller.SetUpCursor(gridCursor);
+                }
+                controller.SetUpDetail(item);
                 itemUsing = controller;
-                controller.SetUpDetail(tool);
             }
             else
                 itemUsing?.DisableController();

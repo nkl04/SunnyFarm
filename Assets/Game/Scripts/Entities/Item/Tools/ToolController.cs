@@ -1,37 +1,95 @@
 namespace SunnyFarm.Game.Managers
 {
     using SunnyFarm.Game.Entities.Item;
+    using SunnyFarm.Game.Entities.Item.Data;
     using System.Collections.Generic;
     using UnityEngine;
-    using static SunnyFarm.Game.Constant.Enums;
 
-    public abstract class ToolController : ItemController
+    public class ToolController : ItemController
     {
-        protected ToolDetail toolDetail;
+        protected GridPropertiesDetail tileDetail;
 
-        [SerializeField] private List<ResourceType> resourceCanHit = new List<ResourceType>();
+        private ToolBehaviour toolBehaviour;
 
-        protected GridPropertiesDetail TileActionCheck()
+        private ToolBehaviourMap toolBehaviourMap;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            toolBehaviourMap = new ToolBehaviourMap();
+        }
+        protected override void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                toolBehaviour.OnPress();
+            }
+            if (Input.GetMouseButton(0) && !isUseTool)
+            {
+                toolBehaviour.OnHold(ref isUseTool);
+                tileDetail = TileActionCheck();
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                toolBehaviour.OnRelease();
+            }
+        }
+        public override void SetUpDetail(ItemDetail _itemDetail)
+        {
+            // before set up data, reactivate tool
+            toolBehaviour?.Reactivate();
+
+            base.SetUpDetail(_itemDetail);
+
+            itemDetail = _itemDetail;
+
+            toolBehaviour = toolBehaviourMap.GetToolBehaviour((ToolDetail)itemDetail, player);
+        }
+
+        public GridPropertiesDetail TileActionCheck()
         {
             Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
+
             Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
 
-            if (Mathf.Abs(cursorGridPosition.x - playerGridPosition.x) > toolDetail.OffsetDistance
-                || Mathf.Abs(cursorGridPosition.y - playerGridPosition.y) > toolDetail.OffsetDistance)
+            var distance = Vector2.Distance(new Vector2(cursorGridPosition.x, cursorGridPosition.y), new Vector2(playerGridPosition.x, playerGridPosition.y));
+            if (distance == ((ToolDetail)itemDetail).OffsetDistance || distance == ((ToolDetail)itemDetail).OffsetDistance * Mathf.Sqrt(2))
             {
-                var playerDirection = player.GetPlayerDirection();
-                var position = playerGridPosition + new Vector3Int(playerDirection.x, playerDirection.y, 0);
-                return GridPropertiesController.Instance.GetGridPropertyDetail(position.x, position.y);
+                // change the last movement based on cursor position
+                player.LastMovementInput = new Vector2(cursorGridPosition.x - playerGridPosition.x, cursorGridPosition.y - playerGridPosition.y);
+
+                // flip the player 
+                if (this.player.LastMovementInput.x > 0 && !this.player.IsFacingRight)
+                {
+                    this.player.Flip();
+
+                    this.player.IsFacingRight = true;
+                }
+                else if (this.player.LastMovementInput.x < 0 && this.player.IsFacingRight)
+                {
+                    this.player.Flip();
+
+                    this.player.IsFacingRight = false;
+                }
+
+                return GridPropertiesController.Instance.GetGridPropertyDetail(cursorGridPosition.x, cursorGridPosition.y);
             }
             else
             {
-                return GridPropertiesController.Instance.GetGridPropertyDetail(cursorGridPosition.x, cursorGridPosition.y);
+                var playerDirection = player.GetPlayerDirection();
+
+                var position = playerGridPosition + new Vector3Int(playerDirection.x, playerDirection.y, 0);
+
+                return GridPropertiesController.Instance.GetGridPropertyDetail(position.x, position.y);
             }
         }
 
-        protected virtual void HitBox(Vector2 position)
+        protected virtual void HitBox(Vector2 position, out bool havingObj)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, toolDetail.InteractableAreaSize);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, ((ToolDetail)itemDetail).InteractableAreaSize);
+
+            havingObj = false;
 
             foreach (Collider2D collider in colliders)
             {
@@ -40,7 +98,9 @@ namespace SunnyFarm.Game.Managers
 
                 if (toolHit != null)
                 {
-                    if (toolHit.CanBeHit(resourceCanHit))
+                    havingObj = true;
+
+                    if (toolHit.CanBeHit(((ToolDetail)itemDetail).ResourceCanBeHit))
                     {
                         toolHit.Hit(player);
                     }
@@ -50,6 +110,20 @@ namespace SunnyFarm.Game.Managers
             }
         }
 
+        public override void UseItem()
+        {
+            HitBox(tileDetail.Position, out var havingObj);
 
+            if (havingObj) return;
+
+            toolBehaviour.Use(new List<GridPropertiesDetail>() { tileDetail }); // need to modify
+        }
+
+        public override void ReactivateTool()
+        {
+            toolBehaviour.Reactivate();
+
+            base.ReactivateTool();
+        }
     }
 }

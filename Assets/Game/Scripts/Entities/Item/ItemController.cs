@@ -15,7 +15,7 @@ public abstract class ItemController : MonoBehaviour
 
     public ItemType ItemType;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         player = GetComponentInParent<Player>();
         rb2d = GetComponentInParent<Rigidbody2D>();
@@ -33,7 +33,7 @@ public abstract class ItemController : MonoBehaviour
         gridCursor = _gridCursor;
     }
 
-    public void SetUpDetail(ItemDetail _itemDetail)
+    public virtual void SetUpDetail(ItemDetail _itemDetail)
     {
         itemDetail = _itemDetail;
     }

@@ -18,8 +18,14 @@ MonoBehaviour:
   Description: 
   ItemImage: {fileID: -920522453, guid: de2afe3bb8ce04549982f7ce98992f8c, type: 3}
   IsStackable: 0
-  MaxStackSize: 0
+  MaxStackSize: 1
   CanBePickUp: 0
+  CanBeCarried: 0
   CanBeEaten: 0
+  ToolType: 1
+  ResourceCanBeHit: 02000000
+  ChargeCapacity: 0
+  ChargeConsume: 0
   OffsetDistance: 1
   InteractableAreaSize: 0.5
+  CanPowerUp: 1

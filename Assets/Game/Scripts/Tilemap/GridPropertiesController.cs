@@ -121,27 +121,44 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
         }
     }
 
-    public void SetDugGround(GridPropertiesDetail gridPropertiesDetail)
+    public void SetDugGround(List<GridPropertiesDetail> gridPropertiesDetails)
     {
-        if (gridPropertiesDetail.TileType == TileType.Land)
+        if (gridPropertiesDetails.Count == 0) return;
+
+        foreach (GridPropertiesDetail gridPropertiesDetail in gridPropertiesDetails)
         {
-            UpdateTileType(gridPropertiesDetail, TileType.Dug);
+            if (gridPropertiesDetail.TileType == TileType.Land)
+            {
+                UpdateTileType(gridPropertiesDetail, TileType.Dug);
 
             DisplayTileGround(groundDecoration1, gridPropertiesDetail, dugTile);
+
+
+            }
+
         }
     }
 
-    public void SetWaterGround(GridPropertiesDetail gridPropertiesDetail)
+    public void SetWaterGround(List<GridPropertiesDetail> gridPropertiesDetails)
     {
-        if (gridPropertiesDetail.TileType == TileType.Dug)
+        if (gridPropertiesDetails.Count == 0) return;
+
+        foreach (GridPropertiesDetail gridPropertiesDetail in gridPropertiesDetails)
         {
-            UpdateTileType(gridPropertiesDetail, TileType.Watered);
+            if (gridPropertiesDetail.TileType == TileType.Dug)
+            {
+                UpdateTileType(gridPropertiesDetail, TileType.Watered);
+
 
             DisplayTileGround(groundDecoration2, gridPropertiesDetail, wateredTile);
+            }
+
         }
     }
     public void SetLandGround(GridPropertiesDetail gridPropertiesDetail)
     {
+        if (gridPropertiesDetail == null) return;
+
         if (gridPropertiesDetail.TileType > TileType.Land)
         {
             UpdateTileType(gridPropertiesDetail, TileType.Land);

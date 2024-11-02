@@ -85,7 +85,8 @@ namespace SunnyFarm.Game.Inventory.Data
         public void SetSelectedInventoryItem(InventoryKey inventoryKey, string itemId)
         {
             selectedInventoryItem[inventoryKey] = itemId;
-            Debug.Log("Selected item: " + itemId);
+
+            EventHandlers.CallOnInventoryItemSelected(inventoryKey, itemId);
         }
 
         public void ClearSelectedInventoryItem(InventoryKey inventoryKey)

@@ -16,11 +16,23 @@ public class AnimationEventStateBehaviour : StateMachineBehaviour
     {
         float currentTime = stateInfo.normalizedTime % 1f;
 
+        // Reset `hasTriggered` if animation restarts (detecting a new loop)
+        if (currentTime < 0.1f && hasTriggered)
+        {
+            hasTriggered = false;
+        }
+
         if (!hasTriggered && currentTime >= triggerTime)
         {
             NotifyReceiver(animator);
             hasTriggered = true;
         }
+
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        hasTriggered = false;
     }
 
     void NotifyReceiver(Animator animator)

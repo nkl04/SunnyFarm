@@ -143,6 +143,19 @@ namespace SunnyFarm.Game
             OnQuickSelectSlot?.Invoke(slotIndex);
         }
 
+
+        /// <summary>
+        /// Event to select an inventory item data
+        /// </summary>
+        public static event Action<InventoryKey, string> OnInventoryItemSelected;
+
+        public static void CallOnInventoryItemSelected(InventoryKey inventoryKey, string itemId)
+        {
+            OnInventoryItemSelected?.Invoke(inventoryKey, itemId);
+        }
+
+
+
         #endregion
 
         #region Time Events

@@ -117,7 +117,7 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
             GridPropertiesDetail gridPropertiesDetail = detail.Value;
 
             if (gridPropertiesDetail.TileType == TileType.Dug)
-                DisplayTileGround(gridPropertiesDetail, dugTile);
+                DisplayTileGround(groundDecoration1, gridPropertiesDetail, dugTile);
         }
     }
 
@@ -131,8 +131,11 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
             {
                 UpdateTileType(gridPropertiesDetail, TileType.Dug);
 
-                DisplayTileGround(gridPropertiesDetail, dugTile);
+                DisplayTileGround(groundDecoration1, gridPropertiesDetail, dugTile);
+
+
             }
+
         }
     }
 
@@ -146,8 +149,10 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
             {
                 UpdateTileType(gridPropertiesDetail, TileType.Watered);
 
-                DisplayTileGround(gridPropertiesDetail, wateredTile);
+
+                DisplayTileGround(groundDecoration2, gridPropertiesDetail, wateredTile);
             }
+
         }
     }
     public void SetLandGround(GridPropertiesDetail gridPropertiesDetail)
@@ -158,13 +163,13 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
         {
             UpdateTileType(gridPropertiesDetail, TileType.Land);
 
-            DisplayTileGround(gridPropertiesDetail, landTile);
+            DisplayTileGround(groundDecoration1, gridPropertiesDetail, landTile);
         }
     }
 
-    public void DisplayTileGround(GridPropertiesDetail gridPropertiesDetail, RuleTile ruleTile)
+    public void DisplayTileGround(Tilemap tilemap, GridPropertiesDetail gridPropertiesDetail, RuleTile ruleTile)
     {
-        groundDecoration1.SetTile(new Vector3Int(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y, 0), ruleTile);
+        tilemap.SetTile(new Vector3Int(gridPropertiesDetail.Position.x, gridPropertiesDetail.Position.y, 0), ruleTile);
     }
 
     private void UpdateTileType(GridPropertiesDetail gridPropertiesDetail, TileType type)
@@ -276,6 +281,7 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
                             if (detail.TileType == TileType.Watered && detail.DaysSinceLastModified >= 1)
                             {
                                 detail.TileType = TileType.Dug;
+
                                 detail.DaysSinceLastModified = 0; // Reset day counter for dug state
                             }
 
@@ -283,6 +289,7 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
                             if (detail.TileType == TileType.Dug && detail.DaysSinceLastModified >= 3) // Example: 3 days
                             {
                                 detail.TileType = TileType.Land;
+
                                 detail.DaysSinceLastModified = 0; // Reset day counter for land state
                             }
                         }

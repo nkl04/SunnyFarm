@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   ID: 50001
-  ItemType: 7
+  ItemType: 4
   Name: Wood
   Description: A sturdy, yet flexible plant material with a wide variety of uses.
   ItemImage: {fileID: -1019866753, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}

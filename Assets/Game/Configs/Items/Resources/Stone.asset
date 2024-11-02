@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   ID: 50002
-  ItemType: 7
+  ItemType: 4
   Name: Stone
   Description: A common material with many uses in crafting and building.
   ItemImage: {fileID: -321022365, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}

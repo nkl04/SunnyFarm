@@ -272,7 +272,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemType: 0
-  toolDetail: {fileID: 0}
 --- !u!224 &242113706 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5765787120506965130, guid: 2ffa2a327b47c074caa0ce1748426669, type: 3}
@@ -2973,6 +2972,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6586781063496976339, guid: d3372db8770aa814abc3f1541a443f54, type: 3}
+      propertyPath: dugTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ae98f56ea31da84580f7b3d01835141, type: 2}
+    - target: {fileID: 6586781063496976339, guid: d3372db8770aa814abc3f1541a443f54, type: 3}
+      propertyPath: wateredTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e316bb65bbe2724e9c5d494b23f6da3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4634,7 +4641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[0].EventName
-      value: OnUse
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[1].EventName
@@ -4642,7 +4649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[0].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[1].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.size
@@ -4674,7 +4681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[0].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UseItem
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[1].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4682,7 +4689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[0].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SunnyFarm.Game.Managers.ToolController, Assembly-CSharp
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[1].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -4690,7 +4697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[0].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[1].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

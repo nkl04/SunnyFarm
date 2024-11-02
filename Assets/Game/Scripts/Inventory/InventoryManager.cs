@@ -135,7 +135,7 @@ namespace SunnyFarm.Game.Inventory
         {
             if (slot.slotLocation == InventorySlotLocation.ToolBar)
             {
-                if (CanChangeSelectedInventorySlot) return;
+                if (!CanChangeSelectedInventorySlot) return;
 
                 SelectSlot(slot);
             }

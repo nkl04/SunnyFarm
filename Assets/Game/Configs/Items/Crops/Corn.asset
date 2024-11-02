@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Corn
   m_EditorClassIdentifier: 
   ID: 10011
-  ItemType: 5
+  ItemType: 2
   Name: Corn
   Description: One of the most popular grains. The sweet, fresh cobs are a summer
     favorite.

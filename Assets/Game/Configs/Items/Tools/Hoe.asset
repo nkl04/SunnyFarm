@@ -28,4 +28,4 @@ MonoBehaviour:
   ChargeConsume: 0
   OffsetDistance: 1
   InteractableAreaSize: 0.5
-  CanPowerUp: 1
+  CanPowerUp: 0

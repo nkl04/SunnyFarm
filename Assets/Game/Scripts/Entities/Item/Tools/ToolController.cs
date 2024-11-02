@@ -27,8 +27,8 @@ namespace SunnyFarm.Game.Managers
             }
             if (Input.GetMouseButton(0) && !isUseTool)
             {
-                toolBehaviour.OnHold(ref isUseTool);
                 tileDetail = TileActionCheck();
+                toolBehaviour.OnHold(ref isUseTool);
             }
             if (Input.GetMouseButtonUp(0))
             {

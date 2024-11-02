@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Potato
   m_EditorClassIdentifier: 
   ID: 10006
-  ItemType: 5
+  ItemType: 2
   Name: Potato
   Description: A widely cultivated tuber.
   ItemImage: {fileID: 988784020, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}

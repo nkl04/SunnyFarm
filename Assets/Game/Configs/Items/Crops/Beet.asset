@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beet
   m_EditorClassIdentifier: 
   ID: 10001
-  ItemType: 5
+  ItemType: 2
   Name: Beet
   Description: A sweet and earthy root vegetable. As a bonus, the leaves make a great
     salad.

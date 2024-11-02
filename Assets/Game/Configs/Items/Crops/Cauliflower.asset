@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cauliflower
   m_EditorClassIdentifier: 
   ID: 10003
-  ItemType: 5
+  ItemType: 2
   Name: Cauliflower
   Description: Valuable, but slow-growing. Despite its pale color, the florets are
     packed with nutrients.

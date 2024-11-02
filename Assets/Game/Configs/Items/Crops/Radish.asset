@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Radish
   m_EditorClassIdentifier: 
   ID: 10008
-  ItemType: 5
+  ItemType: 2
   Name: Radish
   Description: A crisp and refreshing root vegetable with hints of pepper when eaten
     raw.

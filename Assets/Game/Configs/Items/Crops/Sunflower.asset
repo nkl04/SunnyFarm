@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sunflower
   m_EditorClassIdentifier: 
   ID: 10009
-  ItemType: 5
+  ItemType: 2
   Name: Sunflower
   Description: A common misconception is that the flower turns so it's always facing
     the sun.

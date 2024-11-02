@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kale
   m_EditorClassIdentifier: 
   ID: 10004
-  ItemType: 5
+  ItemType: 2
   Name: Kale
   Description: The waxy leaves are great in soups and stir fries.
   ItemImage: {fileID: -1619762659, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Parsnip
   m_EditorClassIdentifier: 
   ID: 10005
-  ItemType: 5
+  ItemType: 2
   Name: Parsnip
   Description: A spring tuber closely related to the carrot. It has an earthy taste
     and is full of nutrients.

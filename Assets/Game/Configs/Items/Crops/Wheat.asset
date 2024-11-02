@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wheat
   m_EditorClassIdentifier: 
   ID: 10010
-  ItemType: 5
+  ItemType: 2
   Name: Wheat
   Description: One of the most widely cultivated grains. Makes a great flour for
     breads and cakes.

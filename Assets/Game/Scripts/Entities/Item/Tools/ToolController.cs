@@ -7,10 +7,10 @@ namespace SunnyFarm.Game.Managers
 
     public class ToolController : ItemController
     {
-        [SerializeField] protected ToolDetail toolDetail;
         protected GridPropertiesDetail tileDetail;
 
         private ToolBehaviour toolBehaviour;
+
         private ToolBehaviourMap toolBehaviourMap;
 
         protected override void Awake()
@@ -41,17 +41,20 @@ namespace SunnyFarm.Game.Managers
             toolBehaviour?.Reactivate();
 
             base.SetUpDetail(_itemDetail);
-            toolDetail = _itemDetail as ToolDetail;
-            toolBehaviour = toolBehaviourMap.GetToolBehaviour(toolDetail, player);
+
+            itemDetail = _itemDetail;
+
+            toolBehaviour = toolBehaviourMap.GetToolBehaviour((ToolDetail)itemDetail, player);
         }
 
         public GridPropertiesDetail TileActionCheck()
         {
             Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
+
             Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
 
             var distance = Vector2.Distance(new Vector2(cursorGridPosition.x, cursorGridPosition.y), new Vector2(playerGridPosition.x, playerGridPosition.y));
-            if (distance == toolDetail.OffsetDistance || distance == toolDetail.OffsetDistance * Mathf.Sqrt(2))
+            if (distance == ((ToolDetail)itemDetail).OffsetDistance || distance == ((ToolDetail)itemDetail).OffsetDistance * Mathf.Sqrt(2))
             {
                 // change the last movement based on cursor position
                 player.LastMovementInput = new Vector2(cursorGridPosition.x - playerGridPosition.x, cursorGridPosition.y - playerGridPosition.y);
@@ -75,14 +78,16 @@ namespace SunnyFarm.Game.Managers
             else
             {
                 var playerDirection = player.GetPlayerDirection();
+
                 var position = playerGridPosition + new Vector3Int(playerDirection.x, playerDirection.y, 0);
+
                 return GridPropertiesController.Instance.GetGridPropertyDetail(position.x, position.y);
             }
         }
 
         protected virtual void HitBox(Vector2 position, out bool havingObj)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, toolDetail.InteractableAreaSize);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, ((ToolDetail)itemDetail).InteractableAreaSize);
 
             havingObj = false;
 
@@ -95,7 +100,7 @@ namespace SunnyFarm.Game.Managers
                 {
                     havingObj = true;
 
-                    if (toolHit.CanBeHit(toolDetail.ResourceCanBeHit))
+                    if (toolHit.CanBeHit(((ToolDetail)itemDetail).ResourceCanBeHit))
                     {
                         toolHit.Hit(player);
                     }

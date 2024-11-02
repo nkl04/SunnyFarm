@@ -4645,7 +4645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[1].EventName
-      value: OnFinish
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[0].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.size
@@ -4653,7 +4653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[1].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3598902361172694791, guid: a2fd93d8cc434774aabbb04c3860b6e1, type: 3}
       propertyPath: animationEvents.Array.data[0].OnAnimationUnityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

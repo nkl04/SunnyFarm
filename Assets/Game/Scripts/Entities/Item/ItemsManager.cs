@@ -17,11 +17,15 @@ public class ItemsManager : MonoBehaviour
 
     private Player player;
 
+    private AnimationEventReceiver receiver;
+
     private void Start()
     {
         player = GetComponentInParent<Player>();
 
-        SetupToolAnimationEvents(player.GetComponentInChildren<AnimationEventReceiver>());
+        receiver = player.GetComponentInChildren<AnimationEventReceiver>();
+
+        SetupToolAnimationEvents(receiver);
 
         EventHandlers.OnInventoryItemSelected += OnInventoryItemSelected;
     }

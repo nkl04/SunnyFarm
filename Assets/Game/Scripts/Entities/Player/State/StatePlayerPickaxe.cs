@@ -21,6 +21,10 @@ namespace SunnyFarm.Game.State.Player
 
         public override void Enter()
         {
+            this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_X, this.player.LastMovementInput.x);
+
+            this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_Y, this.player.LastMovementInput.y);
+
             this.player.Animator.SetBool(Constant.Player.IS_PICKAXING, true);
 
             GameInputManager.Instance.CanToggleInventory = false;

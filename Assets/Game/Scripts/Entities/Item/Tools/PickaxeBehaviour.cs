@@ -1,10 +1,10 @@
-using SunnyFarm.Game.Entities.Item;
+using SunnyFarm.Game.Entities.Item.Data;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 
 public class PickaxeBehaviour : ToolBehaviour
 {
-    public PickaxeBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
+    public PickaxeBehaviour(ConfigItemTool _toolDetail, Player _player) : base(_toolDetail, _player)
     {
     }
 

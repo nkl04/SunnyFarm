@@ -32,7 +32,7 @@ public class ItemsManager : MonoBehaviour
 
     private void OnInventoryItemSelected(InventoryKey key, string itemId)
     {
-        ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+        ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
         if (player.InventoryKey != key) return;
 
@@ -41,7 +41,7 @@ public class ItemsManager : MonoBehaviour
         SetSelectedItem(itemDetail);
     }
 
-    public void SetSelectedItem(ItemDetail item)
+    public void SetSelectedItem(ConfigItem item)
     {
 
         _usingController = null;

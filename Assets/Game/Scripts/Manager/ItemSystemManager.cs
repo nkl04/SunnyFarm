@@ -10,7 +10,7 @@ namespace SunnyFarm.Game.Managers
     public class ItemSystemManager : Singleton<ItemSystemManager>
     {
         [SerializeField] private ConfigItemList configItemList;
-        private Dictionary<string, ItemDetail> itemDetails = new Dictionary<string, ItemDetail>();
+        private Dictionary<string, ConfigItem> itemDetails = new Dictionary<string, ConfigItem>();
 
         protected override void Awake()
         {
@@ -23,7 +23,7 @@ namespace SunnyFarm.Game.Managers
         /// </summary>
         private void CreateItemDetailsDictionary()
         {
-            itemDetails = new Dictionary<string, ItemDetail>();
+            itemDetails = new Dictionary<string, ConfigItem>();
 
             foreach (var itemDetail in configItemList.itemDetails)
             {
@@ -36,7 +36,7 @@ namespace SunnyFarm.Game.Managers
         /// </summary>
         /// <param name="itemID"></param>
         /// <returns></returns>
-        public ItemDetail GetItemDetail(string itemID)
+        public ConfigItem GetItemDetail(string itemID)
         {
             if (itemID == null) return null;
 

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1866ef7ea6ce7347967869dfc388e04, type: 3}
+  m_Name: Crop_Parsnip
+  m_EditorClassIdentifier: 
+  seedItemId: S10001
+  growthStages: 
+  totalGrowthDays: 0
+  growthSprite: []
+  harvestedSprite: {fileID: 0}
+  seasons: 
+  harvestedItemId: 0
+  harvestedToolItemId: 
+  cropProductedItemId: []
+  cropProductedMinQuantity: 
+  cropProductedMaxQuantity: 
+  daysToRegrow: 0

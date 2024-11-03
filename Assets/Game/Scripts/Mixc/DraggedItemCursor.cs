@@ -31,7 +31,7 @@ public class DraggedItemCursor : MonoBehaviour
 
     public void SetUIVisual(InventoryItem inventoryItem)
     {
-        ItemDetail itemDetails = ItemSystemManager.Instance.GetItemDetail(inventoryItem.itemID);
+        ConfigItem itemDetails = ItemSystemManager.Instance.GetItemDetail(inventoryItem.itemID);
 
         if (itemDetails != null && !inventoryItem.isEmpty)
         {

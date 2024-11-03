@@ -109,7 +109,7 @@ namespace SunnyFarm.Game.Inventory.Data
         /// <param name="quantity"></param>
         public void AddItem(InventoryKey inventoryKey, string itemId, int quantity)
         {
-            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+            ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
             if (itemDetail.IsStackable)
             {
@@ -163,7 +163,7 @@ namespace SunnyFarm.Game.Inventory.Data
         /// </summary>
         /// <param name="item"></param>    
         /// <param name="quantity"></param>
-        public void AddStackableItem(InventoryKey inventoryKey, ItemDetail item, int quantity)
+        public void AddStackableItem(InventoryKey inventoryKey, ConfigItem item, int quantity)
         {
             InventoryItem[] inventoryItems = inventoryDictionary[inventoryKey];
 
@@ -235,7 +235,7 @@ namespace SunnyFarm.Game.Inventory.Data
         {
             InventoryItem inventoryItem = inventoryDictionary[inventoryKey][slotIndex];
 
-            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(inventoryItem.itemID);
+            ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(inventoryItem.itemID);
 
             if (itemDetail.IsStackable && inventoryItem.itemID == dragItem.InventoryItem.itemID)
             {
@@ -332,7 +332,7 @@ namespace SunnyFarm.Game.Inventory.Data
 
         private bool IsInventorySlotFullStackWithItem(string itemId, InventoryItem[] inventoryItems, int slotPosition)
         {
-            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+            ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
             int itemStackSize = itemDetail.MaxStackSize;
 

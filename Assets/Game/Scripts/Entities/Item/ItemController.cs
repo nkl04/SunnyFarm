@@ -8,7 +8,7 @@ public abstract class ItemController : MonoBehaviour
 {
     protected Player player;
     protected Rigidbody2D rb2d;
-    protected ItemDetail itemDetail;
+    protected ConfigItem itemDetail;
     protected GridCursor gridCursor;
 
     protected bool isUseTool = false;
@@ -33,7 +33,7 @@ public abstract class ItemController : MonoBehaviour
         gridCursor = _gridCursor;
     }
 
-    public virtual void SetUpDetail(ItemDetail _itemDetail)
+    public virtual void SetUpDetail(ConfigItem _itemDetail)
     {
         itemDetail = _itemDetail;
     }

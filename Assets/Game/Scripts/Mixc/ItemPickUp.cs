@@ -43,7 +43,7 @@ namespace SunnyFarm.Game
             Item item = collision.GetComponent<Item>();
             if (item != null)
             {
-                ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(item.ItemID);
+                ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(item.ItemID);
                 if (itemDetail.CanBePickUp)
                 {
                     if (!InventoryManager.Instance.InventoryData.IsInventoryFullWithItem(itemDetail.ID, player.InventoryKey)

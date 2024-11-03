@@ -1,4 +1,4 @@
-using SunnyFarm.Game.Entities.Item;
+using SunnyFarm.Game.Entities.Item.Data;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 using static SunnyFarm.Game.Constant.Enums;
@@ -11,7 +11,7 @@ public class ToolBehaviourMap
 
     }
 
-    public ToolBehaviour GetToolBehaviour(ToolDetail toolDetail, Player player)
+    public ToolBehaviour GetToolBehaviour(ConfigItemTool toolDetail, Player player)
     {
         if (behaviours.TryGetValue(toolDetail.ToolType, out ToolBehaviour behaviour))
         {
@@ -24,7 +24,7 @@ public class ToolBehaviourMap
         }
     }
 
-    private ToolBehaviour CreateToolBehaviour(ToolDetail toolDetail, Player player)
+    private ToolBehaviour CreateToolBehaviour(ConfigItemTool toolDetail, Player player)
     {
         switch (toolDetail.ToolType)
         {

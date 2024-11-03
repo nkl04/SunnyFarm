@@ -49,7 +49,7 @@ namespace SunnyFarm.Game.Utilities.PropertyDrawer.Editor
                 return "";
             }
 
-            ItemDetail itemDetail = Array.Find(configItemList.itemDetails, item => item.ID == itemID);
+            ConfigItem itemDetail = Array.Find(configItemList.itemDetails, item => item.ID == itemID);
 
             if (itemDetail != null)
             {

@@ -1,4 +1,4 @@
-using SunnyFarm.Game.Entities.Item;
+using SunnyFarm.Game.Entities.Item.Data;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +8,7 @@ public class HoeBehaviour : ToolBehaviour
 {
     private float holdTime;
 
-    public HoeBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
+    public HoeBehaviour(ConfigItemTool _toolDetail, Player _player) : base(_toolDetail, _player)
     {
     }
 

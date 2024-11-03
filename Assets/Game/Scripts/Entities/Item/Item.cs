@@ -30,7 +30,7 @@ namespace SunnyFarm.Game.Entities.Item
         {
             if (itemID != null)
             {
-                ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemID);
+                ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(itemID);
 
                 spriteRenderer.sprite = itemDetail.ItemImage;
 

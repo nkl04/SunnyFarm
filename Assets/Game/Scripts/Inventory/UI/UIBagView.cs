@@ -45,7 +45,7 @@ namespace SunnyFarm.Game.Inventory.UI
 
                             int itemQuantity = inventoryItem.quantity;
 
-                            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+                            ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
                             if (itemDetail != null && itemQuantity > 0)
                             {

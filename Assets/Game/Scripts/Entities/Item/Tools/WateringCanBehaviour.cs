@@ -1,4 +1,4 @@
-using SunnyFarm.Game.Entities.Item;
+using SunnyFarm.Game.Entities.Item.Data;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +10,7 @@ public class WateringCanBehaviour : ToolBehaviour
 
     private int charges;
 
-    public WateringCanBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
+    public WateringCanBehaviour(ConfigItemTool _toolDetail, Player _player) : base(_toolDetail, _player)
     {
         charges = toolDetail.ChargeCapacity;
     }

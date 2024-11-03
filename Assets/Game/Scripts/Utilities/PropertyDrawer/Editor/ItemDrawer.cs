@@ -41,7 +41,7 @@ namespace SunnyFarm.Game.Utilities.PropertyDrawer.Editor
 
         private string GetItemName(string itemID)
         {
-            ConfigItemList configItemList = AssetDatabase.LoadAssetAtPath<ConfigItemList>("Assets/Game/Configs/ItemList.asset") as ConfigItemList;
+            ConfigItemList configItemList = AssetDatabase.LoadAssetAtPath<ConfigItemList>("Assets/Game/Configs/ConfigItemList.asset") as ConfigItemList;
 
             if (configItemList == null)
             {
@@ -49,7 +49,7 @@ namespace SunnyFarm.Game.Utilities.PropertyDrawer.Editor
                 return "";
             }
 
-            ConfigItem itemDetail = Array.Find(configItemList.itemDetails, item => item.ID == itemID);
+            ConfigItem itemDetail = Array.Find(configItemList.configItemDetails, item => item.ID == itemID);
 
             if (itemDetail != null)
             {

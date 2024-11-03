@@ -1,10 +1,12 @@
 namespace SunnyFarm.Game.Entities.Crops.Data
 {
     using SunnyFarm.Game.Utilities.PropertyDrawer;
+    using System.Linq;
+    using Unity.VisualScripting;
     using UnityEngine;
     using static SunnyFarm.Game.Constant.Enums;
 
-    [CreateAssetMenu(fileName = "CropDetail", menuName = "Configs/Crop/CropDetail")]
+    [CreateAssetMenu(fileName = "CropDetail", menuName = "Configs/Crop/ConfigCrop")]
     public class ConfigCrop : ScriptableObject
     {
         [Header("Seed")]
@@ -46,13 +48,29 @@ namespace SunnyFarm.Game.Entities.Crops.Data
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (growthStages == null) return;
-
-            totalGrowthDays = 0;
-
-            for (int i = 0; i < growthStages.Length; i++)
+            if (!string.IsNullOrEmpty(seedItemId))
             {
-                totalGrowthDays += growthStages[i];
+                var number = new string(seedItemId.Where(char.IsDigit).ToArray());
+
+                var productId = "C" + number;
+
+                if (cropProductedItemId.Length == 0)
+                {
+                    cropProductedItemId = new string[1];
+                    cropProductedItemId[0] = productId;
+                }
+
+            }
+
+
+            if (growthStages != null)
+            {
+                totalGrowthDays = 0;
+
+                for (int i = 0; i < growthStages.Length; i++)
+                {
+                    totalGrowthDays += growthStages[i];
+                }
             }
         }
 #endif

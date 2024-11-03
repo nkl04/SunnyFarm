@@ -5268,6 +5268,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4071387772327257882, guid: db2a29ae488c40c4281caa8cca393819, type: 3}
+      propertyPath: configCropList
+      value: 
+      objectReference: {fileID: 11400000, guid: e6db6695c3b5fc64fb997fee0c539e55, type: 2}
     - target: {fileID: 5398561634895714900, guid: db2a29ae488c40c4281caa8cca393819, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

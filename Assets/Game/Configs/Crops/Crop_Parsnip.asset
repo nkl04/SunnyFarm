@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a77bb214d409ae5449453fc28c75c6e6, type: 3}
   harvestedSprite: {fileID: 21300000, guid: 665d9fa1b36d0b14fb0f30ec694045ea, type: 3}
   seasons: 00000000
-  harvestedToolItemId: 
+  harvestedToolItemId: 0
   cropProductedItemId:
   - C10005
   cropProductedMinQuantity: 01000000

@@ -836,6 +836,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 242113707}
     - target: {fileID: 3606628475194375919, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
+      propertyPath: itemWorldPrefab
+      value: 
+      objectReference: {fileID: 3900666391890391650, guid: fbbb5bacd4231b942ac500e5cd1030cf, type: 3}
+    - target: {fileID: 3606628475194375919, guid: be9fa21329cd6ca4eb4d815f3f327fd7, type: 3}
       propertyPath: draggedItemCursor
       value: 
       objectReference: {fileID: 2243871346806502736}

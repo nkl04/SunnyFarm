@@ -94,11 +94,11 @@ namespace SunnyFarm.Game.Inventory.UI
         #region Events
         public void OnPointerEnter(PointerEventData eventData)
         {
-            EventHandlers.CallOnItemHover(this);
+            EventHandlers.CallOnPointerEnter(this);
         }
         public void OnPointerExit(PointerEventData eventData)
         {
-            EventHandlers.CallOnItemEndHover(this);
+            EventHandlers.CallOnPointerExit(this);
         }
         public void OnPointerClick(PointerEventData eventData)
         {

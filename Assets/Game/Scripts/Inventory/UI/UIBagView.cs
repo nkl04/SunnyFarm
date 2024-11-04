@@ -6,7 +6,9 @@ namespace SunnyFarm.Game.Inventory.UI
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
     using TMPro;
+    using Unity.VisualScripting;
     using UnityEngine;
+    using UnityEngine.EventSystems;
     using UnityEngine.InputSystem;
     using static SunnyFarm.Game.Constant.Enums;
 
@@ -16,6 +18,7 @@ namespace SunnyFarm.Game.Inventory.UI
         [SerializeField] private Color selectedInventorySlotColor;
         [SerializeField] private Color baseInventorySlotColor;
         [SerializeField] private Sprite lockedSlotSprite;
+        [SerializeField] private GameObject dropItemToWorldArea;
 
         public override void SetupUIInventorySlot(InventoryKey inventoryKey)
         {
@@ -134,6 +137,5 @@ namespace SunnyFarm.Game.Inventory.UI
             }
         }
     }
-
 }
 

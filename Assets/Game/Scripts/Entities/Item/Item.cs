@@ -9,8 +9,13 @@ namespace SunnyFarm.Game.Entities.Item
     {
         public string ItemID { get => itemID; set => itemID = value; }
 
+        public int Quantity { get => quantity; set => quantity = value; }
+
         [ItemAttribute]
         [SerializeField] private string itemID;
+
+        [SerializeField] private int quantity;
+
         private SpriteRenderer spriteRenderer;
 
         private void Awake()
@@ -24,6 +29,12 @@ namespace SunnyFarm.Game.Entities.Item
             {
                 Init(itemID);
             }
+        }
+
+        public void SetUp(string itemID, int quantity = 1)
+        {
+            this.itemID = itemID;
+            this.quantity = quantity;
         }
 
         public void Init(string itemID)

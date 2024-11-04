@@ -13,6 +13,8 @@ public class DraggedItemCursor : MonoBehaviour
     [SerializeField] private TextMeshProUGUI quantityItemText;
 
     [HideInInspector] public InventoryItem InventoryItem;
+
+    [HideInInspector] public InventoryKey InventoryKey;
     [HideInInspector] public bool IsEmpty => InventoryItem.isEmpty;
 
     private void Awake()
@@ -48,7 +50,7 @@ public class DraggedItemCursor : MonoBehaviour
 
     public void ClearDraggedItem()
     {
-        InventoryItem = new InventoryItem();
+        InventoryItem = new InventoryItem(null);
         selectedItemImage.sprite = transparentSprite;
         quantityItemText.text = string.Empty;
     }

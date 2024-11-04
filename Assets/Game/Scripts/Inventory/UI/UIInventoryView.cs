@@ -5,6 +5,7 @@ namespace SunnyFarm.Game.Inventory.UI
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Managers;
     using UnityEngine;
+    using UnityEngine.EventSystems;
 
     public abstract class UIInventoryView : MonoBehaviour
     {
@@ -18,15 +19,15 @@ namespace SunnyFarm.Game.Inventory.UI
         protected virtual void OnEnable()
         {
 
-            EventHandlers.OnItemHover += HandleItemHover;
-            EventHandlers.OnItemEndHover += HandleItemEndHover;
+            EventHandlers.OnPointerEnter += HandleItemHover;
+            EventHandlers.OnPointerExit += HandleItemEndHover;
         }
 
         protected virtual void OnDisable()
         {
 
-            EventHandlers.OnItemHover -= HandleItemHover;
-            EventHandlers.OnItemEndHover -= HandleItemEndHover;
+            EventHandlers.OnPointerEnter -= HandleItemHover;
+            EventHandlers.OnPointerExit -= HandleItemEndHover;
         }
 
         public virtual void SetupUIInventorySlot(InventoryKey inventoryKey) { }
@@ -35,9 +36,11 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <summary>
         /// Show the description of the item
         /// </summary>
-        /// <param name="uiSlot"></param>
-        protected void HandleItemHover(UIInventorySlot uiSlot)
+        /// <param name="_object"></param>
+        protected void HandleItemHover(IPointerEnterHandler _object)
         {
+            UIInventorySlot uiSlot = _object as UIInventorySlot;
+
             ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(uiSlot.itemID);
 
             if (itemDetail != null)
@@ -67,7 +70,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// Show the description of the item
         /// </summary>
         /// <param name="item"></param>
-        protected void HandleItemEndHover(UIInventorySlot item)
+        protected void HandleItemEndHover(IPointerExitHandler _object)
         {
             uiInventoryDescription.gameObject.SetActive(false);
         }

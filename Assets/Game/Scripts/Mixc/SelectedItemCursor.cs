@@ -16,6 +16,8 @@ public class SelectedItemCursor : MonoBehaviour
 
     [HideInInspector] public InventoryItem InventoryItem;
 
+    [HideInInspector] public InventoryKey InventoryKey;
+
     private void Awake()
     {
         selectedItemImage.sprite = transparentSprite;

@@ -35,7 +35,7 @@ namespace SunnyFarm.Game.Managers
                 toolBehaviour.OnRelease();
             }
         }
-        public override void SetUpDetail(ItemDetail _itemDetail)
+        public override void SetUpDetail(ConfigItem _itemDetail)
         {
             // before set up data, reactivate tool
             toolBehaviour?.Reactivate();
@@ -44,7 +44,7 @@ namespace SunnyFarm.Game.Managers
 
             itemDetail = _itemDetail;
 
-            toolBehaviour = toolBehaviourMap.GetToolBehaviour((ToolDetail)itemDetail, player);
+            toolBehaviour = toolBehaviourMap.GetToolBehaviour((ConfigItemTool)itemDetail, player);
         }
 
         public GridPropertiesDetail TileActionCheck()
@@ -54,7 +54,7 @@ namespace SunnyFarm.Game.Managers
             Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
 
             var distance = Vector2.Distance(new Vector2(cursorGridPosition.x, cursorGridPosition.y), new Vector2(playerGridPosition.x, playerGridPosition.y));
-            if (distance == ((ToolDetail)itemDetail).OffsetDistance || distance == ((ToolDetail)itemDetail).OffsetDistance * Mathf.Sqrt(2))
+            if (distance == ((ConfigItemTool)itemDetail).OffsetDistance || distance == ((ConfigItemTool)itemDetail).OffsetDistance * Mathf.Sqrt(2))
             {
                 // change the last movement based on cursor position
                 player.LastMovementInput = new Vector2(cursorGridPosition.x - playerGridPosition.x, cursorGridPosition.y - playerGridPosition.y);
@@ -87,7 +87,7 @@ namespace SunnyFarm.Game.Managers
 
         protected virtual void HitBox(Vector2 position, out bool havingObj)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, ((ToolDetail)itemDetail).InteractableAreaSize);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, ((ConfigItemTool)itemDetail).InteractableAreaSize);
 
             havingObj = false;
 
@@ -100,7 +100,7 @@ namespace SunnyFarm.Game.Managers
                 {
                     havingObj = true;
 
-                    if (toolHit.CanBeHit(((ToolDetail)itemDetail).ResourceCanBeHit))
+                    if (toolHit.CanBeHit(((ConfigItemTool)itemDetail).ResourceCanBeHit))
                     {
                         toolHit.Hit(player);
                     }

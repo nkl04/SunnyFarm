@@ -29,7 +29,7 @@ namespace SunnyFarm.Game.Inventory
         };
 
         [Header("Initial Invenory Data")]
-        [SerializeField] private ItemDetail[] initialInventoryItems;
+        [SerializeField] private ConfigItem[] initialInventoryItems;
 
         [Header("UI Inventory")]
 
@@ -85,7 +85,7 @@ namespace SunnyFarm.Game.Inventory
 
             uiBagView.UpdateUIBagCapacity(inventoryKey, evolveInventoryMap[1]);
 
-            foreach (ItemDetail itemDetail in initialInventoryItems)
+            foreach (ConfigItem itemDetail in initialInventoryItems)
             {
                 inventoryData.AddItem(inventoryKey, itemDetail.ID, 1);
             }
@@ -247,7 +247,7 @@ namespace SunnyFarm.Game.Inventory
                 InventoryData.SetSelectedInventoryItem(slot.inventoryKey, slot.itemID);
 
                 // set the selected item to the cursor
-                ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(slot.itemID);
+                ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(slot.itemID);
 
                 if (itemDetail != null && itemDetail.CanBeCarried)
                 {

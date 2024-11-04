@@ -1,12 +1,12 @@
-using SunnyFarm.Game.Entities.Item;
+using SunnyFarm.Game.Entities.Item.Data;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 
 public abstract class ToolBehaviour
 {
-    protected ToolDetail toolDetail;
+    protected ConfigItemTool toolDetail;
     protected Player player;
-    public ToolBehaviour(ToolDetail _toolDetail, Player _player)
+    public ToolBehaviour(ConfigItemTool _toolDetail, Player _player)
     {
         toolDetail = _toolDetail;
         player = _player;

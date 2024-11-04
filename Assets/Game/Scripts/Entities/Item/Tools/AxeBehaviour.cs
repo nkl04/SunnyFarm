@@ -1,10 +1,10 @@
-using SunnyFarm.Game.Entities.Item;
+using SunnyFarm.Game.Entities.Item.Data;
 using SunnyFarm.Game.Entities.Player;
 using System.Collections.Generic;
 
 public class AxeBehaviour : ToolBehaviour
 {
-    public AxeBehaviour(ToolDetail _toolDetail, Player _player) : base(_toolDetail, _player)
+    public AxeBehaviour(ConfigItemTool _toolDetail, Player _player) : base(_toolDetail, _player)
     {
     }
 

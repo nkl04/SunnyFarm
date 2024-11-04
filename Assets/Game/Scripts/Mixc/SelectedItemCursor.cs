@@ -29,7 +29,7 @@ public class SelectedItemCursor : MonoBehaviour
     {
         ClearData();
 
-        ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
+        ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(itemId);
 
         if (!string.IsNullOrEmpty(itemId) && quantity > 0)
         {

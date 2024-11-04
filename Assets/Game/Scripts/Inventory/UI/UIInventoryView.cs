@@ -38,7 +38,7 @@ namespace SunnyFarm.Game.Inventory.UI
         /// <param name="uiSlot"></param>
         protected void HandleItemHover(UIInventorySlot uiSlot)
         {
-            ItemDetail itemDetail = ItemSystemManager.Instance.GetItemDetail(uiSlot.itemID);
+            ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(uiSlot.itemID);
 
             if (itemDetail != null)
             {

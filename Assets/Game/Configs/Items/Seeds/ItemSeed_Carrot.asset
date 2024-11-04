@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e34dff5bb969249933c55c2e318b6a, type: 3}
+  m_Name: ItemSeed_Carrot
+  m_EditorClassIdentifier: 
+  ID: S10001
+  ItemType: 1
+  Name: Carrot Seeds
+  Description: A fast-growing, colorful tuber that makes for a great snack.
+  ItemImage: {fileID: 1410049437, guid: 6ffa165bf7770e04c81d2ef97c52b6ab, type: 3}
+  IsStackable: 1
+  MaxStackSize: 32
+  CanBePickUp: 1
+  CanBeCarried: 1
+  CanBeSold: 1
+  CanBePlanted: 1
+  buyPrice: 0
+  sellPrice: 0

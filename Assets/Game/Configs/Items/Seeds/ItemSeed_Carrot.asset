@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e34dff5bb969249933c55c2e318b6a, type: 3}
   m_Name: ItemSeed_Carrot
   m_EditorClassIdentifier: 
-  ID: S10001
+  ID: S10002
   ItemType: 1
   Name: Carrot Seeds
   Description: A fast-growing, colorful tuber that makes for a great snack.

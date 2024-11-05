@@ -29,6 +29,7 @@ namespace SunnyFarm.Game.Entities.Player
         public bool IsDigPressed { get; set; } = false;
         public bool IsPickaxePressed { get; set; } = false;
         public bool IsWaterPressed { get; set; } = false;
+        public bool IsFishingPressed { get; set; } = false;
         public bool IsFacingRight { get; set; } = true;
 
         public InventoryKey InventoryKey { get; private set; }

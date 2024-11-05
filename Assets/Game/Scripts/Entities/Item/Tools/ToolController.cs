@@ -1,12 +1,14 @@
 namespace SunnyFarm.Game.Managers
 {
-    using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
     using System.Collections.Generic;
     using UnityEngine;
 
     public class ToolController : ItemController
     {
+        [SerializeField] private FishingManager fishingManager; // assign it to fishing behaviour
+
+
         protected GridPropertiesDetail tileDetail;
 
         private ToolBehaviour toolBehaviour;
@@ -17,7 +19,7 @@ namespace SunnyFarm.Game.Managers
         {
             base.Awake();
 
-            toolBehaviourMap = new ToolBehaviourMap();
+            toolBehaviourMap = new ToolBehaviourMap(fishingManager);
         }
         protected override void Update()
         {

@@ -125,6 +125,7 @@ namespace SunnyFarm.Game
                 Hoe,
                 Pickaxe,
                 WateringCan,
+                FishingPole,
             }
 
             public enum ResourceType

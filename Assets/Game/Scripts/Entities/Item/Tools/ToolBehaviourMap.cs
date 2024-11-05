@@ -5,10 +5,11 @@ using static SunnyFarm.Game.Constant.Enums;
 
 public class ToolBehaviourMap
 {
+    private FishingManager fishingManager;
     Dictionary<ToolType, ToolBehaviour> behaviours = new Dictionary<ToolType, ToolBehaviour>();
-    public ToolBehaviourMap()
+    public ToolBehaviourMap(FishingManager _fishingManager)
     {
-
+        fishingManager = _fishingManager;
     }
 
     public ToolBehaviour GetToolBehaviour(ConfigItemTool toolDetail, Player player)
@@ -36,7 +37,8 @@ public class ToolBehaviourMap
                 return new PickaxeBehaviour(toolDetail, player);
             case ToolType.WateringCan:
                 return new WateringCanBehaviour(toolDetail, player);
-
+            case ToolType.FishingPole:
+                return new FishingBehaviour(toolDetail, player, fishingManager);
             default:
                 return null;
         }

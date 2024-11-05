@@ -287,9 +287,17 @@ namespace SunnyFarm.Game.Inventory.Data
 
         #region Remove item logic
 
-        public void RemoveItem(InventoryKey inventoryKey, string itemId, int quantity)
+        public void RemoveItem(InventoryKey inventoryKey, string itemId, int quantity, int slotIndex)
         {
             InventoryItem[] inventoryItemList = inventoryDictionary[inventoryKey];
+
+            InventoryItem inventoryItem = inventoryItemList[slotIndex];
+
+            if (inventoryItem.isEmpty) return;
+
+            if (inventoryItem.itemID != itemId) return;
+
+            inventoryItem.IncrementQuantity(-quantity);
 
             EventHandlers.CallOnInventoryUpdated(inventoryKey, inventoryDictionary[inventoryKey]);
         }

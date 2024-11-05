@@ -3,6 +3,7 @@ namespace SunnyFarm.Game.Entities.Player
     using SunnyFarm.Game.Input;
     using SunnyFarm.Game.Inventory;
     using SunnyFarm.Game.Inventory.Data;
+    using SunnyFarm.Game.Managers;
     using SunnyFarm.Game.Managers.GameInput;
     using SunnyFarm.Game.State.Player;
     using SunnyFarm.Game.StateMachine;
@@ -75,6 +76,8 @@ namespace SunnyFarm.Game.Entities.Player
 
             // create inventory data for this player
             InventoryKey = new InventoryKey(InventoryLocation.Player, Random.Range(0, 999999));
+
+            GameManager.Instance.RegisterPlayer(InventoryKey, this);
 
             InventoryManager.Instance.AddInventory(InventoryKey);
         }

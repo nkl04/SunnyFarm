@@ -24,5 +24,7 @@ namespace SunnyFarm.Game.Entities.Item.Data
         public bool CanBeCarried;
 
         public bool CanBeSold;
+
+        public bool CanBeDropped;
     }
 }

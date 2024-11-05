@@ -1707,7 +1707,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transparentSprite: {fileID: 21300000, guid: 305dfe4ec8f03af4d96c9bd512013edc, type: 3}
   uiInventoryDescription: {fileID: 2420843094998766428, guid: f5612bc6889273b4ba79b897ebc6ec72, type: 3}
-  itemCursor: {fileID: 1042091525336794905, guid: e2438e641f40b584d825877f9611bfa6, type: 3}
   uiInventorySlots:
   - {fileID: 5296142740785320095}
   - {fileID: 1997037911310563379}
@@ -1761,6 +1760,7 @@ MonoBehaviour:
   selectedInventorySlotColor: {r: 1, g: 0.0018941243, b: 0, a: 1}
   baseInventorySlotColor: {r: 1, g: 1, b: 1, a: 1}
   lockedSlotSprite: {fileID: 1218549551, guid: b8c5fc3d3a5130a40b1db76f95276846, type: 3}
+  dropItemToWorldArea: {fileID: 7847410377762536830}
 --- !u!1 &7847410377762536830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,8 +1772,9 @@ GameObject:
   - component: {fileID: 719608860486292324}
   - component: {fileID: 9038355607253690954}
   - component: {fileID: 8585627380228572298}
+  - component: {fileID: 3485001474813454865}
   m_Layer: 5
-  m_Name: BG
+  m_Name: DropItemArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1836,6 +1837,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3485001474813454865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847410377762536830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45016bae98e07884fb37708f3df45e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8368278924642004408
 GameObject:
   m_ObjectHideFlags: 0

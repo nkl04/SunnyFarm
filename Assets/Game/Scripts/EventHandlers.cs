@@ -6,6 +6,7 @@ namespace SunnyFarm.Game
     using System;
     using System.Collections.Generic;
     using Unity.VisualScripting;
+    using UnityEngine.EventSystems;
     using static SunnyFarm.Game.Constant.Enums;
 
     public static class EventHandlers
@@ -71,31 +72,6 @@ namespace SunnyFarm.Game
         public static void CallOnInventoryUpdated(InventoryKey inventoryKey, InventoryItem[] inventoryItems)
         {
             OnInventoryUpdated?.Invoke(inventoryKey, inventoryItems);
-        }
-
-        public static event Action<UIInventorySlot> OnItemHover,
-                                                    OnItemEndHover,
-                                                    OnLeftPointerClick,
-                                                    OnRightPointerClick;
-
-        public static void CallOnItemHover(UIInventorySlot item)
-        {
-            OnItemHover?.Invoke(item);
-        }
-
-        public static void CallOnItemEndHover(UIInventorySlot item)
-        {
-            OnItemEndHover?.Invoke(item);
-        }
-
-        public static void CallOnLeftPointerClick(UIInventorySlot item)
-        {
-            OnLeftPointerClick?.Invoke(item);
-        }
-
-        public static void CallOnRightPointerClick(UIInventorySlot item)
-        {
-            OnRightPointerClick?.Invoke(item);
         }
 
         /// <summary>
@@ -288,6 +264,37 @@ namespace SunnyFarm.Game
         #endregion
 
         #region Player Input Events
+        /// <summary>
+        /// Event to handle the pointer actions
+        /// </summary>
+        public static event Action<IPointerEnterHandler> OnPointerEnter;
+
+        public static event Action<IPointerExitHandler> OnPointerExit;
+
+        public static event Action<IPointerClickHandler> OnLeftPointerClick;
+
+        public static event Action<IPointerClickHandler> OnRightPointerClick;
+
+        public static void CallOnPointerEnter(IPointerEnterHandler item)
+        {
+            OnPointerEnter?.Invoke(item);
+        }
+
+        public static void CallOnPointerExit(IPointerExitHandler item)
+        {
+            OnPointerExit?.Invoke(item);
+        }
+
+        public static void CallOnLeftPointerClick(IPointerClickHandler item)
+        {
+            OnLeftPointerClick?.Invoke(item);
+        }
+
+        public static void CallOnRightPointerClick(IPointerClickHandler item)
+        {
+            OnRightPointerClick?.Invoke(item);
+        }
+
         public static event Action OnToggleInventory;
 
         public static void CallOnToggleInventory()

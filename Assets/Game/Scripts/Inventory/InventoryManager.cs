@@ -1,13 +1,17 @@
 namespace SunnyFarm.Game.Inventory
 {
+    using DG.Tweening;
     using SunnyFarm.Game.DesignPattern;
+    using SunnyFarm.Game.Entities.Item;
     using SunnyFarm.Game.Entities.Item.Data;
+    using SunnyFarm.Game.Entities.Player;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Inventory.UI;
     using SunnyFarm.Game.Managers;
     using SunnyFarm.Game.Managers.GameInput;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.EventSystems;
     using static SunnyFarm.Game.Constant.Enums;
 
     public class InventoryManager : Singleton<InventoryManager>
@@ -27,6 +31,8 @@ namespace SunnyFarm.Game.Inventory
             {2, 24},
             {3, 36},
         };
+
+        [SerializeField] private GameObject itemWorldPrefab;
 
         [Header("Initial Invenory Data")]
         [SerializeField] private ConfigItem[] initialInventoryItems;
@@ -85,6 +91,10 @@ namespace SunnyFarm.Game.Inventory
 
             uiBagView.UpdateUIBagCapacity(inventoryKey, evolveInventoryMap[1]);
 
+            draggedItemCursor.InventoryKey = inventoryKey;
+
+            selectedItemCursor.InventoryKey = inventoryKey;
+
             foreach (ConfigItem itemDetail in initialInventoryItems)
             {
                 inventoryData.AddItem(inventoryKey, itemDetail.ID, 1);
@@ -131,35 +141,96 @@ namespace SunnyFarm.Game.Inventory
             uiBagView.UpdateUIBagCapacity(inventoryKey, capacity);
         }
 
-        private void OnLeftPointerClickInventorySlot(UIInventorySlot slot)
+        private void OnLeftPointerClickInventorySlot(IPointerClickHandler _object)
         {
-            if (slot.slotLocation == InventorySlotLocation.ToolBar)
+            if (_object is UIInventorySlot)
             {
-                if (!CanChangeSelectedInventorySlot) return;
+                UIInventorySlot slot = _object as UIInventorySlot;
 
-                SelectSlot(slot);
+                if (slot.slotLocation == InventorySlotLocation.ToolBar)
+                {
+                    if (!CanChangeSelectedInventorySlot) return;
+
+                    SelectSlot(slot);
+                }
+                else if (slot.slotLocation == InventorySlotLocation.Container)
+                {
+                    if (draggedItemCursor.InventoryItem.itemID != slot.itemID || draggedItemCursor.IsEmpty)
+                    {
+                        InventoryData.HandleSwapItem(slot.inventoryKey, ref draggedItemCursor, slot.slotIndex);
+                    }
+                    else if (draggedItemCursor.InventoryItem.itemID == slot.itemID && !draggedItemCursor.IsEmpty)
+                    {
+                        InventoryData.HandleMergeItem(slot.inventoryKey, ref draggedItemCursor, slot.slotIndex);
+                    }
+
+                    draggedItemCursor.UpdateDraggedItemVisual();
+                }
             }
-            else if (slot.slotLocation == InventorySlotLocation.Container)
+
+            else
+
+            if (_object is DropToWorldArea)
             {
-                if (draggedItemCursor.InventoryItem.itemID != slot.itemID || draggedItemCursor.IsEmpty)
-                {
-                    InventoryData.HandleSwapItem(slot.inventoryKey, ref draggedItemCursor, slot.slotIndex);
-                }
-                else if (draggedItemCursor.InventoryItem.itemID == slot.itemID && !draggedItemCursor.IsEmpty)
-                {
-                    InventoryData.HandleMergeItem(slot.inventoryKey, ref draggedItemCursor, slot.slotIndex);
-                }
+                // click to droptoworld area to drop the item to the world
 
-                draggedItemCursor.UpdateDraggedItemVisual();
+                if (draggedItemCursor.IsEmpty) return;
 
-                // check can not turn off the inventory if in dragging item 
-                GameInputManager.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
+                ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(draggedItemCursor.InventoryItem.itemID);
+
+                if (!itemDetail.CanBeDropped) return;
+
+                InventoryItem item = draggedItemCursor.InventoryItem;
+
+                draggedItemCursor.ClearDraggedItem();
+
+                Player player = GameManager.Instance.GetPlayer(draggedItemCursor.InventoryKey);
+
+                Vector2 playerDirection = player.GetPlayerDirection();
+
+                Vector3 playerPosition = player.transform.position;
+
+                Vector3 dropPosition = playerPosition + new Vector3(playerDirection.x, playerDirection.y, 0) * 2.5f;
+
+                GameObject itemWorld = Instantiate(itemWorldPrefab, playerPosition, Quaternion.identity);
+
+                itemWorld.GetComponent<Item>().SetUp(item.itemID, item.quantity);
+
+                itemWorld.GetComponent<BoxCollider2D>().enabled = false;
+
+                // drop the item to the world 
+                float dropHeight = 0.5f;
+                float duration = 0.5f;
+
+                Vector3 targetPosition = dropPosition + new Vector3(0, dropHeight, 0);
+                itemWorld.transform.DOJump(targetPosition, dropHeight, 1, duration)
+                    .OnComplete(() =>
+                    {
+                        itemWorld.transform.DOMoveY(targetPosition.y - 0.1f, 0.2f)
+                         .SetEase(Ease.OutBounce)
+                         .OnComplete(() =>
+                         {
+                             Debug.Log("Dropped item " + item.itemID + " to the world");
+                             itemWorld.GetComponent<BoxCollider2D>().enabled = true;
+                         });
+
+                    });
+
+                itemWorld.transform.DOScale(Vector3.one * 1.2f, duration / 2)
+                    .SetLoops(2, LoopType.Yoyo);
 
             }
+
+            // check can not turn off the inventory if in dragging item 
+            GameInputManager.Instance.CanToggleInventory = draggedItemCursor.IsEmpty;
         }
 
-        private void OnRightPointerClickInventorySlot(UIInventorySlot slot)
+        private void OnRightPointerClickInventorySlot(IPointerClickHandler _object)
         {
+            if (_object is not UIInventorySlot) return;
+
+            UIInventorySlot slot = _object as UIInventorySlot;
+
             if (slot.slotLocation == InventorySlotLocation.Container)
             {
                 if (draggedItemCursor.IsEmpty || draggedItemCursor.InventoryItem.itemID == slot.itemID)
@@ -259,5 +330,6 @@ namespace SunnyFarm.Game.Inventory
                 }
             }
         }
+
     }
 }

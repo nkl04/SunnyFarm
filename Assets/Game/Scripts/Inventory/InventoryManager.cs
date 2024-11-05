@@ -172,7 +172,13 @@ namespace SunnyFarm.Game.Inventory
 
             if (_object is DropToWorldArea)
             {
+                // click to droptoworld area to drop the item to the world
+
                 if (draggedItemCursor.IsEmpty) return;
+
+                ConfigItem itemDetail = ItemSystemManager.Instance.GetItemDetail(draggedItemCursor.InventoryItem.itemID);
+
+                if (!itemDetail.CanBeDropped) return;
 
                 InventoryItem item = draggedItemCursor.InventoryItem;
 
@@ -184,11 +190,13 @@ namespace SunnyFarm.Game.Inventory
 
                 Vector3 playerPosition = player.transform.position;
 
-                Vector3 dropPosition = playerPosition + new Vector3(playerDirection.x, playerDirection.y, 0) * 2;
+                Vector3 dropPosition = playerPosition + new Vector3(playerDirection.x, playerDirection.y, 0) * 2.5f;
 
                 GameObject itemWorld = Instantiate(itemWorldPrefab, playerPosition, Quaternion.identity);
 
                 itemWorld.GetComponent<Item>().SetUp(item.itemID, item.quantity);
+
+                itemWorld.GetComponent<BoxCollider2D>().enabled = false;
 
                 // drop the item to the world 
                 float dropHeight = 0.5f;

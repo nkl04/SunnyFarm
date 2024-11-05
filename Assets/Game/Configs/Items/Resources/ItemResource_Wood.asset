@@ -22,3 +22,4 @@ MonoBehaviour:
   CanBePickUp: 1
   CanBeCarried: 1
   CanBeSold: 1
+  CanBeDropped: 1

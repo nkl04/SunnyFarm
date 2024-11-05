@@ -87,6 +87,8 @@ namespace SunnyFarm.Game
             if (item != null)
             {
                 InventoryManager.Instance.InventoryData.AddItem(player.InventoryKey, item.ItemID, item.Quantity);
+
+                Debug.Log(transform.parent.GetComponent<Player>().IsDigPressed);
                 Destroy(item.gameObject);
             }
         }

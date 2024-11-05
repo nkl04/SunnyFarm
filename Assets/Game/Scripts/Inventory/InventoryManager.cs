@@ -32,8 +32,6 @@ namespace SunnyFarm.Game.Inventory
             {3, 36},
         };
 
-        [SerializeField] private GameObject itemWorldPrefab;
-
         [Header("Initial Invenory Data")]
         [SerializeField] private ConfigItem[] initialInventoryItems;
 
@@ -192,33 +190,7 @@ namespace SunnyFarm.Game.Inventory
 
                 Vector3 dropPosition = playerPosition + new Vector3(playerDirection.x, playerDirection.y, 0) * 2.5f;
 
-                GameObject itemWorld = Instantiate(itemWorldPrefab, playerPosition, Quaternion.identity);
-
-                itemWorld.GetComponent<Item>().SetUp(item.itemID, item.quantity);
-
-                itemWorld.GetComponent<BoxCollider2D>().enabled = false;
-
-                // drop the item to the world 
-                float dropHeight = 0.5f;
-                float duration = 0.5f;
-
-                Vector3 targetPosition = dropPosition + new Vector3(0, dropHeight, 0);
-                itemWorld.transform.DOJump(targetPosition, dropHeight, 1, duration)
-                    .OnComplete(() =>
-                    {
-                        itemWorld.transform.DOMoveY(targetPosition.y - 0.1f, 0.2f)
-                         .SetEase(Ease.OutBounce)
-                         .OnComplete(() =>
-                         {
-                             Debug.Log("Dropped item " + item.itemID + " to the world");
-                             itemWorld.GetComponent<BoxCollider2D>().enabled = true;
-                         });
-
-                    });
-
-                itemWorld.transform.DOScale(Vector3.one * 1.2f, duration / 2)
-                    .SetLoops(2, LoopType.Yoyo);
-
+                ItemWorldSpawner.Instance.SpawnItemWorld(playerPosition, dropPosition, item.itemID, item.quantity, 0.5f, 0.5f);
             }
 
             // check can not turn off the inventory if in dragging item 

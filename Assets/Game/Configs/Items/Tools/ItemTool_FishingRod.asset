@@ -26,6 +26,6 @@ MonoBehaviour:
   ResourceCanBeHit: 
   ChargeCapacity: 0
   ChargeConsume: 0
-  OffsetDistance: 1
+  OffsetDistance: 2
   InteractableAreaSize: 0.5
   CanPowerUp: 0

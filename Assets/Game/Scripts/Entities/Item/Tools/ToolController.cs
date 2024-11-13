@@ -6,9 +6,6 @@ namespace SunnyFarm.Game.Managers
 
     public class ToolController : ItemController
     {
-        [SerializeField] private FishingManager fishingManager; // assign it to fishing behaviour
-
-
         protected GridPropertiesDetail tileDetail;
 
         private ToolBehaviour toolBehaviour;
@@ -19,7 +16,9 @@ namespace SunnyFarm.Game.Managers
         {
             base.Awake();
 
-            toolBehaviourMap = new ToolBehaviourMap(fishingManager);
+            toolBehaviourMap = new ToolBehaviourMap();
+
+            EventHandlers.OnResetFishingWhenTileNotWater += ReactivateTool;
         }
         protected override void Update()
         {
@@ -81,17 +80,16 @@ namespace SunnyFarm.Game.Managers
             {
                 var playerDirection = player.GetPlayerDirection();
 
-                var position = playerGridPosition + new Vector3Int(playerDirection.x, playerDirection.y, 0);
+                var position = playerGridPosition + new Vector3Int(playerDirection.x * ((ConfigItemTool)itemDetail).OffsetDistance, playerDirection.y * ((ConfigItemTool)itemDetail).OffsetDistance, 0);
 
                 return GridPropertiesController.Instance.GetGridPropertyDetail(position.x, position.y);
             }
         }
 
-        protected virtual void HitBox(Vector2 position, out bool havingObj)
+        protected virtual void HitBox(Vector2 position)
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(position, ((ConfigItemTool)itemDetail).InteractableAreaSize);
 
-            havingObj = false;
 
             foreach (Collider2D collider in colliders)
             {
@@ -100,7 +98,6 @@ namespace SunnyFarm.Game.Managers
 
                 if (toolHit != null)
                 {
-                    havingObj = true;
 
                     if (toolHit.CanBeHit(((ConfigItemTool)itemDetail).ResourceCanBeHit))
                     {
@@ -114,11 +111,12 @@ namespace SunnyFarm.Game.Managers
 
         public override void UseItem()
         {
-            HitBox(tileDetail.Position, out var havingObj);
+            if (tileDetail != null)
+            {
+                HitBox(tileDetail.Position);
 
-            if (havingObj) return;
-
-            toolBehaviour.Use(new List<GridPropertiesDetail>() { tileDetail }); // need to modify
+                toolBehaviour.Use(new List<GridPropertiesDetail>() { tileDetail }); // need to modify
+            }
         }
 
         public override void ReactivateTool()

@@ -25,6 +25,9 @@ public class StatePlayerFishing : StatePlayer
 
         this.player.Animator.SetFloat(Constant.Player.LAST_INPUT_Y, this.player.LastMovementInput.y);
 
+        this.player.Animator.SetBool(Constant.Player.IS_START_FISHING, true);
+
+
         GameInputManager.Instance.CanToggleInventory = false;
 
         InventoryManager.Instance.CanChangeSelectedInventorySlot = false;
@@ -32,7 +35,7 @@ public class StatePlayerFishing : StatePlayer
 
     public override void Exit()
     {
-        this.player.Animator.SetBool(Constant.Player.IS_DIGGING, false);
+
     }
 
     public override void Tick()

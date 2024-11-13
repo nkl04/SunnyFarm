@@ -35,6 +35,11 @@ namespace SunnyFarm.Game.State.Player
             {
                 this.stateMachine.TransitionTo(new StatePlayerDig(this.player, this.stateMachine));
             }
+            else if (this.player.IsFishingPressed)
+            {
+                this.stateMachine.TransitionTo(new StatePlayerFishing(this.player, this.stateMachine));
+            }
+
         }
 
         public override void Enter()

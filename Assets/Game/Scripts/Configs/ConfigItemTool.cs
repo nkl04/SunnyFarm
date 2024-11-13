@@ -11,7 +11,7 @@ namespace SunnyFarm.Game.Entities.Item.Data
         public List<ResourceType> ResourceCanBeHit;
         public int ChargeCapacity;
         public int ChargeConsume;
-        public float OffsetDistance = 1f;
+        public int OffsetDistance = 1;
         public float InteractableAreaSize = 0.5f;
         public bool CanPowerUp = false;
     }

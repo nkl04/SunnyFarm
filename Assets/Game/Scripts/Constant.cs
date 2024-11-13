@@ -14,6 +14,12 @@ namespace SunnyFarm.Game
 
             public static readonly string IS_WATERING = "isWatering";
 
+            public static readonly string IS_START_FISHING = "isStartFishing";
+
+            public static readonly string IS_FISHING = "isFishing";
+
+            public static readonly string IS_END_FISHING = "isEndFishing";
+
             public static readonly string INPUT_X = "InputX";
 
             public static readonly string INPUT_Y = "InputY";
@@ -52,7 +58,7 @@ namespace SunnyFarm.Game
             {
                 Diggable,
                 Droppable,
-
+                Fishingable,
             }
 
             public enum SceneName
@@ -116,7 +122,8 @@ namespace SunnyFarm.Game
             {
                 Land,
                 Dug,
-                Watered
+                Watered,
+                Water,
             }
 
             public enum ToolType

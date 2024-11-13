@@ -1,11 +1,8 @@
 namespace SunnyFarm.Game
 {
-    using SunnyFarm.Game.DesignPattern;
     using SunnyFarm.Game.Inventory.Data;
     using SunnyFarm.Game.Inventory.UI;
     using System;
-    using System.Collections.Generic;
-    using Unity.VisualScripting;
     using static SunnyFarm.Game.Constant.Enums;
 
     public static class EventHandlers
@@ -285,6 +282,35 @@ namespace SunnyFarm.Game
             }
         }
         #endregion
+        #endregion
+
+        #region Fishing Events
+        public static event Action OnFishingStart;
+
+        public static void CallOnFishingStart()
+        {
+            OnFishingStart?.Invoke();
+        }
+
+        public static event Action OnFishingEnd;
+
+        public static void CallOnFishingEnd()
+        {
+            OnFishingEnd?.Invoke();
+        }
+
+        public static event Action OnOpenFishingGame;
+        public static void CallOnOpenFishingGame()
+        {
+            OnOpenFishingGame?.Invoke();
+        }
+
+        public static event Action OnResetFishingWhenTileNotWater;
+
+        public static void CallOnResetFishingWhenTileNotWater()
+        {
+            OnResetFishingWhenTileNotWater?.Invoke();
+        }
         #endregion
 
         #region Player Input Events

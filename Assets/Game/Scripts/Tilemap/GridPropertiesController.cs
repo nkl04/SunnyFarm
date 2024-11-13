@@ -91,6 +91,9 @@ public class GridPropertiesController : Singleton<GridPropertiesController>, ISa
                     case GridBoolProperty.Diggable:
                         gridPropertiesDetail.TileType = TileType.Land;
                         break;
+                    case GridBoolProperty.Fishingable:
+                        gridPropertiesDetail.TileType = TileType.Water;
+                        break;
                 }
                 SetGridPropertyDetail(gridProperty.coordinate.x, gridProperty.coordinate.y, gridPropertiesDetail, gridPropertiesDictionary);
             }
